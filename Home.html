@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home-GoldenSkin</title>
     <link rel="stylesheet" href="style.css">
+    <!-- iconos -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded&display=swap" />
+    <!-- Link Swiper JS CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 </head>
 <body>
     <div class="navbar">
@@ -24,30 +28,76 @@
      </section>
 
 
-<section class="products-section">
-    <h2 class="section-title">Productos Destacados</h2>
-    <div class="carousel-container">
-        <button class="carousel-btn left" onclick="scrollCarousel('left')">←</button>
-     <div class="carousel" id="productCarousel">
-        <button class="product-card">
-            <img src="images/WhatsApp Image 2025-05-26 at 9.05.27 PM (1).jpeg" alt="Imagen no encontrada">
-        </button>
-        <button class="product-card">
-            <img src="images/WhatsApp Image 2025-05-26 at 9.05.27 PM (2).jpeg" alt="Imagen no encontrada">
-        </button>
-        <button class="product-card">
-            <img src="images/WhatsApp Image 2025-05-26 at 9.05.27 PM.jpeg" alt="Imagen no encontrada">
-        </button>
-        <button class="product-card">
-            <img src="images/WhatsApp Image 2025-05-26 at 9.05.27 PM (3).jpeg" alt="Imagen no encontrada">
-        </button>
-        <button class="product-card">
-            <img src="images/WhatsApp Image 2025-05-26 at 9.05.27 PM (4).jpeg" alt="Imagen no encontrada">
-        </button>
-    </div>
-     <button class="carousel-btn right" onclick="scrollCarousel('right')">→</button>
-    </div>
-</section>
+<div class="container swiper">
+        <div class="card-wrapper">
+            <ul class="card-list swiper-wrapper">
+                <!-- img 1 -->
+                <li class="card-item swiper-slide">
+                    <a href="#" class="card-link">
+                        <img src="images/WhatsApp Image 2025-05-26 at 9.05.27 PM.jpeg" alt="Card Image"
+                         class="card-image">
+                         <p class="badge promo1">Bloqueadores</p>
+                         <h2 class="card-tittle">Aqui ponemos una pequeña descripcion de la promo</h2>
+                         <button class="card-button material-symbols-rounded">
+                            arrow_forward
+                         </button>
+                    </a>
+                </li>
+
+                <!-- img 2 -->
+                   <li class="card-item swiper-slide">
+                    <a href="#" class="card-link">
+                        <img src="images/WhatsApp Image 2025-05-26 at 9.05.27 PM (1).jpeg,," alt="Card Image"
+                         class="card-image">
+                         <p class="badge promo2">Cremas</p>
+                         <h2 class="card-tittle">Aqui ponemos una pequeña descripcion de la promo</h2>
+                         <button class="card-button material-symbols-rounded">
+                            arrow_forward
+                         </button>
+                    </a>
+                </li>
+                <!-- img 3 -->
+                 <li class="card-item swiper-slide">
+                    <a href="#" class="card-link">
+                        <img src="images/WhatsApp Image 2025-05-26 at 9.05.27 PM (2).jpeg" alt="Card Image"
+                         class="card-image">
+                         <p class="badge promo3">Motor</p>
+                         <h2 class="card-tittle">Aqui ponemos una pequeña descripcion de la promo</h2>
+                         <button class="card-button material-symbols-rounded">
+                            arrow_forward
+                         </button>
+                    </a>
+                </li>
+                <!-- img 4 -->
+                <li class="card-item swiper-slide">
+                    <a href="#" class="card-link">
+                        <img src="images/WhatsApp Image 2025-05-26 at 9.05.27 PM (3).jpeg" alt="Card Image"
+                         class="card-image">
+                         <p class="badge promo4">Rines</p>
+                         <h2 class="card-tittle">Aqui ponemos una pequeña descripcion de la promo</h2>
+                         <button class="card-button material-symbols-rounded">
+                            arrow_forward
+                         </button>
+                    </a>
+                </li>
+                <!-- img 5 -->
+                <li class="card-item swiper-slide">
+                    <a href="#" class="card-link">
+                        <img src="images/WhatsApp Image 2025-05-26 at 9.05.27 PM (4).jpeg" alt="Card Image"
+                         class="card-image">
+                         <p class="badge promo5">Timon</p>
+                         <h2 class="card-tittle">Aqui ponemos una pequeña descripcion de la promo</h2>
+                         <button class="card-button material-symbols-rounded">
+                            arrow_forward
+                         </button>
+                    </a>
+                </li>
+            </ul>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+    </div>  
+         
 
      <section class="benefits">
         <h1>¿Por qué comprar en Golden Skin?</h1>
@@ -73,7 +123,7 @@
         </div>
       </footer>
 
-      <script>
+      <!-- <script>
   function scrollCarousel(direction) {
     const carousel = document.getElementById("productCarousel");
     const scrollAmount = 200; // Cantidad de desplazamiento
@@ -83,7 +133,11 @@
     } else {
       carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
-  }
+  } -->
+    <!-- Link del swiperJS script -->
+   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script src="script.js"></script>
 </script>
 </body>
 </html>

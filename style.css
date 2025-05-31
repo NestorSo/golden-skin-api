@@ -1,3 +1,6 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -33,26 +36,7 @@ body {
   color: #333;
 }
 
-.carousel-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
 
-.carousel {
-  display: flex;
-  gap: 1.5rem;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 1rem 0;
-  margin: 0 2rem;
-  max-width: 100%;
-}
-
-.carousel::-webkit-scrollbar {
-  display: none;
-}
 
 .search{
   padding: 0.5rem;
@@ -79,72 +63,6 @@ body {
   margin-bottom: 5rem;
 }
 
-
-.products {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  padding: 1rem;
-  background-color:#F9EFF0;
-
-}
-
-.product-card {
-  background-color: #ffffff;
-  border: none;
-  padding: 1rem;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: transform 0.2s ease;
-  width: 160px;
-  flex: 0 0 auto;
-}
-
-
-.product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
-}
-
-.product-card img {
-  width: 150px;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
-
-.product-card p {
-  font-weight: 600;
-  margin: 0.5rem 0 0.25rem;
-}
-
-.product-card span {
-  color: #e6739f;
-  font-weight: bold;
-}
-
-.carousel-btn {
-  background-color: #e6739f;
-  border: none;
-  color: white;
-  font-size: 1.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 10;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-.carousel-btn.left {
-  left: 10px;
-}
-
-.carousel-btn.right {
-  right: 10px;
-}
 .benefits {
   background-color: #fff;
   text-align: center;
@@ -406,4 +324,107 @@ input[type="password"]:focus {
   outline: none;
   border-color: #a04d60; /* rosado más fuerte al enfocar */
   box-shadow: 0 0 4px rgba(199, 125, 139, 0.3);
+}
+
+/* Carrusel */
+.card-list .card-item{
+    list-style: none;
+}
+.card-list .card-item .card-link{
+    user-select: none; /* Evitar que el usuario seleccione el texto */
+    display: block;
+    background: #fff;
+    padding: 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    border: 2px solid transparent;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
+    transition: 0.2s ease;
+}
+
+.card-list .card-item .card-link:hover{
+    border-color: #5372F0;
+}
+
+.card-list .card-link .card-image{
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 10px;
+    }
+
+.card-list .card-link .badge{
+    color: #5372f0;
+    padding: 8px 16px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin: 16px 0 18px;
+    background: #DDE4FF;
+    width: fit-content;
+    border-radius: 50px;
+}
+
+/* AGREGANDO COLOR DISTINTO A LOS BADGE */
+.card-list .card-link .badge.promo1{
+    color: #b22485;
+    background: #e493dd;
+}
+
+.card-list .card-link .badge.promo2{
+    color: #61290b;
+    background: #cea773;
+}
+.card-list .card-link .badge.promo3{
+    color: #205c20;
+    background: #6daf6d;
+}
+
+.card-list .card-link .badge.promo4{
+    color: #c0643f;
+    background: #b38468;
+}
+.card-list .card-link .badge.promo5{
+    color: #2479b2;
+    background: #819fc2;
+}
+
+.card-list .card-link .card-tittle{
+    font-size: 1.19rem;
+    color: #000;
+    font-weight: 600;
+}
+
+.card-list .card-link .card-button{
+    height: 35px;
+    width: 35px;
+    color: #5372F0;
+    border-radius: 50%;
+    margin: 30px 0 5px;
+    cursor: pointer;
+    border: 2px solid #5372F0;
+    transform: rotate(-45deg);
+    transition: 0.4s ease;
+}
+
+.card-list .card-link:hover .card-button{
+    color: #fff;
+    background: #5372F0;
+}
+
+nav li {
+    margin: 0 15px;
+}
+
+nav li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 15px 20px;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+nav li a:hover {
+    background-color: #3a5bbf;
 }
