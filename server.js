@@ -1,72 +1,103 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-require('dotenv').config();
+const sql = require('mssql');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const userRoutes = require('./routes/userRoutes');
-
-console.log('✅ Iniciando servidor Golden Skin...');
-
 // Middleware
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
-console.log('📦 Middleware y archivos estáticos configurados.');
+app.use(express.static(path.join(__dirname, 'public'))); // Archivos HTML, CSS, imágenes, etc.
 
-// Rutas
-app.use('/api', userRoutes);
-console.log('🔗 Rutas de usuario cargadas correctamente.');
+// Configuración conexión
+const config = {
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  server: process.env.DB_SERVER, // <- Este debe ser NESTORLAPTOP
+  database: process.env.DB_NAME,
+  options: {
+    encrypt: false,
+    trustServerCertificate: true,
+  },
+};
 
-// Ruta raíz: muestra login.html
+// Intentos fallidos por correo
+let loginAttempts = {};
+
+// Ruta raíz: redirigir a login
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
-// Mensajes de prueba luego de login o registro
-app.get('/success', (req, res) => {
-  res.send(`
-    <div style="text-align:center; margin-top:100px; font-family:sans-serif;">
-      <h2>✅ Operación exitosa</h2>
-      <p>Tu acción fue procesada correctamente.</p>
-      <a href="/" style="color:#c57a88; font-weight:bold;">Volver al inicio</a>
-    </div>
-  `);
+// Registro de usuario con rol cliente (ID 2)
+app.post('/register', async (req, res) => {
+  const { nombre, apellido, correo, contrasena } = req.body;
+  if (!nombre || !apellido || !correo || !contrasena) {
+    return res.status(400).send('Todos los campos son requeridos');
+  }
+
+  try {
+    await sql.connect(config);
+    const check = await sql.query`SELECT * FROM usuarios WHERE correo = ${correo}`;
+    if (check.recordset.length > 0) {
+      return res.status(409).send('El correo ya está registrado');
+    }
+
+    await sql.query`
+      INSERT INTO usuarios (nombre, apellido, correo, contrasena, id_rol)
+      VALUES (${nombre}, ${apellido}, ${correo}, 
+      CONVERT(VARCHAR(32), HASHBYTES('MD5', ${contrasena}), 2), 2)`;
+
+    res.redirect('/login.html');
+  } catch (err) {
+    console.error('Error en registro:', err);
+    res.status(500).send('Error en el servidor');
+  }
 });
 
-app.get('/error', (req, res) => {
-  res.send(`
-    <div style="text-align:center; margin-top:100px; font-family:sans-serif;">
-      <h2>❌ Algo salió mal</h2>
-      <p>No se pudo completar la operación.</p>
-      <a href="/" style="color:#c57a88; font-weight:bold;">Volver al inicio</a>
-    </div>
-  `);
+// Login
+app.post('/login', async (req, res) => {
+  const { correo, contrasena } = req.body;
+  if (!correo || !contrasena) {
+    return res.status(400).send('Faltan campos');
+  }
+
+  loginAttempts[correo] = loginAttempts[correo] || 0;
+
+  if (loginAttempts[correo] >= 3) {
+    return res.status(403).send('Demasiados intentos fallidos');
+  }
+
+  try {
+    await sql.connect(config);
+    const result = await sql.query`
+      SELECT u.*, r.nombre_rol FROM usuarios u
+      JOIN roles r ON u.id_rol = r.id_rol
+      WHERE u.correo = ${correo}
+      AND u.contrasena = CONVERT(VARCHAR(32), HASHBYTES('MD5', ${contrasena}), 2)`;
+
+    if (result.recordset.length === 0) {
+      loginAttempts[correo]++;
+      return res.status(401).send('Correo o contraseña inválidos');
+    }
+
+    loginAttempts[correo] = 0;
+    res.redirect('/home.html');
+  } catch (err) {
+    console.error('Error en login:', err);
+    res.status(500).send('Error en el servidor');
+  }
 });
 
-const server = app.listen(PORT, () => {
-  console.log(`✅ Servidor corriendo en http://localhost:${PORT}`);
+// Cerrar servidor al salir
+process.on('SIGINT', () => {
+  console.log('Cerrando servidor...');
+  process.exit();
 });
 
-// Cierre limpio
-const closeServer = () => {
-  console.log('\n🛑 Cerrando servidor...');
-  server.close(() => {
-    console.log('✅ Servidor cerrado correctamente.');
-    process.exit(0);
-  });
-};
-
-process.on('SIGINT', closeServer);
-process.on('SIGTERM', closeServer);
-
-// Manejo de errores globales
-process.on('uncaughtException', err => {
-  console.error('❌ Excepción no capturada:', err);
-});
-
-process.on('unhandledRejection', reason => {
-  console.error('❌ Rechazo de promesa no manejado:', reason);
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
