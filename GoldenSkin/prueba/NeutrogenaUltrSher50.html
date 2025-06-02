@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Skin - Neutrogena</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">GoldenSkin</div>
+        <div class="nav-icons">
+            <i class="fas fa-search"></i>
+            <i class="fas fa-user"></i>
+            <i class="fas fa-shopping-cart"></i>
+        </div>
+    </nav>
+    
+    <!-- Contenedor principal -->
+    <main class="main-container">
+        <!-- Producto -->
+        <div class="product-container">
+            <!-- Imagen -->
+            <div class="product-image">
+                <img src="../img/Protector Neutrogena 50.jpg" alt="Protector Solar Neutrogena">
+            </div>
+            
+            <!-- Información -->
+            <div class="product-info">
+                 
+                <p class="product-brand">Neutrogena</p>
+                <h1 class="product-title">Ultra Sheer</h1>
+                
+                <p class="product-description">
+                    Es una solución ligera, con una amplia protección
+                    para prevenir daños ocasionados por los rayos del sol.
+                    Tecnología Dry-Touch para un acabado ligero y sin brillo.
+                </p>
+                
+                <hr class="divider">
+                
+                <div class="price-section">
+                    <h2 class="price">Precio: $22.00</h2>
+                </div>
+                
+                <button class="add-to-cart" id="addToCart">Agregar al carrito</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('addToCart').addEventListener('click', function() {
+            alert('¡Producto agregado al carrito!');
+        });
+    </script>
+</body>
+</html>
