@@ -27,3 +27,5 @@ new Swiper('.card-wrapper', {
     }
   
   });
+
+ 

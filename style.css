@@ -1,12 +1,32 @@
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
 
-* {
+body {
   margin: 0;
-  padding: 0;
   box-sizing: border-box;
   font-family: 'Segoe UI', sans-serif;
 }
+
+a.logo{
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  padding: 5px 5px;
+}
+
+section.benefits {
+  padding: 8rem 0rem;
+}
+
+
+
+/* div.card-wrapper {
+ padding: 5rem 0rem;
+} 
+ */
+
 
 body {
   font-family: 'Montserrat', sans-serif;
@@ -15,10 +35,25 @@ body {
 }
 
 .navbar {
-  width: 90%;
+  background-color: #d98aa0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem 2rem;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.search-input {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  width: 250px;
 }
 
 .products-section {
@@ -38,21 +73,16 @@ body {
 
 
 
-.search{
-  padding: 0.5rem;
-  width: 20%;
-  border: none;
-  border-radius: 15px;
-  height: 35px;
+.nav-icons{
+   display: flex;
+  gap: 1.5rem;
 }
 
-.nav-icons span img{
-  margin-left: 1rem;
-  font-size: 1.2rem;
+
+.icon {
+  font-size: 1.5rem;
   cursor: pointer;
-  height: 40px;
-  width: auto;
-  border-color: #ffffff;
+  color: white;
 }
 
 
@@ -333,7 +363,7 @@ input[type="password"]:focus {
 .card-list .card-item .card-link{
     user-select: none; /* Evitar que el usuario seleccione el texto */
     display: block;
-    background: #fff;
+    background: #F9EFF0;
     padding: 18px;
     border-radius: 12px;
     text-decoration: none;
