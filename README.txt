@@ -3,7 +3,3 @@ Instrucciones para correr el proyecto:
 2. Configura tu .env con los datos de conexión a SQL Server
 3. Ejecuta el servidor con `node server.js`
 4. Accede a http://localhost:3000/index.html o register.html
-instalen node js
-instalan las dependencias y asi lo pueden probar
-npm install express mssql dotenv body-parser
-node server.js

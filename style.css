@@ -1,0 +1,460 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
+
+body {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+a.logo{
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  padding: 5px 5px;
+}
+
+section.benefits {
+  padding: 8rem 0rem;
+}
+
+
+
+/* div.card-wrapper {
+ padding: 5rem 0rem;
+} 
+ */
+
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #fff;
+  color: #333;
+}
+
+.navbar {
+  background-color: #d98aa0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.search-input {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  width: 250px;
+}
+
+.products-section {
+  margin-bottom: 4rem;
+  padding: 3rem 1rem;
+  position: relative;
+  background-color: #F9EFF0;
+  overflow: hidden;
+}
+
+.section-title {
+   text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+
+
+.nav-icons{
+   display: flex;
+  gap: 1.5rem;
+}
+
+
+.icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: white;
+}
+
+
+.hero img {
+  width: 100%;
+  height: 500px;
+  display: block;
+  margin-bottom: 5rem;
+}
+
+.benefits {
+  background-color: #fff;
+  text-align: center;
+  padding: 2rem 1rem;
+  margin-bottom: 3rem;
+}
+
+h1{
+  color:#A76670;;
+}
+
+.benefit-list {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.benefit {
+  background-color: #d9d9d9;
+  display: flex;
+  align-items: center;
+  padding: 2rem 3.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  min-width: 280px;
+  gap: 0.75rem;
+  min-height: 10px;
+}
+
+
+.icon {
+  font-size: 1.5rem;
+  color: #e6739f;
+}
+
+footer {
+  background-color: #cc8fa0;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+
+.login-container {
+  display: flex;
+  min-height: 100vh;
+}
+.header {
+  width: 100%;
+  height: 60px;
+  background-color: #CF818E;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  position: fixed; /* o 'relative' si no quieres que se mantenga al hacer scroll */
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+/* Botón dentro del header */
+.logo-button {
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 10px 20px;
+  margin: 10px 5px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  margin-top: 24px;
+}
+
+.logo-button:hover {
+  background-color: #b06a7a;
+}
+.submit-btn:hover {
+  background-color: #b06a7a;
+}
+.register-text a:hover {
+  text-decoration: underline;
+}
+.email-error,
+.password-error {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+.email:hover,
+.password:hover {
+  border: 1px solid #b06a7a;
+}
+/* Asegúrate de no solaparlo */
+.loginpage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #CF818E;
+  position: relative;
+  padding-top: 80px; /* deja espacio para el header fijo */
+}
+.nav-links {
+display: block;
+margin-bottom: 5px;
+}
+/* Sección izquierda */
+.login-form-section {
+flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 60px 40px;
+  background-color: #fff;
+  position: relative;
+  align-items: center;
+}
+
+.logo-button {
+  background-color: #CF818E;
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 12px 20px;
+  width: fit-content;
+  margin-bottom: 30px;
+  cursor: pointer;
+  border-radius: 0 0 8px 8px;
+}
+/* Formulario */
+.form-box {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 100px;
+}
+
+.form-box h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.form-box p {
+  margin-bottom: 25px;
+  color: #333;
+  font-size: 1rem;
+}
+
+label {
+  font-weight: 600;
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 14px;
+  font-size: 1rem;
+  border: 1px solid #cf818e;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.submit-btn {
+  background-color: #cf818e;
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 6px;
+  width: 100%;
+  margin-top: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #b06a7a;
+}
+
+.register-text {
+  margin-top: 15px;
+  font-size: 0.95rem;
+  color: #333;
+  text-align: center;
+}
+
+.register-text a {
+  color: #cf818e;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Imagen de la derecha */
+.login-image-section {
+  flex: 1;
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-image-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* register and login style input */
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .header {
+    position: relative;
+  }
+
+  .form-box {
+    margin-top: 40px;
+    padding: 0 20px;
+  }
+
+  .login-image-section {
+    height: 220px;
+  }
+}
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1.5px solid #c77d8b; /* rosado suave */
+  border-radius: 6px;
+  font-size: 15px;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+  color: #b7b7b7;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: #a04d60; /* rosado más fuerte al enfocar */
+  box-shadow: 0 0 4px rgba(199, 125, 139, 0.3);
+}
+
+/* Carrusel */
+.card-list .card-item{
+    list-style: none;
+}
+.card-list .card-item .card-link{
+    user-select: none; /* Evitar que el usuario seleccione el texto */
+    display: block;
+    background: #F9EFF0;
+    padding: 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    border: 2px solid transparent;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
+    transition: 0.2s ease;
+}
+
+.card-list .card-item .card-link:hover{
+    border-color: #5372F0;
+}
+
+.card-list .card-link .card-image{
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 10px;
+    }
+
+.card-list .card-link .badge{
+    color: #5372f0;
+    padding: 8px 16px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin: 16px 0 18px;
+    background: #DDE4FF;
+    width: fit-content;
+    border-radius: 50px;
+}
+
+/* AGREGANDO COLOR DISTINTO A LOS BADGE */
+.card-list .card-link .badge.promo1{
+    color: #b22485;
+    background: #e493dd;
+}
+
+.card-list .card-link .badge.promo2{
+    color: #61290b;
+    background: #cea773;
+}
+.card-list .card-link .badge.promo3{
+    color: #205c20;
+    background: #6daf6d;
+}
+
+.card-list .card-link .badge.promo4{
+    color: #c0643f;
+    background: #b38468;
+}
+.card-list .card-link .badge.promo5{
+    color: #2479b2;
+    background: #819fc2;
+}
+
+.card-list .card-link .card-tittle{
+    font-size: 1.19rem;
+    color: #000;
+    font-weight: 600;
+}
+
+.card-list .card-link .card-button{
+    height: 35px;
+    width: 35px;
+    color: #5372F0;
+    border-radius: 50%;
+    margin: 30px 0 5px;
+    cursor: pointer;
+    border: 2px solid #5372F0;
+    transform: rotate(-45deg);
+    transition: 0.4s ease;
+}
+
+.card-list .card-link:hover .card-button{
+    color: #fff;
+    background: #5372F0;
+}
+
+nav li {
+    margin: 0 15px;
+}
+
+nav li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 15px 20px;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+nav li a:hover {
+    background-color: #3a5bbf;
+}
