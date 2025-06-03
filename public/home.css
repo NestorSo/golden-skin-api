@@ -6,16 +6,19 @@ body {
   box-sizing: border-box;
   font-family: 'Segoe UI', sans-serif;
 }
-
-a.logo{
-  color: #ffffff;
-  text-decoration: none;
+.logo-button {
+  background-color: #CF818E;
+  color: white;
+  border: none;
   font-size: 1.2rem;
   font-weight: bold;
-  display: flex;
-  padding: 5px 5px;
+  padding: 12px 20px;
+  width: fit-content;
+  margin-bottom: 30px;
+  cursor: pointer;
+  border-radius: 0 0 8px 8px;
+  text-decoration: none;
 }
-
 section.benefits {
   padding: 8rem 0rem;
 }
@@ -35,7 +38,7 @@ body {
 }
 
 .navbar {
-  background-color: #d98aa0;
+  background-color: #CF818E;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -129,7 +132,10 @@ h1{
   font-size: 1.5rem;
   color: #e6739f;
 }
-
+.benefit:hover {
+  color: #b06a7a;
+    transform: translateY(-5px);
+}
 footer {
   background-color: #cc8fa0;
   color: white;
@@ -155,7 +161,7 @@ footer {
 }
 
 /* Botón dentro del header */
-.logo-button {
+/* .logo-button {
   background-color: transparent;
   color: white;
   border: none;
@@ -171,7 +177,8 @@ footer {
 
 .logo-button:hover {
   background-color: #b06a7a;
-}
+} */
+
 .submit-btn:hover {
   background-color: #b06a7a;
 }

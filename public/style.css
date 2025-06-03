@@ -15,18 +15,32 @@ body {
 }
 .header {
   width: 100%;
-  height: 60px;
+  height: 60px; 
   background-color: #CF818E;
   display: flex;
   align-items: center;
-  padding-left: 20px;
-  position: fixed; /* o 'relative' si no quieres que se mantenga al hacer scroll */
+  justify-self: flex-start;
+  padding-left: 2px;
+  position: fixed; 
   top: 0;
   left: 0;
   z-index: 10;
 }
+/* .header {
+  width: 100%;
+  height: 60px;
+  background-color: #CF818E;
+  display: flex;
+  align-items: center;
+  padding: 2px 40px;
+  position: fixed; 
+  top: 0;
+  left: 0;
+  z-index: 10;
+} */
 
 /* Botón dentro del header */
+
 .logo-button {
   background-color: transparent;
   color: white;
@@ -38,11 +52,14 @@ body {
   cursor: pointer;
   border-radius: 8px;
   transition: background-color 0.3s ease;
+  margin-top: 24px;
 }
 
-.logo-button:hover {
+
+/* .logo-button:hover {
   background-color: #b06a7a;
-}
+} */
+
 .submit-btn:hover {
   background-color: #b06a7a;
 }
@@ -98,6 +115,7 @@ flex: 1;
   margin-bottom: 30px;
   cursor: pointer;
   border-radius: 0 0 8px 8px;
+  text-decoration: none;
 }
 /* Formulario */
 .form-box {
@@ -164,6 +182,7 @@ input[type="password"] {
   text-decoration: none;
   font-weight: 600;
 }
+
 
 /* Imagen de la derecha */
 .login-image-section {
@@ -238,6 +257,8 @@ input[type="password"]:focus {
    width: 100%;
  }
 
+
+
  .home-header {
   background-color: #CF818E;
   color: white;
@@ -263,92 +284,3 @@ input[type="password"]:focus {
   text-decoration: underline;
 }
 /* 
-/* carrusel */
-.home-header {
-  background-color: #CF818E;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  padding: 20px 40px;
-  align-items: center;
-}
-
-.home-header .logo {
-  font-size: 1.8rem;
-  font-weight: bold;
-}
-
-.nav-links a {
-  color: white;
-  margin: 0 15px;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.nav-links a:hover {
-  text-decoration: underline;
-}
-
-/* Carrusel */
-.carousel {
-  position: relative;
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden;
-  margin-top: 30px;
-}
-
-.slides {
-  display: flex;
-  width: 300%;
-  transition: transform 0.5s ease-in-out;
-}
-
-.carousel-img {
-  width: 100%;
-  height: 400px;
-  object-fit: cover;
-  display: none;
-}
-
-.carousel-img.active {
-  display: block;
-}
-
-.dots {
-  text-align: center;
-  margin-top: 10px;
-}
-
-.dot {
-  height: 12px;
-  width: 12px;
-  margin: 0 4px;
-  background-color: #ccc;
-  border-radius: 50%;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.dot.active {
-  background-color: #CF818E;
-}
-/* Botones de navegación */
-.nav-buttons {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  transform: translateY(-50%);
-}
-.nav-button {
-  background-color: rgba(255, 255, 255, 0.8);
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 50%;
-}
-.nav-button:hover {
-  background-color: rgba(255, 255, 255, 0.9);
-}
