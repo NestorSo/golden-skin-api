@@ -1,10 +1,17 @@
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
 
+*{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 body {
   margin: 0;
   box-sizing: border-box;
   font-family: 'Segoe UI', sans-serif;
+  text-transform: capitalize;
 }
 
 a.logo{
@@ -72,18 +79,21 @@ body {
 }
 
 
-
-.nav-icons{
+.nav-icons {
    display: flex;
-  gap: 1.5rem;
+   gap: 20px;
 }
-
-
-.icon {
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: white;
+        
+.nav-icons i {
+    font-size: 20px;
+    color: #ffff;
+    cursor: pointer;
+    transition: color 0.3s;
 }
+        
+  .nav-icons i:hover {
+    color: #A76670;
+  }
 
 
 .hero img {
@@ -130,12 +140,77 @@ h1{
   color: #e6739f;
 }
 
+/* Responsive Design */
+@media(maxwidth: 991px) {
+  .footer-row{
+    text-align: center;
+  }
+  .footer-links{
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+}
+
+.container{
+  margin: 0 auto;
+  padding: 0 20px;
+}
 footer {
   background-color: #cc8fa0;
-  color: white;
-  text-align: center;
-  padding: 1rem;
+  padding: 80px 0;
 }
+
+.footer-row{
+  display: flex;
+  flex-wrap: wrap; 
+}
+
+.footer-links{
+  width: 25%;
+  padding: 0 15px;
+}
+
+.footer-links h4{
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 25px;
+  font-weight: 500;
+  border-bottom: 2px solid #A76670;
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.footer-links ul li a{
+  font-size: 18px;
+  text-decoration: none;
+  color: #bbbbbb;
+  display: block;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.footer-links ul li a:hover {
+  color: #fff;
+  padding-left: 6px;
+}
+ .social-links a {
+  display: inline-block;
+  min-height: 40px;
+  width: 40px;
+  background-color: rgba(255, 255, 255 , 0.2);
+  margin: 0 10px 10px 0;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+  color: #fff;
+  transition: all .5s ease;
+ }
+
+ .social-links a:hover {
+  background-color: #fff;
+ }
+
 
 .login-container {
   display: flex;
@@ -457,4 +532,73 @@ nav li a {
 
 nav li a:hover {
     background-color: #3a5bbf;
+}
+
+/* Sección productos */
+.product-grid {
+  display: grid;
+  /* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
+  grid-template-columns: repeat(4, 1fr); 
+  padding: 2rem;
+  gap: 2rem;
+  justify-items: center;
+}
+
+.product-card {
+  background-color: #fff0f5;
+  border-radius: 12px;
+  text-align: center;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.brand {
+  color: #cc3366;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.name {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.price {
+  font-weight: bold;
+  color: #222;
+}
+
+/* Filtro de categorías */
+.category-filter {
+  text-align: center;
+  margin: 2rem 0 1rem;
+}
+
+.filter-btn {
+  background-color: #f6d5de;
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: bold;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background-color: #d98aa0;
+  color: white;
 }
