@@ -1,12 +1,140 @@
-* {
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
+
+body {
   margin: 0;
-  padding: 0;
   box-sizing: border-box;
   font-family: 'Segoe UI', sans-serif;
 }
 
+a.logo{
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  padding: 5px 5px;
+}
+
+section.benefits {
+  padding: 8rem 0rem;
+}
+
+
+
+/* div.card-wrapper {
+ padding: 5rem 0rem;
+} 
+ */
+
+
 body {
+  font-family: 'Montserrat', sans-serif;
   background-color: #fff;
+  color: #333;
+}
+
+.navbar {
+  background-color: #d98aa0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.search-input {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  width: 250px;
+}
+
+.products-section {
+  margin-bottom: 4rem;
+  padding: 3rem 1rem;
+  position: relative;
+  background-color: #F9EFF0;
+  overflow: hidden;
+}
+
+.section-title {
+   text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+
+
+.nav-icons{
+   display: flex;
+  gap: 1.5rem;
+}
+
+
+.icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: white;
+}
+
+
+.hero img {
+  width: 100%;
+  height: 500px;
+  display: block;
+  margin-bottom: 5rem;
+}
+
+.benefits {
+  background-color: #fff;
+  text-align: center;
+  padding: 2rem 1rem;
+  margin-bottom: 3rem;
+}
+
+h1{
+  color:#A76670;;
+}
+
+.benefit-list {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.benefit {
+  background-color: #d9d9d9;
+  display: flex;
+  align-items: center;
+  padding: 2rem 3.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  min-width: 280px;
+  gap: 0.75rem;
+  min-height: 10px;
+}
+
+
+.icon {
+  font-size: 1.5rem;
+  color: #e6739f;
+}
+
+footer {
+  background-color: #cc8fa0;
+  color: white;
+  text-align: center;
+  padding: 1rem;
 }
 
 .login-container {
@@ -38,6 +166,7 @@ body {
   cursor: pointer;
   border-radius: 8px;
   transition: background-color 0.3s ease;
+  margin-top: 24px;
 }
 
 .logo-button:hover {
@@ -204,8 +333,7 @@ input[type="password"] {
 }
 input[type="text"],
 input[type="email"],
-input[type="password"],
-input[type="tel"] {
+input[type="password"] {
   width: 100%;
   padding: 12px 15px;
   border: 1.5px solid #c77d8b; /* rosado suave */
@@ -227,128 +355,106 @@ input[type="password"]:focus {
   border-color: #a04d60; /* rosado más fuerte al enfocar */
   box-shadow: 0 0 4px rgba(199, 125, 139, 0.3);
 }
- footer
- {
-   text-align: center;
-   padding: 10px 0;
-   background-color: #c77d8b;
-   color: white;
-   position: relative;
-   bottom: 0;
-   width: 100%;
- }
-
- .home-header {
-  background-color: #CF818E;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  padding: 20px 40px;
-  align-items: center;
-}
-
-.home-header .logo {
-  font-size: 1.8rem;
-  font-weight: bold;
-}
-
-.nav-links a {
-  color: white;
-  margin: 0 15px;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.nav-links a:hover {
-  text-decoration: underline;
-}
-/* 
-/* carrusel */
-.home-header {
-  background-color: #CF818E;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  padding: 20px 40px;
-  align-items: center;
-}
-
-.home-header .logo {
-  font-size: 1.8rem;
-  font-weight: bold;
-}
-
-.nav-links a {
-  color: white;
-  margin: 0 15px;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.nav-links a:hover {
-  text-decoration: underline;
-}
 
 /* Carrusel */
-.carousel {
-  position: relative;
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden;
-  margin-top: 30px;
+.card-list .card-item{
+    list-style: none;
+}
+.card-list .card-item .card-link{
+    user-select: none; /* Evitar que el usuario seleccione el texto */
+    display: block;
+    background: #F9EFF0;
+    padding: 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    border: 2px solid transparent;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
+    transition: 0.2s ease;
 }
 
-.slides {
-  display: flex;
-  width: 300%;
-  transition: transform 0.5s ease-in-out;
+.card-list .card-item .card-link:hover{
+    border-color: #5372F0;
 }
 
-.carousel-img {
-  width: 100%;
-  height: 400px;
-  object-fit: cover;
-  display: none;
+.card-list .card-link .card-image{
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 10px;
+    }
+
+.card-list .card-link .badge{
+    color: #5372f0;
+    padding: 8px 16px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin: 16px 0 18px;
+    background: #DDE4FF;
+    width: fit-content;
+    border-radius: 50px;
 }
 
-.carousel-img.active {
-  display: block;
+/* AGREGANDO COLOR DISTINTO A LOS BADGE */
+.card-list .card-link .badge.promo1{
+    color: #b22485;
+    background: #e493dd;
 }
 
-.dots {
-  text-align: center;
-  margin-top: 10px;
+.card-list .card-link .badge.promo2{
+    color: #61290b;
+    background: #cea773;
+}
+.card-list .card-link .badge.promo3{
+    color: #205c20;
+    background: #6daf6d;
 }
 
-.dot {
-  height: 12px;
-  width: 12px;
-  margin: 0 4px;
-  background-color: #ccc;
-  border-radius: 50%;
-  display: inline-block;
-  cursor: pointer;
+.card-list .card-link .badge.promo4{
+    color: #c0643f;
+    background: #b38468;
+}
+.card-list .card-link .badge.promo5{
+    color: #2479b2;
+    background: #819fc2;
 }
 
-.dot.active {
-  background-color: #CF818E;
+.card-list .card-link .card-tittle{
+    font-size: 1.19rem;
+    color: #000;
+    font-weight: 600;
 }
-/* Botones de navegación */
-.nav-buttons {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  transform: translateY(-50%);
+
+.card-list .card-link .card-button{
+    height: 35px;
+    width: 35px;
+    color: #5372F0;
+    border-radius: 50%;
+    margin: 30px 0 5px;
+    cursor: pointer;
+    border: 2px solid #5372F0;
+    transform: rotate(-45deg);
+    transition: 0.4s ease;
 }
-.nav-button {
-  background-color: rgba(255, 255, 255, 0.8);
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 50%;
+
+.card-list .card-link:hover .card-button{
+    color: #fff;
+    background: #5372F0;
 }
-.nav-button:hover {
-  background-color: rgba(255, 255, 255, 0.9);
+
+nav li {
+    margin: 0 15px;
+}
+
+nav li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 15px 20px;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+nav li a:hover {
+    background-color: #3a5bbf;
 }

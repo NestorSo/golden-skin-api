@@ -16,8 +16,19 @@
       <div class="form-box">
         <h2>Inicio de sesión</h2>
         <p>Inicia sesión con tu cuenta de <strong>GoldenSkin</strong>.</p>
+        <form id="loginForm">
+        <label for="correo">Correo</label>
+        <input type="email" id="correo" name="correo" placeholder="example@gmail.com" required />
 
-        <form action="/api/login" method="POST">
+        <label for="contrasena">Contraseña</label>
+        <input type="password" id="contrasena" name="contrasena" placeholder="Introduce tu contraseña" required />
+
+        <button type="submit" class="submit-btn">Iniciar Sesión</button>
+        </form>
+
+        <p id="login-message" style="color: red; margin-top: 10px;"></p>
+
+        <!-- <form action="/api/login" method="POST">
           <label for="correo">Correo</label>
           <input type="email" id="correo" name="correo" placeholder="example@gmail.com" required />
 
@@ -25,7 +36,7 @@
           <input type="password" id="contrasena" name="contrasena" placeholder="Introduce acá tu contraseña" required />
 
           <button type="submit" class="submit-btn">Iniciar Sesión</button>
-        </form>
+        </form> -->
 
         <p class="register-text">¿No tienes cuenta? <a href="register.html">Regístrate</a></p>
       </div>
@@ -35,5 +46,9 @@
       <img src="images/Rectangle 21.png" alt="Golden Skin Imagen" />
     </div>
   </div>
+      <footer>
+        <p>&copy; 2025 Golden-Skin. Todos los derechos reservados</p>
+    </footer>
+    <script src="login.js"></script>
 </body>
 </html>

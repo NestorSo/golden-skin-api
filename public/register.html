@@ -17,13 +17,46 @@
         <h2>Registro</h2>
         <p>Llena los siguientes datos:</p>
 
-        <form action="/api/register" method="POST">
+        <form id="registerForm">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" required />
+
+        <label for="apellido">Apellido</label>
+        <input type="text" id="apellido" name="apellido" placeholder="Ingrese su apellido" required />
+
+        <label for="direccion">Dirección</label>
+        <input type="text" id="direccion" name="direccion" placeholder="Dirección exacta" required />
+
+        <label for="telefono">Teléfono</label>
+        <input type="tel" id="telefono" name="telefono" placeholder="8888-8888" required />
+
+        <label for="correo">Correo</label>
+        <input type="email" id="correo" name="correo" placeholder="example@gmail.com" required />
+
+        <label for="contrasena">Contraseña</label>
+        <input type="password" id="contrasena" name="contrasena" placeholder="Introduce acá tu contraseña" required />
+
+        <button type="submit" class="submit-btn">Registrarse</button>
+        </form>
+
+<p id="register-message" style="color: red; margin-top: 10px;"></p>
+
+<script src="register.js"></script>
+
+        <!-- <form action="/api/register" method="POST">
           <label for="nombre">Nombre</label>
           <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" required />
 
           <label for="apellido">Apellido</label>
           <input type="text" id="apellido" name="apellido" placeholder="Ingrese su apellido" required />
 
+          <label for="direccion">Dirección</label>
+          <input type="text" id="direccion" name="direccion" placeholder="Dirección exacta" required />
+
+          <label for="telefono">Teléfono</label>
+          <input type="tel" id="telefono" name="telefono" placeholder="8888-8888" required />
+
+          
           <label for="correo">Correo</label>
           <input type="email" id="correo" name="correo" placeholder="example@gmail.com" required />
 
@@ -31,7 +64,7 @@
           <input type="password" id="contrasena" name="contrasena" placeholder="Introduce acá tu contraseña" required />
 
           <button type="submit" class="submit-btn">Registrarse</button>
-        </form>
+        </form> -->
 
         <p class="register-text">¿Ya tienes cuenta? <a href="login.html">Inicia Sesión</a></p>
       </div>
@@ -41,5 +74,8 @@
       <img src="images/Rectangle 26.png" alt="Golden Skin Imagen" />
     </div>
   </div>
+      <footer>
+        <p>&copy; 2025 Golden-Skin. Todos los derechos reservados</p>
+    </footer>
 </body>
 </html>
