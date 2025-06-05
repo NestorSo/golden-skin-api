@@ -55,13 +55,39 @@ body {
   gap: 1rem;
 }
 
-.search-input {
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  border: none;
-  outline: none;
-  width: 250px;
+.container-search {
+ position: relative;
 }
+
+.search-input {
+  min-width: 900px;
+  padding: 10px;
+  padding-right: 35px;
+  border-radius: 5px 0 0 5px;
+  border: 0;
+  outline: none;
+  font-size: 1rem;  
+}
+
+
+.search-button{
+  background-color: #d98aa0;
+  padding: 10px;
+  position: absolute;
+  border: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 0 5px 5px 0;
+  color: #fff;
+  cursor: pointer;
+}
+
+.search-button:hover{
+  background-color: rgba(0, 0, 0, .2);
+}
+
 
 .products-section {
   margin-bottom: 4rem;
