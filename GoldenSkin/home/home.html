@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoldenSkin - Skincare Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">GoldenSkin</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Buscar cremas, serums..." id="search-input">
+            <div class="search-suggestions" id="search-suggestions">
+                <ul>
+                    <li>Crema hidratante</li>
+                    <li>Serum de vitamina C</li>
+                    <li>Protector solar</li>
+                    <li>Limpiador facial</li>
+                </ul>
+            </div>
+        </div>
+        <div class="icons">
+            <a href="#"><i class="fas fa-home"></i></a>
+            <a href="#"><i class="fas fa-user"></i></a>
+            <a href="#"><i class="fas fa-shopping-cart"></i></a>
+        </div>
+    </nav>
+
+    <!-- Video/Banner -->
+    <section class="video-banner">
+        <video autoplay muted loop>
+            <source src="https://example.com/skincare-video.mp4" type="video/mp4">
+            Tu navegador no soporta videos.
+        </video>
+        <div class="banner-overlay">
+            <h1>Tu piel merece lo mejor</h1>
+            <button class="btn-shop">Descubre más</button>
+        </div>
+    </section>
+
+    <!-- Carrusel de Productos -->
+    <section class="product-carousel">
+        <h2>Productos Destacados</h2>
+        <div class="carousel-container">
+            <button class="carousel-btn prev" onclick="moveCarousel(-1)">&#10094;</button>
+            <div class="carousel-slide">
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/200" alt="Crema Hidratante">
+                    <h3>Crema Hidratante</h3>
+                    <p>Marca: GoldenSkin</p>
+                    <p class="price">$25.99</p>
+                </div>
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/200" alt="Serum Vitamina C">
+                    <h3>Serum Vitamina C</h3>
+                    <p>Marca: GoldenSkin</p>
+                    <p class="price">$30.99</p>
+                </div>
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/200" alt="Protector Solar">
+                    <h3>Protector Solar</h3>
+                    <p>Marca: GoldenSkin</p>
+                    <p class="price">$20.99</p>
+                </div>
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/200" alt="Limpiador Facial">
+                    <h3>Limpiador Facial</h3>
+                    <p>Marca: GoldenSkin</p>
+                    <p class="price">$15.99</p>
+                </div>
+            </div>
+            <button class="carousel-btn next" onclick="moveCarousel(1)">&#10095;</button>
+        </div>
+    </section>
+
+    <!-- Botón Flotante de WhatsApp -->
+    <a href="https://wa.me/78202587" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>Email: info@goldenskin.com</p>
+                <p>Teléfono: +123 456 7890</p>
+            </div>
+            <div class="footer-section">
+                <h3>Síguenos</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 GoldenSkin. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
