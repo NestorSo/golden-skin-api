@@ -283,4 +283,52 @@ input[type="password"]:focus {
 .nav-links a:hover {
   text-decoration: underline;
 }
-/* 
+
+
+
+@media (max-width: 991px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .login-form-section {
+    width: 100%;
+    padding: 30px 20px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .form-box {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 40px;
+    padding: 0 10px;
+  }
+
+   .login-image-section {
+    display: flex;
+    padding: 20px;
+    height: auto;
+  }
+
+  .login-image-section img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .logo-button {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+    padding: 12px 20px;
+    border-radius: 10px;
+    background-color: #CF818E;
+  }
+
+  footer {
+    position: relative;
+    padding: 15px;
+    font-size: 0.9rem;
+  } 
+
+}

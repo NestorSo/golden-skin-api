@@ -63,6 +63,8 @@ CREATE TABLE Productos (
     IdMarca INT FOREIGN KEY REFERENCES Marcas(IdMarca),
     EstadoProducto BIT DEFAULT 1 -- 1 = Disponible, 0 = Inactivo o Agotado
 );
+ALTER TABLE Productos ADD ImagenUrl VARCHAR(255);
+
 
 -- 7. Proveedores
 CREATE TABLE Proveedores (
@@ -130,10 +132,16 @@ CREATE TABLE DetallePedido (
 
 
 -- Inserciones de prueba
-INSERT INTO roles (nombre_rol) VALUES ('Cliente');
+INSERT INTO roles (NombreRol) VALUES ('Administrador');
+INSERT INTO roles (NombreRol) VALUES ('Cliente');
 
-INSERT INTO usuarios (nombre, apellido, correo, contrasena, id_rol)
-VALUES ('Carlos', 'Lopez', 'carlos@gmail.com', CONVERT(VARCHAR(32), HASHBYTES('MD5', 'mi_contraseña'), 2), 1);
+
+INSERT INTO Usuarios (Nombre, Apellido, Email, Pass, IdRol)
+VALUES ('keneth', 'Palacios', 'kepalcast07@gmail.com', CONVERT(VARCHAR(32), HASHBYTES('MD5', '1234'), 2), 2);
+
+INSERT INTO usuarios (nombre, Apellidos, Correo, Pass, IdRol)
+VALUES ('keneth', 'Palacios', 'kepalcast07@gmail.com', '1234', 2);
+
 insert into roles(nombre_rol) values ('Cliente')
 
 -- Consulta para login
@@ -142,5 +150,12 @@ SELECT * FROM GoldenSkin.dbo.usuarios;
 
 select * from roles
 select * from privilegios
-
+SELECT * FROM usuarios
+SELECT * FROM Clientes
+SELECT * FROM Productos
 use goldenskin
+
+INSERT INTO Productos 
+(NombreProducto, Descripcion, Precio, Cantidad, IdMarca, EstadoProducto, ImagenUrl)
+VALUES 
+('Ultra Sheer', 'Protector solar Neutrogena', 22.00, 50, 1, 1, 'images/Protector Neutrogena 50.jpg');
