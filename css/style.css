@@ -628,3 +628,8 @@ nav li a:hover {
   background-color: #d98aa0;
   color: white;
 }
+
+.sin-link {
+  text-decoration: none;
+  color: inherit;
+}

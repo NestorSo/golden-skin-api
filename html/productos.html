@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo - Golden Skin</title>
+  <!-- Íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a class="logo" href="Home.html">GoldenSkin</a>
+    </div>
+    <!-- cuadro de busqueda -->
+    <div class="container-search">
+      <input type="text" placeholder="Buscar" class="search-input">
+      <button class="search-button"><i class="fas fa-search"></i></button>
+    </div>
+    <div class="nav-icons">
+      <i class="fas fa-search"></i>
+      <a href="register.html"><i class="fas fa-user"></i></a>
+      <i class="fas fa-shopping-cart"></i>
+    </div>
+  </nav>
+  <!-- Filtro -->
+  <section class="category-filter">
+    <button class="filter-btn active" data-category="all">Todos</button>
+    <button class="filter-btn" data-category="crema">Cremas</button>
+    <button class="filter-btn" data-category="bloqueador">Bloqueadores Solares</button>
+    <button class="filter-btn" data-category="maquillaje">Maquillaje</button>
+  </section>
+
+  <!-- Grid de productos -->
+   <section class="product" id="listProducts">
+  <main class="product-grid">
+    <!-- Tarjeta de producto -->
+    <div class="product-card maquillaje">
+      <a href="Acidoglico.html" class="sin-link">
+      <img src="/images/WhatsApp Image 2025-05-26 at 9.05.27 PM.jpeg" alt="Glycolid Acid">
+      <p class="brand">The Ordinary</p>
+      <p class="name">Glycolid Acid 7%</p>
+      <p class="price">$25.00</p>
+      </a>
+    </div>
+
+    <div class="product-card crema">
+      <a href="CremaNeutrogena.html" class="sin-link">
+      <img src="/images/WhatsApp Image 2025-05-26 at 9.05.27 PM (1).jpeg" alt="Neutrogena Hydro Boost">
+      <p class="brand">Neutrogena</p>
+      <p class="name">Neutrogena Hydro Boost</p>
+      <p class="price">$30.00</p>
+      </a>
+    </div>
+
+    <div class="product-card bloqueador">
+      <img src="/images/WhatsApp Image 2025-05-26 at 9.05.27 PM (2).jpeg" alt="Photoderm Creme Protector Solar">
+      <p class="brand">Bioderma</p>
+      <p class="name">Photoderm Creme Protector Solar</p>
+      <p class="price">$25.00</p>
+    </div>
+
+    <div class="product-card maquillaje">
+      <img src="/images/WhatsApp Image 2025-05-26 at 9.05.27 PM (3).jpeg" alt="Soft Pinch Blush Believe">
+      <p class="brand">Rare Beauty</p>
+      <p class="name">Soft Pinch Blush Believe</p>
+      <p class="price">$35.00</p>
+    </div>
+
+    <div class="product-card crema">
+      <img src="/images/WhatsApp Image 2025-05-26 at 9.05.27 PM (4).jpeg" alt="Foaming Facial Cleanser 16onz">
+      <p class="brand">Cerave</p>
+      <p class="name">Foaming Facial Cleanser 16onz</p>
+      <p class="price">$27.00</p>
+    </div>
+
+    <div class="product-card">
+      <img src="/images/WhatsApp Image 2025-05-26 at 9.05.27 PM (4).jpeg" alt="Neutrogena Hydro Boost">
+      <p class="brand">Neutrogena</p>
+      <p class="name">Neutrogena Hydro Boost</p>
+      <p class="price">$26.00</p>
+    </div>
+
+    <!-- Agrega más productos así -->
+  </main>
+</section>
+
+  <script>
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const products = document.querySelectorAll(".product-card");
+
+    filterButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        // Quitar clase activa de todos los botones
+        filterButtons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        const category = button.dataset.category;
+
+        products.forEach(product => {
+          product.style.display =
+            category === "all" || product.classList.contains(category)
+              ? "block"
+              : "none";
+        });
+      });
+    });
+  </script>
+
+  <script src="/js/scripts.js"></script>
+</body>
+
+</html>
