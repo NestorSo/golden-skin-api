@@ -1,0 +1,383 @@
+ /* Estilos generales (consistentes con tu diseño) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        
+        /* Navbar (igual que tu diseño original) */
+        .navbar {
+            background: #CF818E;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffff;
+        }
+
+        .logo a
+        {
+            color: #ffff;
+            text-decoration: none;
+        }
+        
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-icons i {
+            font-size: 20px;
+            color: #ffff;
+            cursor: pointer;
+        }
+        
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 60px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* Sección Sobre Nosotros */
+         .highlight {
+            color: #CF818E;
+            font-weight: bold;
+        }
+
+         .btn {
+            display: inline-block;
+            background: #CF818E;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+
+         .btn:hover {
+            background: #A76670;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(167, 102, 112, 0.3);
+        }
+
+         .about-section {
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .about-section h2 {
+            font-size: 2.5rem;
+            color: #A76670;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .about-section h2::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #CF818E;
+            margin: 15px auto 0;
+        }
+        
+        .history {
+            display: flex;
+            align-items: flex-start;
+            gap: 50px;
+            margin-bottom: 60px;
+            text-align: left;
+        }
+        
+        .history-text, .us-text {
+            flex: 1;
+        }
+        
+       .history-text h3 {
+            font-size: 1.8rem;
+            color: #CF818E;
+            margin-bottom: 25px;
+            text-align: left; /* Alineación consistente */
+            position: relative;
+        }
+        .us-text h3{
+            font-size: 1.8rem;
+            color: #CF818E;
+            margin-bottom: 25px;
+            text-align: center; /* Alineación consistente */
+            position: relative;
+        }
+        .us-text h3::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #CF818E;
+            margin: 15px auto 0;
+        }
+        .history-text h3::after{
+            content: "";
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #CF818E;
+            margin-top: 10px;
+        }
+
+        .history-text p, .us-text p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            text-align: justify;
+            color: #333;
+        }
+        
+       .history-image {
+    flex: 1;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    /* Limita el ancho máximo y altura automática */
+    max-width: 500px;
+    height: auto;
+    align-self: center; /* Centra verticalmente */
+}
+
+.history-image img {
+    width: 100%; /* Ocupa el 100% del contenedor */
+    height: auto; /* Mantiene proporción */
+    display: block; /* Elimina espacio fantasma debajo */
+    transition: transform 0.5s;
+    object-fit: cover; /* Ajuste inteligente (cubre el espacio sin deformar) */
+}
+
+.history-image:hover img {
+    transform: scale(1.05);
+}
+
+/* Contenedor "Quiénes Somos" */
+.us-text {
+    background-color: rgba(207, 129, 142, 0.05);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 40px 0;
+    /* border-left: 4px solid #cf818e69; */
+}
+
+          /* --- Features Section --- */
+        .features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .feature-item {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            width: 280px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+            text-align: center;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-item i {
+            font-size: 2.5rem;
+            color: #CF818E;
+            margin-bottom: 20px;
+        }
+        
+        .feature-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        /* Sección Misión & Visión */
+        .about-container {
+            padding: 60px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            color: #A76670;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #CF818E;
+            margin: 15px auto 0;
+        }
+        
+        .cards-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .mission-card, .vision-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+            border-top: 4px solid #CF818E;
+        }
+        
+        .mission-card:hover, .vision-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card-title {
+            font-size: 24px;
+            color: #CF818E;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-title i {
+            font-size: 28px;
+        }
+        
+        .card-content {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+         /* Nuevos estilos agregados */
+        .hero-banner {
+            background: linear-gradient(rgba(207, 129, 142, 0.2), rgba(207, 129, 142, 0.2)), 
+                        url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDk5dWl4d2VtY3BqYzN0Z2VlZ2J6eW0zanRlYjB6bmRqY2NxbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/XATW2O9qQnQ8jY7Oh6/giphy.gif');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .hero-title {
+            color: white;
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .history {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .history-text {
+            flex: 1;
+        }
+
+        .history-image {
+            flex: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .history-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s;
+        }
+
+        .history-image:hover img {
+            transform: scale(1.05);
+        }
+
+         /* --- Footer --- */
+        footer {
+            background: #CF818E;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 60px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .history {
+                flex-direction: column;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .mission-card, .vision-card {
+                padding: 30px;
+            }
+        }
