@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo - Golden Skin</title>
+  <!-- Íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a class="logo" href="Home.html">GoldenSkin</a>
+    </div>
+    <!-- cuadro de busqueda -->
+    <div class="container-search">
+      <input type="text" placeholder="Buscar" class="search-input">
+      <button class="search-button"><i class="fas fa-search"></i></button>
+    </div>
+    <div class="nav-icons">
+      <i class="fas fa-search"></i>
+      <a href="register.html"><i class="fas fa-user"></i></a>
+       <div class="btn-cart">
+                    <button type="button"><i class="fas fa-shopping-cart"></i></button>  
+                    <span id="cartCount">0</span>
+
+                    <div class="cart">
+                        <div class="cart-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Description</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="contentProducts">
+                                    <tr>
+                                        <td><img src="/assets/img/products/product-01.jpg" alt=""></td>
+                                        <td>
+                                            Lorem ipsum dolor sit.
+                                        </td>
+                                        <td>$15</td>
+                                        <td>
+                                            <input type="number" min="1">
+                                        </td>
+                                        <td>
+                                            <button type="button">X</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                    
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5" class="total">
+                                            <h4 class="heading-total">Total: <span id="total"></span></h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <button type="button" id="emptyCart">Empty Cart</button>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                </div> 
+      <!-- <i class="fas fa-shopping-cart"></i> -->
+    </div>
+  </nav>
+  <!-- Filtro -->
+  <section class="category-filter">
+    <button class="filter-btn active" data-category="all">Todos</button>
+    <button class="filter-btn" data-category="crema">Cremas</button>
+    <button class="filter-btn" data-category="bloqueador">Bloqueadores Solares</button>
+    <button class="filter-btn" data-category="maquillaje">Maquillaje</button>
+  </section>
+
+  <!-- Grid de productos -->
+  <section class="product" id="listProducts">
+    <main class="product-grid" id="catalogo">
+    <!-- Productos se inyectan por JS -->
+  </main>
+  </section>
+
+  <script>
+
+function actualizarCarritoUI() {
+  contentProducts.innerHTML = '';
+  let total = 0;
+
+  if (carrito.length === 0) {
+    contentProducts.innerHTML = '<p class="empty-msg">Tu carrito está vacío.</p>';
+    totalElement.textContent = `$0.00`;
+    cartCount.textContent = `0`;
+    return;
+  }
+
+  carrito.forEach(async (prod) => {
+    total += prod.price * prod.quantity;
+
+    let imgData = '';
+    try {
+      const response = await fetch(prod.img);
+      imgData = await response.text();
+    } catch (e) {
+      imgData = '/images/default.png';
+    }
+
+    const item = document.createElement('div');
+    item.className = 'cart-item';
+    item.innerHTML = `
+      <img src="${imgData}" alt="${prod.title}">
+      <div class="item-info">
+        <p>${prod.title}</p>
+        <p>$${prod.price.toFixed(2)}</p>
+        <div class="quantity-controls">
+          <button class="decrease" data-id="${prod.id}">−</button>
+          <span class="qty-span" data-id="${prod.id}">${prod.quantity}</span>
+          <button class="increase" data-id="${prod.id}">+</button>
+        </div>
+      </div>
+      <button class="remove-item" data-id="${prod.id}">X</button>
+    `;
+    contentProducts.appendChild(item);
+
+    // Espera a que el DOM esté listo
+    setTimeout(() => {
+      item.querySelector('.increase').addEventListener('click', () => {
+        const id = parseInt(prod.id);
+        const index = carrito.findIndex(p => p.id === id);
+        if (index !== -1) {
+          carrito[index].quantity += 1;
+          actualizarCarritoUI(); // ← vuelve a pintar el carrito
+        }
+      });
+
+      item.querySelector('.decrease').addEventListener('click', () => {
+        const id = parseInt(prod.id);
+        const index = carrito.findIndex(p => p.id === id);
+        if (index !== -1) {
+          if (carrito[index].quantity > 1) {
+            carrito[index].quantity -= 1;
+          } else {
+            carrito.splice(index, 1); // eliminar si llega a 0
+          }
+          actualizarCarritoUI();
+        }
+      });
+
+      item.querySelector('.remove-item').addEventListener('click', () => {
+        carrito = carrito.filter(p => p.id !== prod.id);
+        actualizarCarritoUI();
+      });
+    }, 0); // asegurar que el DOM esté disponible antes de agregar listeners
+  });
+
+  cartCount.textContent = carrito.reduce((acc, p) => acc + p.quantity, 0);
+  totalElement.textContent = `$${total.toFixed(2)}`;
+}
+
+  </script>
+
+  <script src="/js/scripts.js"></script>
+</body>
+
+</html>
+
+
+
+function actualizarCarritoUI() {
+  contentProducts.innerHTML = '';
+  let total = 0;
+
+  if (carrito.length === 0) {
+    contentProducts.innerHTML = '<p class="empty-msg">Tu carrito está vacío.</p>';
+    totalElement.textContent = `$0.00`;
+    cartCount.textContent = `0`;
+    return;
+  }
+
+  // 1. Primero pintamos todo sin esperar async
+  carrito.forEach(prod => {
+    total += prod.price * prod.quantity;
+
+    const item = document.createElement('div');
+    item.className = 'cart-item';
+    item.innerHTML = `
+      <img src="${prod.img}" alt="${prod.title}">
+      <div class="item-info">
+        <p>${prod.title}</p>
+        <p>$${prod.price.toFixed(2)}</p>
+        <div class="quantity-controls">
+          <button class="decrease" data-id="${prod.id}">−</button>
+          <span class="qty-span" data-id="${prod.id}">${prod.quantity}</span>
+          <button class="increase" data-id="${prod.id}">+</button>
+        </div>
+      </div>
+      <button class="remove-item" data-id="${prod.id}">X</button>
+    `;
+    contentProducts.appendChild(item);
+  });
+
+  cartCount.textContent = carrito.reduce((acc, p) => acc + p.quantity, 0);
+  totalElement.textContent = `$${total.toFixed(2)}`;
+
+  // 2. Luego asignamos eventos a botones de +, − y eliminar
+  document.querySelectorAll('.increase').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = parseInt(btn.dataset.id);
+      const item = carrito.find(p => p.id == id);
+      if (item) {
+        item.quantity++;
+        actualizarCarritoUI();
+      }
+    });
+  });
+
+  document.querySelectorAll('.decrease').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = parseInt(btn.dataset.id);
+      const item = carrito.find(p => p.id == id);
+      if (item) {
+        item.quantity--;
+        if (item.quantity <= 0) {
+          carrito = carrito.filter(p => p.id != id);
+        }
+        actualizarCarritoUI();
+      }
+    });
+  });
+
+  document.querySelectorAll('.remove-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = parseInt(btn.dataset.id);
+      carrito = carrito.filter(p => p.id != id);
+      actualizarCarritoUI();
+    });
+  });
+}
+
+
