@@ -1,6 +1,6 @@
 // Carrito de compras
 
-const ListProducts = document.querySelector('#productDetails');
+const ListProducts = document.querySelector('#listProducts');
 let productsArray = [];
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -21,13 +21,13 @@ function getDataElements(e) {
 
 function selectData(Prod) {
     const productInfo = {
-        image: Prod.querySelector('img').src,
-        title: Prod.querySelector('.product-title').textContent,
+        img: Prod.querySelector('img').src,
+        title: Prod.querySelector('.name').textContent,
         price: parseFloat(Prod.querySelector('.price').textContent.replace('$', '')),
-        description: Prod.querySelector('.product-description').textContent,
+        brand: Prod.querySelector('.brand').textContent,
         id: parseInt(Prod.querySelector('.add-to-cart').dataset.id, 10),
         quantity: 1
-    };
+    }
 
     productsArray = [...productsArray, productInfo];
 
@@ -37,13 +37,13 @@ function selectData(Prod) {
 
     function productsHtml() {
         productsArray.forEach(Prod => {
-           const {img, title, price, description, id, quantity} = Prod;
+           const { img, title, price, brand, id, quantity } = Prod;
            const tr = document.createElement('tr');
 
            const tdImage = document.createElement('td');
            const productImage = document.createElement('img');
            productImage.src = img;
-           productImage.alt = 'imagen product'; 
+           productImage.alt = 'image product'; 
            tdImage.appendChild(productImage);
 
            const tdTitle = document.createElement('td');
@@ -56,10 +56,10 @@ function selectData(Prod) {
            productPrice.textContent = `$${price.toFixed(2)}`;
            tdPrice.appendChild(productPrice);
 
-           const tdDescription = document.createElement('td');
-           const productDescription = document.createElement('p');
-           productDescription.textContent = description;
-           tdDescription.appendChild(productDescription);
+           const tdBrand = document.createElement('td');
+           const productBrand = document.createElement('p');
+           productBrand.textContent = brand;
+           tdBrand.appendChild(productBrand);
 
            const tdQuantity = document.createElement('td');
            const productQuantity = document.createElement('input');
@@ -76,10 +76,10 @@ function selectData(Prod) {
            tdDelete.appendChild(productDelete);
 
 
-           tr.append(tdImage, tdTitle, tdPrice, tdDescription, tdQuantity, tdDelete);
+           tr.append(tdImage, tdTitle, tdPrice, tdBrand, tdQuantity, tdDelete);
 
            console.log(tr);
         });
-    };
+    }
     
 
