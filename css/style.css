@@ -128,43 +128,77 @@ body {
   display: block;
   margin-bottom: 5rem;
 }
-
-.benefits {
-  background-color: #fff;
+.benefits-section {
+  font-family: Arial, sans-serif; 
+  padding: 60px 20px;
   text-align: center;
-  padding: 2rem 1rem;
-  margin-bottom: 3rem;
+  background-color: #f9f9f9; 
+  margin: 70px auto;
 }
 
-h1{
-  color:#A76670;;
+/* Título de la sección */
+.benefits-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  color: #D18D9A; /* Color rosa de tu marca */
+  margin-bottom: 50px;
 }
 
-.benefit-list {
+/* Contenedor de los 3 items */
+.benefits-container {
   display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 1rem;
-  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-wrap: wrap; /* Permite que los items pasen abajo en móviles */
+  gap: 40px; /* Espacio entre los items */
 }
 
-.benefit {
-  background-color: #d9d9d9;
+/* Cada item de beneficio individual */
+.benefit-item {
+  flex-basis: 280px; /* Ancho base de cada item */
   display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 2rem 3.5rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  min-width: 280px;
-  gap: 0.75rem;
-  min-height: 10px;
+}
+
+/* El ícono */
+.benefit-icon {
+  font-size: 48px;
+  color: #333; /* Color oscuro para el ícono */
+  margin-bottom: 20px;
+}
+
+/* Nombre del beneficio */
+.benefit-name {
+  font-size: 20px;
+  color: #333333;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+/* Descripción del beneficio */
+.benefit-description {
+  font-size: 15px;
+  color: #666666;
+  line-height: 1.5;
+  margin-top: 0;
+}
+
+/* === RESPONSIVE - PARA MÓVILES === */
+@media (max-width: 768px) {
+  .benefits-container {
+    flex-direction: column; /* Apila los items verticalmente */
+    align-items: center;
+    gap: 40px; /* Aumenta el espacio vertical */
+  }
+
+  .benefits-title {
+    font-size: 24px;
+  }
 }
 
 
-.icon {
-  font-size: 1.5rem;
-  color: #e6739f;
-}
 
 /* Responsive Design */
 @media(maxwidth: 991px) {
@@ -177,6 +211,83 @@ h1{
   }
 
 }
+
+/* section */
+.featured-categories {
+  margin: 50px auto;
+  width: 100%;
+  padding: 60px 20px;
+  background-color: #F9EFF0; 
+  text-align: center;
+}
+
+.section-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #D18D9A; /* El color rosa de tu marca */
+  margin-bottom: 50px;
+}
+
+.categories-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 40px; /* Espacio entre cada círculo */
+}
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.3s ease;
+}
+
+.category-item:hover {
+  transform: translateY(-5px); /* Efecto de levantar al pasar el mouse */
+}
+
+.category-image-wrapper {
+  width: 160px;   /* Tamaño del círculo */
+  height: 160px;  /* Tamaño del círculo */
+  border-radius: 50%; /* Esto crea el círculo perfecto */
+  overflow: hidden;   /* Oculta las partes de la imagen que se salen del círculo */
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra sutil para darle profundidad */
+  transition: box-shadow 0.3s ease;
+}
+
+.category-item:hover .category-image-wrapper {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12); /* Sombra más pronunciada al pasar el mouse */
+}
+
+.category-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Asegura que la imagen llene el círculo sin deformarse */
+}
+
+.category-name {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* === RESPONSIVE - PARA MÓVILES === */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 24px;
+  }
+  .category-image-wrapper {
+    width: 130px; /* Círculos un poco más pequeños en móviles */
+    height: 130px;
+  }
+  .categories-container {
+      gap: 25px;
+  }
+}
+
 
 .container{
   margin: 0 auto;
