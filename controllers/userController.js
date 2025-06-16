@@ -187,18 +187,19 @@ exports.registerUser = async (req, res) => {
 const MAX_ATTEMPTS = 3;
 const LOCK_TIME_MS = 1 * 60 * 1000; // 1 minuto
 
+
 exports.loginUser = async (req, res) => {
   const { correo, contrasena } = req.body;
 
   if (!correo || !contrasena) {
-    return res.status(400).send('Faltan campos');
+    return res.status(400).json({ mensaje: 'Faltan campos' });
   }
 
   const userAttempt = loginAttempts[correo] || { count: 0, lockedUntil: null };
 
   if (userAttempt.lockedUntil && Date.now() < userAttempt.lockedUntil) {
     const remaining = Math.ceil((userAttempt.lockedUntil - Date.now()) / 1000);
-    return res.status(403).send(`⏳ Cuenta bloqueada. Intente en ${remaining} segundos.`);
+    return res.status(403).json({ mensaje: `⏳ Cuenta bloqueada. Intente en ${remaining} segundos.` });
   }
 
   try {
@@ -207,7 +208,7 @@ exports.loginUser = async (req, res) => {
       .input('Correo', sql.VarChar, correo)
       .input('Pass', sql.VarChar, contrasena)
       .query(`
-        SELECT u.*, r.NombreRol 
+        SELECT u.IdUsuario, u.Nombre, u.Apellido, u.Email, r.NombreRol
         FROM Usuarios u
         JOIN Roles r ON u.IdRol = r.IdRol
         WHERE u.Email = @Correo 
@@ -216,24 +217,35 @@ exports.loginUser = async (req, res) => {
 
     if (result.recordset.length === 0) {
       userAttempt.count += 1;
-
       if (userAttempt.count >= MAX_ATTEMPTS) {
         userAttempt.lockedUntil = Date.now() + LOCK_TIME_MS;
         loginAttempts[correo] = userAttempt;
-        return res.status(403).send('🔒 Demasiados intentos. Cuenta bloqueada por 1 minuto.');
+        return res.status(403).json({ mensaje: '🔒 Demasiados intentos. Cuenta bloqueada por 1 minuto.' });
       }
 
       loginAttempts[correo] = userAttempt;
-      return res.status(401).send(`❌ Credenciales inválidas. Intento ${userAttempt.count} de ${MAX_ATTEMPTS}`);
+      return res.status(401).json({ mensaje: `❌ Credenciales inválidas. Intento ${userAttempt.count} de ${MAX_ATTEMPTS}` });
     }
 
     loginAttempts[correo] = { count: 0, lockedUntil: null };
 
-    console.log(`✅ Login exitoso: ${result.recordset[0].Nombre} (${result.recordset[0].NombreRol})`);
-    return res.status(200).send('✅ Inicio de sesión exitoso');
+    const usuario = result.recordset[0];
+
+    console.log(`✅ Login exitoso: ${usuario.Nombre} (${usuario.NombreRol})`);
+    return res.status(200).json({
+      mensaje: 'Inicio de sesión exitoso',
+      usuario: {
+        id: usuario.IdUsuario,
+        nombre: usuario.Nombre,
+        apellido: usuario.Apellido,
+        correo: usuario.Email,
+        rol: usuario.NombreRol
+      }
+    });
   } catch (err) {
     console.error('❌ Error en login:', err);
-    return res.status(500).send('❌ Error en el servidor');
+    return res.status(500).json({ mensaje: '❌ Error en el servidor' });
   }
 };
+
 

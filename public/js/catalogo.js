@@ -103,7 +103,7 @@ const toggleCartBtn = document.getElementById('toggleCart');
 const btnEmpty = document.getElementById('emptyCart');
 const btnPedido = document.getElementById('realizarPedido');
 
-let carrito = [];
+let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
 // Mostrar/Ocultar carrito
 toggleCartBtn.addEventListener('click', () => {
@@ -153,6 +153,8 @@ function agregarAlCarrito(idProducto) {
 async function actualizarCarritoUI() {
   contentProducts.innerHTML = '';
   let total = 0;
+  localStorage.setItem('carrito', JSON.stringify(carrito));
+
 
   if (carrito.length === 0) {
     contentProducts.innerHTML = '<p class="empty-msg">Tu carrito está vacío.</p>';
@@ -190,7 +192,11 @@ async function actualizarCarritoUI() {
     contentProducts.appendChild(item);
   }
 
+
+
   // Actualizar totales
+
+
   cartCount.textContent = carrito.reduce((acc, p) => acc + p.quantity, 0);
   totalElement.textContent = `$${total.toFixed(2)}`;
 
@@ -228,6 +234,22 @@ async function actualizarCarritoUI() {
     });
   });
 }
+
+
+//carga cliente y rol 
+document.addEventListener('DOMContentLoaded', () => {
+  const userInfo = document.getElementById('userInfo');
+  const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+  if (usuario) {
+    userInfo.innerHTML = `<span>👤 Bienvenido, <strong>${usuario.nombre}</strong></span>`;
+  } else {
+    userInfo.innerHTML = `<span>🔒 No has iniciado sesión</span>`;
+  }
+});
+
+
+
 
 
 // function actualizarCarritoUI() {

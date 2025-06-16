@@ -12,14 +12,43 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
       body: JSON.stringify({ correo, contrasena })
     });
 
-    const text = await res.text();
+    const data = await res.json();
 
     if (res.status === 200) {
-      window.location.href = '/home.html';
+      localStorage.setItem('usuario', JSON.stringify(data.usuario));
+      window.location.href = '../HTML/home.html';
     } else {
-      messageBox.textContent = text;
+      messageBox.textContent = data.mensaje;
     }
   } catch (err) {
+    console.error('Catch block error:', err);
     messageBox.textContent = '❌ Error de red o servidor.';
   }
 });
+
+
+
+
+  // try {
+  //   const res = await fetch('/api/login', {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({ correo, contrasena })
+  //   });
+
+  //   const text = await res.text();
+
+  //   if (res.status === 200) {
+  //     // Guarda sesión localmente (puedes guardar ID, nombre, correo, etc.)
+  //     const user = JSON.parse(text);
+  //     localStorage.setItem('usuario', JSON.stringify(user));
+
+  //     // Redirigir al home del cliente
+  //     window.location.href = '../HTML/home.html';
+  //   } else {
+  //     messageBox.textContent = text;
+  //   }
+  // } catch (err) {
+  //   messageBox.textContent = '❌ Error de red o servidor.';
+  // }
+//});

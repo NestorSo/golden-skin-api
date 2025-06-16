@@ -15,7 +15,7 @@
   <!-- Navbar -->
   <nav class="navbar">
     <div class="navbar-left">
-      <a class="logo" href="Home.html">GoldenSkin</a>
+      <a class="logo" href="../HTML/home.html">GoldenSkin</a>
     </div>
     <!-- cuadro de busqueda -->
     <div class="container-search">
@@ -23,14 +23,19 @@
       <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
     <div class="nav-icons">
+
+
+      <!-- 🔹 INICIO BLOQUE USUARIO -->
+      <div class="user-info" id="userInfo" style="margin-right: 20px;"></div>
+      <!-- 🔹 FIN BLOQUE USUARIO -->
       <i class="fas fa-search"></i>
-      <a href="register.html"><i class="fas fa-user"></i></a>
-       <div class="btn-cart">
+      <a href="../HTML/register.html"><i class="fas fa-user"></i></a>
+      <div class="btn-cart">
                 <!-- Carrito visible y fijo -->
-<div class="btn-cart">
-  <button type="button" id="toggleCart"><i class="fas fa-shopping-cart"></i></button>  
-  <span id="cartCount">0</span>
-</div>
+      <div class="btn-cart">
+        <button type="button" id="toggleCart"><i class="fas fa-shopping-cart"></i></button>  
+        <span id="cartCount">0</span>
+      </div>
 
 <!-- Panel del carrito -->
 <div class="cart-panel" id="cartPanel">
@@ -62,11 +67,8 @@
   </main>
   </section>
 
-  <script>
-
-  </script>
-
-  <script src="../js/catalogo.js"></script>
+<script src="../js/catalogo.js"></script>
+<script src="../js/pedido.js"></script>
 </body>
 
 </html>

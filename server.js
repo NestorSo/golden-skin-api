@@ -9,6 +9,9 @@ const PORT = process.env.PORT || 3000;
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
 app.use('/api/productos', productRoutes);
+const pedidoRoutes = require('./routes/pedidoRoutes');
+app.use('/api/pedidos', pedidoRoutes);
+
 
 console.log('✅ Iniciando servidor Golden Skin...');
 
@@ -24,7 +27,7 @@ console.log('🔗 Rutas de usuario cargadas correctamente.');
 
 // Ruta raíz: muestra login.html
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public','HTML', 'catalogo.html'));
+  res.sendFile(path.join(__dirname, 'public','HTML', 'login.html'));
 });
 
 // Mensajes de prueba luego de login o registro

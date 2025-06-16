@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Categoria - Golden Skin</title>
+  <!-- Íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../CSS/catalogo.css">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a class="logo" href="../HTML/home.html">GoldenSkin</a>
+    </div>
+    <!-- cuadro de busqueda -->
+    <div class="container-search">
+      <input type="text" placeholder="Buscar" class="search-input">
+      <button class="search-button"><i class="fas fa-search"></i></button>
+    </div>
+    <div class="nav-icons">
+
+
+      <!-- 🔹 INICIO BLOQUE USUARIO -->
+      <div class="user-info" id="userInfo" style="margin-right: 20px;"></div>
+      <!-- 🔹 FIN BLOQUE USUARIO -->
+      <i class="fas fa-search"></i>
+      <a href="../HTML/register.html"><i class="fas fa-user"></i></a>
+      <div class="btn-cart">
+                <!-- Carrito visible y fijo -->
+      <div class="btn-cart">
+        <button type="button" id="toggleCart"><i class="fas fa-shopping-cart"></i></button>  
+        <span id="cartCount">0</span>
+      </div>
+
+<!-- Panel del carrito -->
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-content" id="contentProducts">
+    <p class="empty-msg">Tu carrito está vacío.</p>
+  </div>
+  <div class="cart-footer">
+    <h4>Total: <span id="total">$0.00</span></h4>
+    <button id="realizarPedido">Realizar pedido</button>
+    <button id="emptyCart">Vaciar carrito</button>
+  </div>
+</div>
+
+      <!-- <i class="fas fa-shopping-cart"></i> -->
+    </div>
+  </nav>
+  <!-- Filtro -->
+  <section class="category-filter">
+<h2 id="tituloCategoria" class="categoria-titulo"></h2>
+  </section>
+
+  <!-- Grid de productos -->
+  <section class="product" id="listProducts">
+    <main class="product-grid" id="catalogo">
+    <!-- Productos se inyectan por JS -->
+  </main>
+  </section>
+
+<script src="../js/categoria.js"></script>
+<script src="../js/pedido.js"></script>
+</body>
+
+</html>
