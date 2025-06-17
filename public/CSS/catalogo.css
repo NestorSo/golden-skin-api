@@ -923,3 +923,21 @@ nav li a:hover {
   padding: 6px 12px;
   border-radius: 20px;
 }
+
+
+/* diseño para mostrar el filtro */
+.category-title-section {
+  text-align: center;
+  padding: 2rem 1rem 1rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #c57a88;
+  border-bottom: 2px solid #c57a88;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  text-transform: capitalize;
+}

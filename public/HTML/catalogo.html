@@ -53,12 +53,15 @@
     </div>
   </nav>
   <!-- Filtro -->
-  <section class="category-filter">
-    <button class="filter-btn active" data-category="all">Todos</button>
-    <button class="filter-btn" data-category="crema">Cremas</button>
-    <button class="filter-btn" data-category="bloqueador">Bloqueadores Solares</button>
-    <button class="filter-btn" data-category="maquillaje">Maquillaje</button>
-  </section>
+<section class="category-filter">
+  <button class="filter-btn active" data-category="all">Todos</button>
+  <button class="filter-btn" data-category="Skincare">Skincare</button>
+  <button class="filter-btn" data-category="Limpieza">Limpieza</button>
+  <button class="filter-btn" data-category="Bloqueadores solares">Bloqueadores Solares</button>
+  <button class="filter-btn" data-category="Maquillaje">Maquillaje</button>
+  <button class="filter-btn" data-category="Serum">Serum</button>
+</section>
+
 
   <!-- Grid de productos -->
   <section class="product" id="listProducts">
@@ -69,6 +72,58 @@
 
 <script src="../js/catalogo.js"></script>
 <script src="../js/pedido.js"></script>
+<script > 
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const products = document.querySelectorAll(".product-card");
+
+    filterButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        // Quitar clase activa de todos los botones
+        filterButtons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        const category = button.dataset.category;
+
+        products.forEach(product => {
+          product.style.display =
+            category === "all" || product.classList.contains(category)
+              ? "block"
+              : "none";
+        });
+      });
+    });
+</script>
+<script > 
+// Esperamos a que todo el contenido de la página se haya cargado
+  window.addEventListener('DOMContentLoaded', function() {
+  
+    // 1. Obtenemos los parámetros de la URL actual
+    const params = new URLSearchParams(window.location.search);
+  
+    // 2. Buscamos específicamente el parámetro llamado 'categoria'
+    const categoriaDesdeURL = params.get('data-category');
+  
+    // 3. Si el parámetro 'categoria' existe en la URL...
+    if (categoriaDesdeURL) {
+      
+      console.log('Filtrar automáticamente por:', categoriaDesdeURL);
+      
+      // 4. Buscamos el botón de filtro que corresponda a esa categoría
+      //    usando el atributo data-filtro que pusimos en el Paso 2.
+      const botonActivar = document.querySelector(`.filter-btn[data-category="${categoriaDesdeURL}"]`);
+      
+      // 5. Si encontramos el botón...
+      if (botonActivar) {
+        // ...¡Simulamos un clic sobre él!
+        // Esto ejecutará la misma función de filtrado que ya tienes.
+        botonActivar.click();
+      }
+    }
+  });
+
+</script>
+
+
 </body>
 
 </html>
