@@ -533,4 +533,29 @@ UPDATE Productos SET Cantidad = Cantidad + 50 WHERE NombreProducto = 'Photoderm 
 -- 64
 UPDATE Productos SET Cantidad = Cantidad + 50 WHERE NombreProducto = 'Polvo depilador';
 
+use GoldenSkin
+-- Actualizar categoría a 'Limpieza' para productos de baño
+UPDATE Productos SET Categoria = 'Limpieza' WHERE NombreProducto = 'Gel de baño Vitamina C';
+UPDATE Productos SET Categoria = 'Limpieza' WHERE NombreProducto = 'Gel de bano Watermelon';
+UPDATE Productos SET Categoria = 'Limpieza' WHERE NombreProducto = 'Exfoliante coco colada';
+UPDATE Productos SET Categoria = 'Limpieza' WHERE NombreProducto = 'Exfoliante watermelon';
+UPDATE Productos SET Categoria = 'Limpieza' WHERE NombreProducto = 'Exfoliante fresa';
+UPDATE Productos SET Categoria = 'Limpieza' WHERE NombreProducto = 'Exfoliante cotton candy';
+UPDATE Productos SET Categoria = 'Limpieza' WHERE NombreProducto = 'Polvo depilador';
+UPDATE Productos SET Categoria = 'Limpieza' WHERE NombreProducto = 'Body clear body wash';
 
+-- Actualizar categoría a 'Bloqueadores solares' para protectores solares
+UPDATE Productos SET Categoria = 'Bloqueadores solares' WHERE NombreProducto = 'Hydro Boost protector solar';
+UPDATE Productos SET Categoria = 'Bloqueadores solares' WHERE NombreProducto = 'Protector solar Ultra sheer';
+UPDATE Productos SET Categoria = 'Bloqueadores solares' WHERE NombreProducto = 'Oil control mineral';
+UPDATE Productos SET Categoria = 'Bloqueadores solares' WHERE NombreProducto = 'Oil control anti brillo sin tinte protector solar';
+UPDATE Productos SET Categoria = 'Bloqueadores solares' WHERE NombreProducto = 'Oil control anti brillo con tinte protector solar';
+UPDATE Productos SET Categoria = 'Bloqueadores solares' WHERE NombreProducto = 'Pigment control protector solar';
+UPDATE Productos SET Categoria = 'Bloqueadores solares' WHERE NombreProducto = 'Pigment control protector solar con tinte';
+UPDATE Productos SET Categoria = 'Bloqueadores solares' WHERE NombreProducto = 'Photoaging control protector solar';
+UPDATE Productos SET Categoria = 'Bloqueadores solares' WHERE NombreProducto = 'Photoderm Mineral protector solar';
+UPDATE Productos SET Categoria = 'Bloqueadores solares' WHERE NombreProducto = 'Photoderm Creme protector solar';
+
+
+UPDATE Productos SET Categoria = 'Limpieza' WHERE NombreProducto = 'Acne Foaming cream cleanser';
+UPDATE Productos SET Categoria = 'Limpieza' WHERE NombreProducto = 'Acne control gel';

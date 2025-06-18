@@ -252,6 +252,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+  // try {
+  //   const res = await fetch('/api/productos/todos');
+  //   productosCargados = await res.json();
+
+  //   // Carga inicial: mostrar todos
+  //   renderProductos(productosCargados);
+  // } catch (err) {
+  //   console.error('Error al cargar productos:', err);
+  //   contenedor.innerHTML = '<p style="color:red">No se pudieron cargar los productos.</p>';
+  // }
+
+  // // Filtro por categoría
+  // document.querySelectorAll('.filter-btn').forEach(btn => {
+  //   btn.addEventListener('click', () => {
+  //     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  //     btn.classList.add('active');
+
+  //     const categoria = btn.dataset.category;
+  //     const filtrados = categoria === 'all'
+  //       ? productosCargados
+  //       : productosCargados.filter(p => (p.Categoria || '').toLowerCase().includes(categoria.toLowerCase()));
+  //     renderProductos(filtrados);
+  //   });
+  // });
+
+
+
 // function actualizarCarritoUI() {
 //   contentProducts.innerHTML = '';
 //   let total = 0;
