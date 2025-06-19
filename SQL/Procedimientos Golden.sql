@@ -288,61 +288,61 @@ BEGIN
 END
 
 
--- actualiza solo la tabla usuario, usar este : 
-CREATE OR ALTER PROCEDURE sp_ActualizarSoloUsuario
-  @IdUsuario INT,
-  @NuevoNombre VARCHAR(100),
-  @NuevoApellido VARCHAR(100),
-  @NuevoEmail VARCHAR(150),
-  @NuevoEstadoLogin BIT,
-  @NuevoEstadoUsuario BIT
-AS
-BEGIN
-  SET NOCOUNT ON;
+---- actualiza solo la tabla usuario, usar este : 
+--CREATE OR ALTER PROCEDURE sp_ActualizarSoloUsuario
+--  @IdUsuario INT,
+--  @NuevoNombre VARCHAR(100),
+--  @NuevoApellido VARCHAR(100),
+--  @NuevoEmail VARCHAR(150),
+--  @NuevoEstadoLogin BIT,
+--  @NuevoEstadoUsuario BIT
+--AS
+--BEGIN
+--  SET NOCOUNT ON;
 
-  IF NOT EXISTS (SELECT 1 FROM Usuarios WHERE IdUsuario = @IdUsuario)
-  BEGIN
-    RAISERROR('❌ Usuario no encontrado.', 16, 1);
-    RETURN;
-  END
+--  IF NOT EXISTS (SELECT 1 FROM Usuarios WHERE IdUsuario = @IdUsuario)
+--  BEGIN
+--    RAISERROR('❌ Usuario no encontrado.', 16, 1);
+--    RETURN;
+--  END
 
-  UPDATE Usuarios
-  SET
-    Nombre = @NuevoNombre,
-    Apellido = @NuevoApellido,
-    Email = @NuevoEmail,
-    EstadoLogin = @NuevoEstadoLogin,
-    EstadoUsuario = @NuevoEstadoUsuario
-  WHERE IdUsuario = @IdUsuario;
+--  UPDATE Usuarios
+--  SET
+--    Nombre = @NuevoNombre,
+--    Apellido = @NuevoApellido,
+--    Email = @NuevoEmail,
+--    EstadoLogin = @NuevoEstadoLogin,
+--    EstadoUsuario = @NuevoEstadoUsuario
+--  WHERE IdUsuario = @IdUsuario;
 
-  PRINT '✅ Usuario actualizado exitosamente.';
-END
+--  PRINT '✅ Usuario actualizado exitosamente.';
+--END
 
---trigger para actalizar las otras dos tablas segun el rol actualizado
-CREATE OR ALTER TRIGGER tr_SincronizarUsuarioConPerfil
-ON Usuarios
-AFTER UPDATE
-AS
-BEGIN
-  SET NOCOUNT ON;
+----trigger para actalizar las otras dos tablas segun el rol actualizado
+--CREATE OR ALTER TRIGGER tr_SincronizarUsuarioConPerfil
+--ON Usuarios
+--AFTER UPDATE
+--AS
+--BEGIN
+--  SET NOCOUNT ON;
 
-  -- Actualiza nombre y apellido en Empleados (si existe)
-  UPDATE E
-  SET
-    E.Cargo = E.Cargo, -- No se actualiza desde Usuarios, pero mantiene integridad
-    -- aquí podrías añadir más lógica si cargo se derivara del rol
-    -- opcionalmente, podrías guardar nombre/apellido ahí también si es necesario
-    -- por ahora, se asume que nombre/apellido solo están en Usuarios
-    -- si decides repetir datos, puedes agregarlos aquí
-    -- Ejemplo: E.Nombre = U.Nombre
-    E.Cargo = E.Cargo
-  FROM Empleados E
-  INNER JOIN INSERTED U ON E.IdUsuario = U.IdUsuario;
+--  -- Actualiza nombre y apellido en Empleados (si existe)
+--  UPDATE E
+--  SET
+--    E.Cargo = E.Cargo, -- No se actualiza desde Usuarios, pero mantiene integridad
+--    -- aquí podrías añadir más lógica si cargo se derivara del rol
+--    -- opcionalmente, podrías guardar nombre/apellido ahí también si es necesario
+--    -- por ahora, se asume que nombre/apellido solo están en Usuarios
+--    -- si decides repetir datos, puedes agregarlos aquí
+--    -- Ejemplo: E.Nombre = U.Nombre
+--    E.Cargo = E.Cargo
+--  FROM Empleados E
+--  INNER JOIN INSERTED U ON E.IdUsuario = U.IdUsuario;
 
-  -- Actualiza teléfono o dirección en Clientes si decides duplicarlos también (opcional)
-  -- Por defecto, no se cambia nada aquí ya que dirección y teléfono están separados
-  -- pero podrías sincronizar valores si estuvieran repetidos
-END
+--  -- Actualiza teléfono o dirección en Clientes si decides duplicarlos también (opcional)
+--  -- Por defecto, no se cambia nada aquí ya que dirección y teléfono están separados
+--  -- pero podrías sincronizar valores si estuvieran repetidos
+--END
 
 
 --cambiar estado usuario 

@@ -1,8 +1,8 @@
-Create database GoldenSkin
-use GoldenSkin
+
 use master
 
-
+Create database GoldenSkin
+use GoldenSkin
 -- 1. Roles y Privilegios
 CREATE TABLE Roles (
     IdRol INT PRIMARY KEY IDENTITY(1,1),
@@ -92,8 +92,10 @@ CREATE TABLE DetalleCompra (
     IdDetalleCompra INT PRIMARY KEY IDENTITY(1,1),
     IdCompra INT FOREIGN KEY REFERENCES Compras(IdCompra),
     IdProducto INT FOREIGN KEY REFERENCES Productos(IdProducto),
-    Cantidad INT NOT NULL,
-    PrecioUnitario DECIMAL(10,2) NOT NULL
+    CantidadComprada INT NOT NULL,
+    PrecioCompra DECIMAL(10,2) NOT NULL,
+	SubtotalCompra DECIMAL(10,2) NOT NULL
+
 );
 
 -- 9. Ventas y Detalle
@@ -102,18 +104,18 @@ CREATE TABLE Ventas (
     IdEmpleado INT FOREIGN KEY REFERENCES Empleados(IdEmpleado),
     IdCliente INT FOREIGN KEY REFERENCES Clientes(IdCliente),
     FechaVenta DATE DEFAULT GETDATE(),
-    Subtotal DECIMAL(10,2),
     Descuento DECIMAL(10,2),
     Total DECIMAL(10,2),
-    TotalVenta VARCHAR(50)
+	Delivery BIT DEFAULT 1 -- 1 = si, 0 = noy
+
 );
 
 CREATE TABLE DetalleVenta (
     IdDetalleVenta INT PRIMARY KEY IDENTITY(1,1),
     IdVenta INT FOREIGN KEY REFERENCES Ventas(IdVenta),
     IdProducto INT FOREIGN KEY REFERENCES Productos(IdProducto),
-    Cantidad INT NOT NULL,
-    PrecioUnitario DECIMAL(10,2)
+	Subtotal DECIMAL(10,2),
+    CantidadVendida INT NOT NULL
 );
 
 -- 10. Pedidos y Detalle
@@ -121,6 +123,7 @@ CREATE TABLE Pedidos (
     IdPedido INT PRIMARY KEY IDENTITY(1,1),
     IdCliente INT FOREIGN KEY REFERENCES Clientes(IdCliente),
     FechaPedido DATE DEFAULT GETDATE(),
+	FechaEntrega DATE DEFAULT DATE,
     Descripcion VARCHAR(100),
     EstadoPedido BIT DEFAULT 1 -- 1 = Activo, 0 = Cancelado/Inactivo
 );
