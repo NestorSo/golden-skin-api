@@ -3,6 +3,8 @@ use master
 
 Create database GoldenSkin
 use GoldenSkin
+
+
 -- 1. Roles y Privilegios
 CREATE TABLE Roles (
     IdRol INT PRIMARY KEY IDENTITY(1,1),
@@ -123,7 +125,7 @@ CREATE TABLE Pedidos (
     IdPedido INT PRIMARY KEY IDENTITY(1,1),
     IdCliente INT FOREIGN KEY REFERENCES Clientes(IdCliente),
     FechaPedido DATE DEFAULT GETDATE(),
-	FechaEntrega DATE DEFAULT DATE,
+	FechaEntrega DATE,
     Descripcion VARCHAR(100),
     EstadoPedido BIT DEFAULT 1 -- 1 = Activo, 0 = Cancelado/Inactivo
 );
@@ -166,7 +168,7 @@ select * from roles
 select * from privilegios
 SELECT * FROM usuarios
 SELECT * FROM Clientes
-SELECT * FROM Productos where Categoria='Maquillaje'
+SELECT * FROM Productos where Categoria='Bloqueadores solares'
 SELECT * FROM Pedidos
 SELECT * FROM Productos
 

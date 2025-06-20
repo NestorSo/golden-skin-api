@@ -772,3 +772,12 @@ BEGIN
         PRINT '⚠️ ALERTA: El producto "' + @NombreProducto + '" tiene solo ' + CAST(@Cantidad AS VARCHAR) + ' unidades en inventario.';
     END
 END;
+
+
+CREATE PROCEDURE sp_UsuariosEnSesion
+AS
+BEGIN
+  SELECT IdUsuario, Nombre, Apellido, Email
+  FROM Usuarios
+  WHERE EstadoLogin = 1;
+END

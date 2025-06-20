@@ -279,7 +279,7 @@ BEGIN
 END;
 
 --gestion de la venta
-Create PROCEDURE GestionarVentaGoldenSkin
+CREATE PROCEDURE GestionarVentaGoldenSkin
   @IdCliente INT,
   @IdEmpleado INT,
   @IdProducto INT,
@@ -293,9 +293,9 @@ BEGIN
   BEGIN TRY
     BEGIN TRAN;
 
-    -- Insertar la venta principal (Descuento y Total inicial en 0)
-    INSERT INTO Ventas (IdEmpleado, IdCliente, FechaVenta, Descuento, Total)
-    VALUES (@IdEmpleado, @IdCliente, GETDATE(), 0, 0);
+    -- Insertar la venta (Descuento y Total inicial en 0, Delivery por defecto en 0)
+    INSERT INTO Ventas (IdEmpleado, IdCliente, FechaVenta, Descuento, Total, Delivery)
+    VALUES (@IdEmpleado, @IdCliente, GETDATE(), 0, 0, 0);
 
     SET @IdVenta = SCOPE_IDENTITY();
 
@@ -305,21 +305,16 @@ BEGIN
     -- Obtener el descuento si aplica (más de 3 productos distintos)
     DECLARE @Descuento DECIMAL(10,2) = dbo.CalcularDescuentoPorCantidad(@IdVenta);
 
-    -- Obtener el subtotal (sumatoria del detalle)
-    DECLARE @Subtotal DECIMAL(10,2);
-    SELECT @Subtotal = SUM(Subtotal) FROM DetalleVenta WHERE IdVenta = @IdVenta;
-
-    -- Calcular total final
-    DECLARE @TotalFinal DECIMAL(10,2) = @Subtotal - @Descuento;
-
-    -- Actualizar la venta con descuento y total
+    -- Actualizar el campo descuento
     UPDATE Ventas
-    SET Descuento = @Descuento,
-        Total = @TotalFinal
+    SET Descuento = @Descuento
     WHERE IdVenta = @IdVenta;
 
+    -- Nota: el total se calculará automáticamente por el trigger tr_ActualizarTotalVenta
+    -- Y si es delivery, el trigger tr_AjustarTotalPorDelivery lo ajustará con el recargo
+
     COMMIT;
-    PRINT '✅ Venta registrada correctamente con descuento (si aplica).';
+    PRINT '✅ Venta registrada correctamente con cálculo automático de total.';
   END TRY
   BEGIN CATCH
     ROLLBACK;
@@ -327,6 +322,8 @@ BEGIN
     PRINT '❌ Error al registrar la venta: ' + @Error;
   END CATCH
 END;
+
+
 
 ---listados 
 CREATE PROCEDURE sp_ListarTodasLasVentas
@@ -341,7 +338,8 @@ BEGIN
         C.IdCliente,
         CU.Nombre + ' ' + CU.Apellido AS Cliente,
         V.Descuento,
-        V.Total
+        V.Total,
+        CASE WHEN V.Delivery = 1 THEN 'Sí' ELSE 'No' END AS EsDelivery
     FROM Ventas V
     INNER JOIN Empleados E ON V.IdEmpleado = E.IdEmpleado
     INNER JOIN Usuarios U ON E.IdUsuario = U.IdUsuario
@@ -349,6 +347,7 @@ BEGIN
     INNER JOIN Usuarios CU ON C.IdUsuario = CU.IdUsuario
     ORDER BY V.FechaVenta DESC;
 END;
+don
 
 --por cliente
 CREATE PROCEDURE sp_ListarVentasPorCliente
