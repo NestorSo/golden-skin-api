@@ -1,26 +1,89 @@
-<!-- producto.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Detalle de Producto - Golden Skin</title>
+
+  <!-- Íconos Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Estilos -->
   <link rel="stylesheet" href="../CSS/productos.css">
+  <link rel="stylesheet" href="../CSS/carrito.css">
+  <link rel="stylesheet" href="../CSS/cargaclientes.css">
+  <link rel="stylesheet" href="../CSS/alertas.css">
+  <link rel="stylesheet" href="../CSS/logout.css">
 </head>
 <body>
+  <!-- Navbar -->
   <nav class="navbar">
-    <div class="logo">GoldenSkin</div>
+    <div class="navbar-left">
+      <a class="logo" href="../HTML/home.html">GoldenSkin</a>
+    </div>
+
+    <div class="container-search">
+      <input type="text" placeholder="Buscar" class="search-input">
+      <button class="search-button"><i class="fas fa-search"></i></button>
+    </div>
+
     <div class="nav-icons">
-      <i class="fas fa-search"></i>
-      <i class="fas fa-user"></i>
-      <i class="fas fa-shopping-cart"></i>
+      <!-- Usuario -->
+
+      <!-- 🔹 INICIO BLOQUE USUARIO -->
+      <div class="user-info" id="userInfo" style="margin-right: 20px;"></div>
+      <!-- 🔹 FIN BLOQUE USUARIO -->
+      <!-- <i class="fas fa-search"></i> -->
+      <!-- <a href="../HTML/register.html"><i class="fas fa-user"></i></a> -->
+      <!-- Ícono de usuario (login/logout) -->
+      <a id="userIconLink" href="#" class="nav-user-icon" title="Iniciar sesión">
+        <i class="fas fa-user"></i>
+      </a>
+            <div class="btn-cart">
+                <!-- Carrito visible y fijo -->
+      <div class="btn-cart">
+        <button type="button" id="toggleCart"><i class="fas fa-shopping-cart"></i></button>  
+        <span id="cartCount">0</span>
+      </div>
+
+<!-- Panel del carrito -->
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-content" id="contentProducts">
+    <p class="empty-msg">Tu carrito está vacío.</p>
+  </div>
+  <div class="cart-footer">
+    <h4>Total: <span id="total">$0.00</span></h4>
+    <button id="realizarPedido">Realizar pedido</button>
+    <button id="emptyCart">Vaciar carrito</button>
+  </div>
+</div>
+
     </div>
   </nav>
 
-  <div class="product-container" id="producto">
-    <!-- Contenido del producto se carga por JS -->
+  <!-- Panel del carrito -->
+  <div class="cart-panel" id="cartPanel">
+    <div class="cart-content" id="contentProducts">
+      <p class="empty-msg">Tu carrito está vacío.</p>
+    </div>
+    <div class="cart-footer">
+      <h4>Total: <span id="total">$0.00</span></h4>
+      <button id="realizarPedido">Realizar pedido</button>
+      <button id="emptyCart">Vaciar carrito</button>
+    </div>
   </div>
 
- <script src="../js/producto.js" ></script>
+  <!-- Contenido del producto -->
+  <div class="product-container" id="producto"></div>
+
+  <!-- Alerta visual -->
+  <div id="alerta" class="alerta-oculta"></div>
+
+  <!-- Scripts -->
+  <script src="../js/producto.js"></script>
+  <script src="../js/carrito.js"></script>
+  <script src="../js/alertas.js"></script>
+  <script src="../js/logout.js"></script>
+  <script src="../js/cargaclientes.js"></script>
 </body>
 </html>

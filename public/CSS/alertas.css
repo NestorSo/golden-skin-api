@@ -1,0 +1,21 @@
+#alerta {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #CF818E;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  font-weight: 500;
+  display: none;
+  z-index: 9999;
+  animation: fadeInOut 2.5s forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-10px); }
+}

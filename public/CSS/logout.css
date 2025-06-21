@@ -1,0 +1,62 @@
+.alert-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #cf818e;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  font-size: 14px;
+  animation: fadein 0.3s ease;
+}
+
+.confirm-popup {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  background-color: #fff0f5;
+  color: #333;
+  padding: 20px 25px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  z-index: 99999;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.confirm-popup p {
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.popup-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.popup-actions button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.popup-confirm {
+  background-color: #cf818e;
+  color: white;
+}
+
+.popup-cancel {
+  background-color: #ccc;
+  color: black;
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

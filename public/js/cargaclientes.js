@@ -1,3 +1,5 @@
+
+
 //carga cliente y rol 
 document.addEventListener('DOMContentLoaded', () => {
   const userInfo = document.getElementById('userInfo');
@@ -9,4 +11,5 @@ document.addEventListener('DOMContentLoaded', () => {
     userInfo.innerHTML = `<span>🔒 No has iniciado sesión</span>`;
   }
 });
+
 

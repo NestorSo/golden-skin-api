@@ -1,0 +1,12 @@
+
+/* diseño para la informacion del usuario  */
+.user-info {
+  color: #fff;
+  font-weight: bold;
+  margin-right: 20px;
+}
+.user-info span {
+  background-color: #d98aa0;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
