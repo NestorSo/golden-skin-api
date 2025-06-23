@@ -80,15 +80,17 @@
 }
 
 .remove-item {
-  background-color: #ff5b5b;
+  background-color: #dc2626;
+  color: #fff;
   border: none;
-  color: white;
-  padding: 6px 10px;
-  border-radius: 5px;
-  cursor: pointer;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
   font-weight: bold;
-  transition: background-color 0.3s ease;
+  cursor: pointer;
+  display: inline-block; /* <- Asegura que sea visible */
 }
+
 
 .remove-item:hover {
   background-color: #c13c3c;

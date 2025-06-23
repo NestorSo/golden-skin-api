@@ -1,0 +1,40 @@
+.back-button {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.back-button i {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.nav-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin-right: 15px;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  transition: color 0.3s ease;
+}
+
+.back-button:hover {
+  color: #c57a88;
+}

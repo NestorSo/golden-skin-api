@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="../CSS/cargaclientes.css">
   <link rel="stylesheet" href="../CSS/alertas.css">
   <link rel="stylesheet" href="../CSS/logout.css">
+    <link rel="stylesheet" href="../CSS/back.css">
+
  
 
 </head>
@@ -36,12 +38,17 @@
       <!-- 🔹 FIN BLOQUE USUARIO -->
       <!-- <i class="fas fa-search"></i> -->
       <!-- <a href="../HTML/register.html"><i class="fas fa-user"></i></a> -->
+            <div class="nav-back">
+              <button onclick="goBack()" title="Volver" class="back-button">
+              <i class="fas fa-arrow-left"></i>
+              </button>
+            </div>
       <!-- Ícono de usuario (login/logout) -->
       <a id="userIconLink" href="#" class="nav-user-icon" title="Iniciar sesión">
         <i class="fas fa-user"></i>
       </a>
 
-      <div class="btn-cart">
+ 
                 <!-- Carrito visible y fijo -->
       <div class="btn-cart">
         <button type="button" id="toggleCart"><i class="fas fa-shopping-cart"></i></button>  
@@ -80,13 +87,7 @@
     <!-- Productos se inyectan por JS -->
   </main>
   </section>
-<script src="../js/carrito.js"></script>
-<script src="../js/catalogo.js"></script>
-<script src="../js/alertas.js"></script>
-<script src="../js/logout.js"></script>
-<script src="../js/pedido.js"></script>
-<script src="../js/cargaclientes.js"></script>
-<script > 
+  <script > 
     const filterButtons = document.querySelectorAll(".filter-btn");
     const products = document.querySelectorAll(".product-card");
 
@@ -136,6 +137,17 @@
   });
 
 </script>
+<script src="../js/carrito.js"></script>
+<script src="../js/catalogo.js"></script>
+<script src="../js/logout.js"></script>
+<script src="../js/alertas.js"></script>
+<script src="../js/cargaclientes.js"></script>
+<script src="../js/back.js"></script>
+
+
+<!-- Alerta visual -->
+<div id="alerta" class="alerta-popup" style="display: none;"></div>
+
 
 
 </body>

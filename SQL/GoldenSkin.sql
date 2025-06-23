@@ -142,7 +142,10 @@ CREATE TABLE DetallePedido (
 ALTER TABLE Productos
 ADD Imagen VARBINARY(MAX);
 
+ALTER TABLE Roles
+ADD EstadoRol BIT
 
+;
 ALTER TABLE Productos ADD ImagenUrl VARCHAR(255);
 
 -- Inserciones de prueba

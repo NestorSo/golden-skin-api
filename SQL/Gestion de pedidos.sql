@@ -1,4 +1,6 @@
-﻿----gestion de pedidos
+﻿
+use goldenskin
+----gestion de pedidos
 
 CREATE PROCEDURE NuevoDetallePedido
   @IdPedido INT,

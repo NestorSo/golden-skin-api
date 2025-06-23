@@ -7,8 +7,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const res = await fetch('/api/productos/todos');
     productosCargados = await res.json();
 
-    // Carga inicial: mostrar todos
-    renderProductos(productosCargados);
+    // // Carga inicial: mostrar todos
+    // renderProductos(productosCargados);
+        // Carga inicial: mostrar todos los productos
+    renderProductos(productosCargados).then(() => {
+      aplicarFiltroDesdeURL(); // 🔹 Aplicar el filtro solo después de renderizar
+    });
   } catch (err) {
     console.error('Error al cargar productos:', err);
     contenedor.innerHTML = '<p style="color:red">No se pudieron cargar los productos.</p>';
@@ -39,7 +43,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderProductos(filtrados);
   });
 });
+// 🔹 Aplicar filtro desde URL
+function aplicarFiltroDesdeURL() {
+  const params = new URLSearchParams(window.location.search);
+  const categoriaDesdeURL = params.get('data-category');
 
+  if (categoriaDesdeURL) {
+    const btn = document.querySelector(`.filter-btn[data-category="${categoriaDesdeURL}"]`);
+    if (btn) {
+      btn.click(); // Simula clic y aplica el filtro
+    }
+  }
+}
 // Función para mostrar productos
 async function renderProductos(productos) {
   const contenedor = document.getElementById('catalogo');
@@ -83,6 +98,8 @@ async function renderProductos(productos) {
 function verProducto(id) {
   window.location.href = `../HTML/producto.html?id=${id}`;
 }
+
+
 
 
 

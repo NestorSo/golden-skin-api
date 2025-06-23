@@ -372,7 +372,7 @@ END
 
 
 --------------------------------------listas de usuarios
-CREATE OR ALTER PROCEDURE sp_ListarTodosUsuarios
+CREATE PROCEDURE sp_ListarTodosUsuarios
 AS
 BEGIN
   SET NOCOUNT ON;
@@ -383,7 +383,9 @@ BEGIN
   INNER JOIN Roles R ON U.IdRol = R.IdRol;
 END
 
-CREATE OR ALTER PROCEDURE sp_ListarUsuariosInactivos
+
+
+CREATE PROCEDURE sp_ListarUsuariosInactivos
 AS
 BEGIN
   SET NOCOUNT ON;
@@ -393,6 +395,9 @@ BEGIN
   INNER JOIN Roles R ON U.IdRol = R.IdRol
   WHERE U.EstadoUsuario = 0;
 END
+
+
+
 CREATE OR ALTER PROCEDURE sp_ListarUsuariosActivos
 AS
 BEGIN
@@ -403,6 +408,8 @@ BEGIN
   INNER JOIN Roles R ON U.IdRol = R.IdRol
   WHERE U.EstadoUsuario = 1;
 END
+
+
 CREATE OR ALTER PROCEDURE sp_BuscarUsuarioPorNombre
   @Nombre NVARCHAR(100)
 AS

@@ -27,7 +27,7 @@ console.log('🔗 Rutas de usuario cargadas correctamente.');
 
 // Ruta raíz: muestra login.html
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public','HTML', 'login.html'));
+  res.sendFile(path.join(__dirname, 'public','HTML', 'home.html'));
 });
 
 // Mensajes de prueba luego de login o registro

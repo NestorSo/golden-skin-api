@@ -1,4 +1,8 @@
-﻿CREATE PROCEDURE sp_CrearRolConPrivilegios
+﻿
+use goldenskin
+
+
+CREATE PROCEDURE sp_CrearRolConPrivilegios
     @NombreRol VARCHAR(50),
     @Privilegios NVARCHAR(MAX) -- Ej: 'Registrar usuarios;Ver reportes;Eliminar productos'
 AS
@@ -46,7 +50,9 @@ BEGIN
     END TRY
     BEGIN CATCH
         ROLLBACK;
-        RAISERROR(ERROR_MESSAGE(), 16, 1);
+
+        DECLARE @MensajeError NVARCHAR(4000) = ERROR_MESSAGE();
+        RAISERROR(@MensajeError, 16, 1);
     END CATCH
 END
 

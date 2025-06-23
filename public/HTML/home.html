@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded&display=swap" />
     <link rel="stylesheet" href="../CSS/home.css ">
+      <link rel="stylesheet" href="../CSS/carrito.css">
+  <link rel="stylesheet" href="../CSS/cargaclientes.css">
+  <link rel="stylesheet" href="../CSS/alertas.css">
+  <link rel="stylesheet" href="../CSS/logout.css">
+      <link rel="stylesheet" href="../CSS/back.css">
+
     <!-- Link Swiper JS CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 </head>
@@ -18,17 +24,33 @@
     <nav class="navbar">
         <div class="navbar-left">
             <a class="logo" href="../HTML/home.html">GoldenSkin</a>
+            
         </div>
         <!-- cuadro de busqueda -->
-        <div class="container-search">
+        <!-- <div class="container-search">
             <input type="text" placeholder="Buscar" class="search-input">
             <button class="search-button"><i class="fas fa-search"></i></button>
-        </div>
+        </div> -->
 
         <div class="nav-icons">
-            <i class="fas fa-search"></i>
-            <a href="../HTML/register.html"><i class="fas fa-user"></i></a>
+                <!-- 🔹 INICIO BLOQUE USUARIO -->
+                <div class="user-info" id="userInfo" style="margin-right: 20px;"></div>
+                <!-- 🔹 FIN BLOQUE USUARIO -->
+                <div class="nav-back">
+                <button onclick="goBack()" title="Volver" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                </button>
+                </div>
+                <!-- Ícono de usuario (login/logout) -->
+                <a id="userIconLink" href="#" class="nav-user-icon" title="Iniciar sesión o cerrar sesión">
+                <i class="fas fa-user"></i>
+                </a>
+
             <a href="../HTML/catalogo.html"><i class="fas fa-shopping-cart"></i></a>
+                <div class="btn-cart">
+                    <button type="button" id="toggleCart"><i class="fas fa-shopping-cart"></i></button>  
+                    <span id="cartCount">0</span>
+                </div>
         </div>
     </nav>
 
@@ -42,11 +64,11 @@
             <ul class="card-list swiper-wrapper">
                 <!-- img 1 -->
                 <li class="card-item swiper-slide">
-                    <a href="../HTML/catalogo.html" class="card-link">
+                    <a href="../HTML/infGeneralProtectSun.html" class="card-link">
                         <img src="../images/Acido Glicolico The Ordinary.png" alt="Card Image"
                             class="card-image">
                         <p class="badge promo1">Bloqueadores</p>
-                        <h2 class="card-tittle">Aqui ponemos una pequeña descripcion de la promo</h2>
+                        <h2 class="card-tittle">Un breve vlog informativo sobre protectores solares.</h2>
                         <button class="card-button material-symbols-rounded">
                             arrow_forward
                         </button>
@@ -55,11 +77,11 @@
 
                 <!-- img 2 -->
                 <li class="card-item swiper-slide">
-                    <a href="../HTML/catalogo.html" class="card-link">
+                    <a href="../HTML/infGeneralCremas.html" class="card-link">
                         <img src="../images/photoderm-creme.png" alt="Card Image"
                             class="card-image">
                         <p class="badge promo2">Cremas</p>
-                        <h2 class="card-tittle">Aqui ponemos una pequeña descripcion de la promo</h2>
+                        <h2 class="card-tittle">Un breve vlog informativo sobre las cremas.</h2>
                         <button class="card-button material-symbols-rounded">
                             arrow_forward
                         </button>
@@ -67,11 +89,11 @@
                 </li>
                 <!-- img 3 -->
                 <li class="card-item swiper-slide">
-                    <a href="../HTML/catalogo.html" class="card-link">
+                    <a href="../HTML/infGenLimpiador.html" class="card-link">
                         <img src="../images/photoderm-creme.png" alt="Card Image"
                             class="card-image">                            
-                        <p class="badge promo3">Motor</p>
-                        <h2 class="card-tittle">Aqui ponemos una pequeña descripcion de la promo</h2>
+                        <p class="badge promo3">Limpieza</p>
+                        <h2 class="card-tittle">Un breve vlog informativo sobre los productos de limpieza para la piel.</h2>
                         <button class="card-button material-symbols-rounded">
                             arrow_forward
                         </button>
@@ -79,11 +101,11 @@
                 </li>
                 <!-- img 4 -->
                 <li class="card-item swiper-slide">
-                    <a href="../HTML/catalogo.html" class="card-link">
+                    <a href="../HTML/infGenSerum.html" class="card-link">
                         <img src="../images/ejemploRuborRB.jpg" alt="Card Image"
                             class="card-image">
-                        <p class="badge promo4">Rines</p>
-                        <h2 class="card-tittle">Aqui ponemos una pequeña descripcion de la promo</h2>
+                        <p class="badge promo4">Serum</p>
+                        <h2 class="card-tittle">Un breve vlog informativo sobre el Serum.</h2>
                         <button class="card-button material-symbols-rounded">
                             arrow_forward
                         </button>
@@ -91,11 +113,11 @@
                 </li>
                 <!-- img 5 -->
                 <li class="card-item swiper-slide">
-                    <a href="../HTML/catalogo.html" class="card-link">
-                        <img src="../images/FoamingFacialCleanser.jpg" alt="Card Image"
+                    <a href="../HTML/infMaquillaje.html" class="card-link">
+                        <img src="../images/lip oil Hope RB.jpg" alt="Card Image"
                             class="card-image">
-                        <p class="badge promo5">Timon</p>
-                        <h2 class="card-tittle">Aqui ponemos una pequeña descripcion de la promo</h2>
+                        <p class="badge promo5">Maquillaje</p>
+                        <h2 class="card-tittle">Un breve vlog informativo sobre el Maquillaje.</h2>
                         <button class="card-button material-symbols-rounded">
                             arrow_forward
                         </button>
@@ -176,9 +198,9 @@
                 <div class="footer-links">
                     <h4>Compañía</h4>
                     <ul>
-                        <li><a href="#">Nosotros</a></li>
-                        <li><a href="#">Misión</a></li>
-                        <li><a href="#">Visión</a></li>
+                        <li><a href="../HTML/sobreNosotros.html">Nosotros</a></li>
+                        <li><a href="../HTML/Mision.html">Misión</a></li>
+                        <li><a href="../HTML/">Visión</a></li>
                         <li><a href="#">Contáctenos</a></li>
                     </ul>
                 </div>
@@ -215,6 +237,13 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script src="../js/carrusel.js"></script>
+     <script src="../js/carrito.js"></script>
+    <script src="../js/logout.js"></script>
+    <script src="../js/alertas.js"></script>
+    <script src="../js/cargaclientes.js"></script>
+
+    <script src="../js/back.js"></script>>
+
     
 </body>
 
