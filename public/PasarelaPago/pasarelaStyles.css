@@ -1,0 +1,133 @@
+/* Generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #F5F5F5;
+    line-height: 1.6;
+    background-color: white;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.gold {
+    color: #CF818E;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #A76670;
+    color: white;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.btn:hover {
+    background-color: #ce858e;
+    transform: translateY(-2px);
+}
+/* --- Navbar --- */
+        .navbar {
+            background: #CF818E;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo a {
+            font-size: 26px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+        
+        .nav-icons {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-icons i {
+            font-size: 22px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .nav-icons i:hover {
+            transform: translateY(-3px);
+            color: #a8676f;
+        }
+
+/***********************************/
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100hv;
+    background: #F5F5F5;
+}
+
+.container form{
+    width: 700px;
+    padding: 40px;
+    background: #ce858e;
+    border-radius: 10px;
+}
+
+
+/* Footer */
+ footer {
+            background: #CF818E;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 60px;
+        }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header .container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+}
