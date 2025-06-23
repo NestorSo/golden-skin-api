@@ -1,0 +1,177 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fdf6f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background-color: #d98aa0;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar .logo {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+.detalle-carrito {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #fff0f5;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.detalle-carrito h1 {
+  text-align: center;
+  color: #a04d60;
+  margin-bottom: 1.5rem;
+}
+
+#detalleProductos {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.detalle-item {
+  display: flex;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 1rem;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+}
+
+.detalle-item:hover {
+  transform: translateY(-2px);
+}
+
+.detalle-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-right: 1.2rem;
+  background: #f1f5f9;
+}
+
+.detalle-item div {
+  flex: 1;
+}
+
+.detalle-item p {
+  margin: 0.2rem 0;
+  font-size: 0.95rem;
+}
+
+.datos-envio {
+  margin-top: 2rem;
+  background: #ffe6ef;
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+
+.datos-envio h2 {
+  margin-bottom: 1rem;
+  color: #a04d60;
+}
+
+.datos-envio label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.datos-envio input,
+.datos-envio select {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 0.3rem;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.datos-envio input:focus,
+.datos-envio select:focus {
+  outline: none;
+  border-color: #cf818e;
+}
+
+.resumen-pedido {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.resumen-pedido h3 {
+  font-size: 1.4rem;
+  color: #a04d60;
+  margin-bottom: 1rem;
+}
+
+.resumen-pedido button {
+  background-color: #cf818e;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  margin: 0.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.resumen-pedido button:hover {
+  background-color: #a04d60;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .detalle-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .detalle-item img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 0.8rem;
+  }
+
+  .datos-envio,
+  .resumen-pedido {
+    padding: 1rem;
+  }
+
+  .resumen-pedido button {
+    width: 100%;
+    max-width: 250px;
+  }
+}
+
+.derechos {
+            background: #cc8fa0;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 10
+            px;
+        }
+
+footer {
+  background-color: #cc8fa0;
+  padding: 80px 0;
+}

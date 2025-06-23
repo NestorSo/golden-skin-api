@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GoldenSkin | Maquillaje: Expresa Tu Belleza</title>
     <link rel="stylesheet" href="../CSS/styleVlog.css">
+    <link rel="stylesheet" href="../CSS/back.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
@@ -13,6 +14,11 @@
     <nav class="navbar">
         <div class="logo"><a href="../HTML/home.html">GoldenSkin</a></div>
         <div class="nav-icons">
+                <div class="nav-back">
+                <button onclick="goBackAndReload()" title="Volver" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                </button>
+                </div>
             <i class="fas fa-search"></i>
             <i class="fas fa-user"></i>
             <i class="fas fa-shopping-cart"></i>
@@ -138,5 +144,6 @@
     <footer>
         <p>© 2025 GoldenSkin. Todos los derechos reservados.</p>
     </footer>
+        <script src="../js/back.js"></script>>
 </body>
 </html>

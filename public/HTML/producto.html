@@ -125,9 +125,10 @@
       <!-- Bloque de usuario -->
       <div id="userInfo" style="margin-right: 20px;"></div>
       <div class="nav-back">
-          <button onclick="goBack()" title="Volver" class="back-button">
+        <button onclick="goBackAndReload()" class="back-button" title="Volver">
           <i class="fas fa-arrow-left"></i>
-          </button>
+        </button>
+
       </div>
 <!-- Ícono de usuario (login/logout) -->
 <a id="userIconLink" href="#" class="nav-user-icon" title="Iniciar sesión o cerrar sesión">
@@ -151,6 +152,7 @@
       <h4>Total: <span id="total">$0.00</span></h4>
       <button id="realizarPedido">Realizar pedido</button>
       <button id="emptyCart">Vaciar carrito</button>
+         <button id="verDetalleCarrito">Ver detalles</button>
     </div>
   </div>
 
@@ -171,6 +173,12 @@
 
 
 <div id="alerta" class="alerta-popup" style="display: none;"></div>
-
+   <!-- Footer -->
+    <div class="derechos">
+        <footer>
+            <p>© 2025 GoldenSkin. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+ 
 </body>
 </html>

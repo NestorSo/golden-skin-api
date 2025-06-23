@@ -15,6 +15,8 @@
   <link rel="stylesheet" href="../CSS/alertas.css">
   <link rel="stylesheet" href="../CSS/logout.css">
       <link rel="stylesheet" href="../CSS/back.css">
+            <link rel="stylesheet" href="../CSS/busqueda.css">
+
 
     <!-- Link Swiper JS CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
@@ -27,17 +29,18 @@
             
         </div>
         <!-- cuadro de busqueda -->
-        <!-- <div class="container-search">
+        <div class="container-search">
             <input type="text" placeholder="Buscar" class="search-input">
             <button class="search-button"><i class="fas fa-search"></i></button>
-        </div> -->
+            <div id="resultadosBusqueda" class="resultados-busqueda"></div>
 
+        </div>
         <div class="nav-icons">
                 <!-- 🔹 INICIO BLOQUE USUARIO -->
                 <div class="user-info" id="userInfo" style="margin-right: 20px;"></div>
                 <!-- 🔹 FIN BLOQUE USUARIO -->
                 <div class="nav-back">
-                <button onclick="goBack()" title="Volver" class="back-button">
+                <button onclick="goBackAndReload()" title="Volver" class="back-button">
                 <i class="fas fa-arrow-left"></i>
                 </button>
                 </div>
@@ -46,11 +49,23 @@
                 <i class="fas fa-user"></i>
                 </a>
 
-            <a href="../HTML/catalogo.html"><i class="fas fa-shopping-cart"></i></a>
+            <a href="../HTML/catalogo.html"><i class="fas fa-store"></i></a>
                 <div class="btn-cart">
                     <button type="button" id="toggleCart"><i class="fas fa-shopping-cart"></i></button>  
                     <span id="cartCount">0</span>
                 </div>
+            <!-- Panel del carrito -->
+                    <div class="cart-panel" id="cartPanel">
+                    <div class="cart-content" id="contentProducts">
+                        <p class="empty-msg">Tu carrito está vacío.</p>
+                            </div>
+                             <div class="cart-footer">
+                                <h4>Total: <span id="total">$0.00</span></h4>
+                                <button id="realizarPedido">Realizar pedido</button>
+                            <button id="emptyCart">Vaciar carrito</button>
+                               <button id="verDetalleCarrito">Ver detalles</button>
+                        </div>
+                        </div>
         </div>
     </nav>
 
@@ -231,6 +246,10 @@
                     </div>
                 </div>
             </div>
+            <div class="derechos">
+                            <p>© 2025 GoldenSkin. Todos los derechos reservados.</p>
+            </div>
+
     </footer>
 
 
@@ -241,8 +260,9 @@
     <script src="../js/logout.js"></script>
     <script src="../js/alertas.js"></script>
     <script src="../js/cargaclientes.js"></script>
-
     <script src="../js/back.js"></script>>
+    <script src="../js/busqueda.js"></script>>
+
 
     
 </body>

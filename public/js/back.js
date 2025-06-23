@@ -1,8 +1,11 @@
-function goBack() {
-  if (window.history.length > 1) {
-    window.history.back();
+
+
+
+function goBackAndReload() {
+  const ref = document.referrer;
+  if (ref) {
+    window.location.href = ref; // Regresa y recarga
   } else {
-    // Si no hay historial previo, ir al home como última opción
-    window.location.href = '/HTML/home.html';
+    window.history.back(); // Fallback
   }
 }

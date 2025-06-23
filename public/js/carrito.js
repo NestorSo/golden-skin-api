@@ -156,6 +156,8 @@
 //   }, 3000);
 // }
 
+
+
 // carrito.js
 // ✅ carrito.js (Fusionado con pedido.js y corregido para funcionar desde catálogo y producto)
 // Elementos del DOM
@@ -357,3 +359,55 @@ window.addEventListener('DOMContentLoaded', () => {
   carrito = JSON.parse(localStorage.getItem('carrito')) || [];
   actualizarCarritoUI();
 });
+
+document.getElementById('verDetalleCarrito').addEventListener('click', () => {
+  window.location.href = '../HTML/carrito.html';
+});
+
+
+
+// Cargar productos al inicio
+window.vaciarCarrito = function () {
+  carrito = [];
+  guardarCarrito();
+};
+
+window.realizarPedido = async function (datosEnvio) {
+  if (carrito.length === 0) {
+    mostrarAlerta('⚠️ Tu carrito está vacío');
+    return;
+  }
+
+  const usuario = JSON.parse(localStorage.getItem('usuario'));
+  if (!usuario || !usuario.id) {
+    mostrarAlerta('❌ Debes iniciar sesión');
+    return;
+  }
+
+  const payload = {
+    clienteId: usuario.id,
+    descripcion: `Pedido web - ${datosEnvio.metodoPago}`,
+    productos: carrito.map(p => ({
+      id: p.id,
+      cantidad: p.quantity,
+      precio: p.price
+    }))
+  };
+
+  try {
+    const res = await fetch('/api/pedidos', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+    mostrarAlerta('✅ Pedido realizado. ID: ' + data.id);
+    carrito = [];
+    guardarCarrito();
+    actualizarCarritoUI();
+  } catch (err) {
+    console.error('❌ Error al enviar pedido:', err);
+    mostrarAlerta('❌ Error al procesar pedido');
+  }
+};

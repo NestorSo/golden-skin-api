@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Carrito - GoldenSkin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="../CSS/detalleCarrito.css">
+    <link rel="stylesheet" href="../CSS/busqueda.css">
+    <link rel="stylesheet" href="../CSS/home.css">
+    <link rel="stylesheet" href="../CSS/carrito.css">
+    <link rel="stylesheet" href="../CSS/back.css">
+    <link rel="stylesheet" href="../CSS/alertas.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a class="logo" href="../HTML/home.html">GoldenSkin</a>
+    </div>
+    <!-- cuadro de busqueda -->
+    <div class="container-search">
+      <input type="text" placeholder="Buscar" class="search-input">
+      <button class="search-button"><i class="fas fa-search"></i></button>
+    </div>
+   <div class="nav-icons">
+                <!-- 🔹 INICIO BLOQUE USUARIO -->
+                <div class="user-info" id="userInfo" style="margin-right: 20px;"></div>
+                <!-- 🔹 FIN BLOQUE USUARIO -->
+                <div class="nav-back">
+                <button onclick="goBackAndReload()" title="Volver" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                </button>
+                </div>
+                <!-- Ícono de usuario (login/logout) -->
+                <a id="userIconLink" href="#" class="nav-user-icon" title="Iniciar sesión o cerrar sesión">
+                <i class="fas fa-user"></i>
+                </a>
+
+            <a href="../HTML/catalogo.html"><i class="fas fa-store"></i></a>
+                <div class="btn-cart">
+                    <button type="button" id="toggleCart"><i class="fas fa-shopping-cart"></i></button>  
+                    <span id="cartCount">0</span>
+                </div>
+                 <!-- Panel del carrito -->
+                    <div class="cart-panel" id="cartPanel">
+                    <div class="cart-content" id="contentProducts">
+                        <p class="empty-msg">Tu carrito está vacío.</p>
+                            </div>
+                             <div class="cart-footer">
+                                <h4>Total: <span id="total">$0.00</span></h4>
+                                <button id="realizarPedido">Realizar pedido</button>
+                            <button id="emptyCart">Vaciar carrito</button>
+                        </div>
+                        </div>
+       
+        </div>
+
+
+  </nav>
+
+
+  <main class="detalle-carrito">
+    <h1>Mi carrito</h1>
+    <div id="detalleProductos"></div>
+
+    <div class="datos-envio">
+      <h2>Detalles de envío</h2>
+      <form id="form-envio">
+        <label>Nombre completo:</label>
+        <input type="text" id="nombreCliente" required>
+
+        <label>Dirección:</label>
+        <input type="text" id="direccion" required>
+
+        <label>Teléfono:</label>
+        <input type="tel" id="telefono" required>
+
+        <label>Método de pago:</label>
+        <select id="metodoPago" required>
+          <option value="">Selecciona uno</option>
+          <option value="efectivo">Pago contra entrega</option>
+          <option value="tarjeta">Tarjeta (Próximamente)</option>
+        </select>
+      </form>
+    </div>
+
+    <div class="resumen-pedido">
+      <h3>Total: <span id="totalDetalle">$0.00</span></h3>
+      <button id="realizarPedidoDetalle">Realizar pedido</button>
+      <button id="vaciarCarritoDetalle">Vaciar carrito</button>
+    </div>
+  </main>
+            <div class="derechos">
+                            <p>© 2025 GoldenSkin. Todos los derechos reservados.</p>
+            </div>
+<!-- Primero se cargan las dependencias necesarias -->
+<script src="../js/carrito.js"></script>          <!-- ✅ debe ir antes -->
+<script src="../js/alertas.js"></script>
+<script src="../js/logout.js"></script>
+<script src="../js/cargaclientes.js"></script>
+<script src="../js/back.js"></script>
+<script src="../js/busqueda.js"></script>
+
+<!-- Luego se carga este que usa funciones anteriores -->
+<script src="../js/detalleCarrito.js"></script>   <!-- ✅ va al final -->
+
+
+</body>
+</html>

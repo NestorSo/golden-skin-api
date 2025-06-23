@@ -60,14 +60,15 @@ body {
 }
 
 .search-input {
-  min-width: 900px;
+  min-width: 600px; /* antes: 900px */
   padding: 10px;
-  padding-right: 35px;
+  padding-right: 5px;
   border-radius: 5px 0 0 5px;
   border: 0;
   outline: none;
-  font-size: 1rem;  
+  font-size: 1rem;
 }
+
 
 
 .search-button{
@@ -318,13 +319,17 @@ footer {
   display: inline-block;
 }
 
-.footer-links ul li a{
+.footer-links ul li a {
   font-size: 18px;
   text-decoration: none;
   color: #bbbbbb;
   display: block;
   margin-bottom: 15px;
   transition: all 0.3s ease;
+}
+.derechos {
+color: #fff0f5;
+text-align: center;
 }
 
 .footer-links ul li a:hover {
