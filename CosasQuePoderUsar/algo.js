@@ -46,3 +46,16 @@
     }
   });
 
+
+
+  //🔸 Opción 1: Hacer múltiples llamadas desde el frontend (una por cada producto)
+js
+Copiar
+Editar
+for (const item of productos) {
+  await fetch('/api/productos/inventario', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ IdProducto: item.id, CantidadAgregada: item.cantidad })
+  });
+}

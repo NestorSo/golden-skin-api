@@ -14,14 +14,32 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 console.log('📦 Middleware y archivos estáticos configurados.');
 
+// Swagger setup
+const { swaggerUi, specs } = require('./swagger');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+console.log('📖 Swagger UI configurado en /api-docs');
+
 // 🔹 Rutas
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
 const pedidoRoutes = require('./routes/pedidoRoutes');
+const compraRoutes = require('./routes/compraRoutes');
+const ventaRoutes = require('./routes/ventaRoutes');
+const rolRoutes = require('./routes/rolRoutes');
+const marcaRoutes = require('./routes/marcaRoutes');
+const proveedorRoutes = require('./routes/proveedorRoutes');
+
 
 app.use('/api/productos', productRoutes);
 app.use('/api/pedidos', pedidoRoutes);
 app.use('/api', userRoutes);
+app.use('/api/compras', compraRoutes);
+app.use('/api/ventas', ventaRoutes);
+app.use('/api/roles', rolRoutes);
+app.use('/api/marcas', marcaRoutes);
+app.use('/api/proveedores', proveedorRoutes);
+
+
 console.log('🔗 Rutas cargadas correctamente.');
 
 // 🔹 Ruta raíz

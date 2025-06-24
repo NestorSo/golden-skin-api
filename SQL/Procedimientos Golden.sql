@@ -1,8 +1,10 @@
 ﻿use GoldenSkin
 
 
+
+
 --registro de usuario  con rol de cliente por defecto para el registro
-CREATE PROCEDURE sp_RegistrarUsuarioCliente
+CREATE OR ALTER PROCEDURE sp_RegistrarUsuarioCliente
     @Nombre      VARCHAR(100),
     @Apellido    VARCHAR(100),
     @Email       VARCHAR(150),
@@ -32,9 +34,15 @@ BEGIN
     BEGIN TRY
         BEGIN TRANSACTION;
 
-        -- Insertar en tabla Usuarios
+        -- Insertar en tabla Usuarios con contraseña cifrada MD5
         INSERT INTO Usuarios (Nombre, Apellido, Email, Pass, IdRol)
-        VALUES (@Nombre, @Apellido, @Email, @Pass, @IdRolCliente);
+        VALUES (
+            @Nombre,
+            @Apellido,
+            @Email,
+            CONVERT(VARCHAR(32), HASHBYTES('MD5', @Pass), 2), -- aquí la clave
+            @IdRolCliente
+        );
 
         SET @IdUsuario = SCOPE_IDENTITY();
 
@@ -50,12 +58,49 @@ BEGIN
         IF @@TRANCOUNT > 0
             ROLLBACK;
         DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
-        RAISERROR(@ErrorMessage, 16, 1);
-    END CATCH
+        RAISERROR(@ErrorMessage, 16, 1);    END CATCH
 END
 
+--login
+CREATE  PROCEDURE sp_LoginUsuario
+    @Email VARCHAR(150),
+    @Pass VARCHAR(255)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Validaciones básicas
+    IF @Email = '' OR @Pass = ''
+    BEGIN
+        RAISERROR('❌ El correo y la contraseña son obligatorios.', 16, 1);
+        RETURN;
+    END
+
+    -- Buscar al usuario con su rol
+    SELECT 
+        u.IdUsuario,
+        u.Nombre,
+        u.Apellido,
+        u.Email,
+        r.NombreRol,
+        u.EstadoUsuario,
+        ISNULL(c.Direccion, '') AS Direccion,
+        ISNULL(c.Telefono, '') AS Telefono,
+        ISNULL(e.Cargo, '') AS Cargo
+    FROM Usuarios u
+    INNER JOIN Roles r ON u.IdRol = r.IdRol
+    LEFT JOIN Clientes c ON u.IdUsuario = c.IdUsuario
+    LEFT JOIN Empleados e ON u.IdUsuario = e.IdUsuario
+    WHERE 
+        u.Email = @Email 
+        AND u.Pass = CONVERT(VARCHAR(32), HASHBYTES('MD5', @Pass), 2)
+        AND u.EstadoUsuario = 1;
+END
+
+
+
 --registro de los usuarios desde el punto del admin
-CREATE PROCEDURE sp_RegistrarUsuarioAdmin
+CREATE OR ALTER PROCEDURE sp_RegistrarUsuarioAdmin
     @Nombre     VARCHAR(100),
     @Apellido   VARCHAR(100),
     @Email      VARCHAR(150),
@@ -97,9 +142,15 @@ BEGIN
     BEGIN TRY
         BEGIN TRANSACTION;
 
-        -- Insertar en Usuarios
+        -- Insertar en Usuarios con contraseña cifrada MD5
         INSERT INTO Usuarios (Nombre, Apellido, Email, Pass, IdRol)
-        VALUES (@Nombre, @Apellido, @Email, @Pass, @IdRol);
+        VALUES (
+            @Nombre,
+            @Apellido,
+            @Email,
+            CONVERT(VARCHAR(32), HASHBYTES('MD5', @Pass), 2),
+            @IdRol
+        );
 
         SET @IdUsuario = SCOPE_IDENTITY();
 
@@ -140,6 +191,7 @@ BEGIN
         RAISERROR(@Error, 16, 1);
     END CATCH
 END
+
 
 sp_BuscarUsuarios 0
 
@@ -288,61 +340,6 @@ BEGIN
 END
 
 
----- actualiza solo la tabla usuario, usar este : 
---CREATE OR ALTER PROCEDURE sp_ActualizarSoloUsuario
---  @IdUsuario INT,
---  @NuevoNombre VARCHAR(100),
---  @NuevoApellido VARCHAR(100),
---  @NuevoEmail VARCHAR(150),
---  @NuevoEstadoLogin BIT,
---  @NuevoEstadoUsuario BIT
---AS
---BEGIN
---  SET NOCOUNT ON;
-
---  IF NOT EXISTS (SELECT 1 FROM Usuarios WHERE IdUsuario = @IdUsuario)
---  BEGIN
---    RAISERROR('❌ Usuario no encontrado.', 16, 1);
---    RETURN;
---  END
-
---  UPDATE Usuarios
---  SET
---    Nombre = @NuevoNombre,
---    Apellido = @NuevoApellido,
---    Email = @NuevoEmail,
---    EstadoLogin = @NuevoEstadoLogin,
---    EstadoUsuario = @NuevoEstadoUsuario
---  WHERE IdUsuario = @IdUsuario;
-
---  PRINT '✅ Usuario actualizado exitosamente.';
---END
-
-----trigger para actalizar las otras dos tablas segun el rol actualizado
---CREATE OR ALTER TRIGGER tr_SincronizarUsuarioConPerfil
---ON Usuarios
---AFTER UPDATE
---AS
---BEGIN
---  SET NOCOUNT ON;
-
---  -- Actualiza nombre y apellido en Empleados (si existe)
---  UPDATE E
---  SET
---    E.Cargo = E.Cargo, -- No se actualiza desde Usuarios, pero mantiene integridad
---    -- aquí podrías añadir más lógica si cargo se derivara del rol
---    -- opcionalmente, podrías guardar nombre/apellido ahí también si es necesario
---    -- por ahora, se asume que nombre/apellido solo están en Usuarios
---    -- si decides repetir datos, puedes agregarlos aquí
---    -- Ejemplo: E.Nombre = U.Nombre
---    E.Cargo = E.Cargo
---  FROM Empleados E
---  INNER JOIN INSERTED U ON E.IdUsuario = U.IdUsuario;
-
---  -- Actualiza teléfono o dirección en Clientes si decides duplicarlos también (opcional)
---  -- Por defecto, no se cambia nada aquí ya que dirección y teléfono están separados
---  -- pero podrías sincronizar valores si estuvieran repetidos
---END
 
 
 --cambiar estado usuario 

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../CSS/stylesVendedorRegistro.css">
+    <title>GoldenSkin - Empleado | Buscar Productos</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">GoldenSkin</div>
+    </nav>
+
+    <div class="sidebar-horizontal">
+        <ul>
+            <li><a href="../HTML/home.html"><i class="fas fa-home"></i> Inicio</a></li>
+            <li><a href="../HTML/BuscarProductos.html" class="active"><i class="fas fa-box"></i> Buscar Productos</a></li>
+            <li><a href="../HTML/RegistrarVenta.html"><i class="fas fa-shopping-cart"></i> Registrar Ventas</a></li>
+        </ul>
+    </div>
+
+    <div class="main-container">
+        <header class="page-header">
+            <h1>Golden Skin - Busqueda de Productos</h1>
+        </header>
+
+        <section class="search-section">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Buscar producto por nombre, marca o ID...">
+                <button class="search-button">
+                    <i class="fas fa-search"></i> Buscar
+                </button>
+            </div>
+        </section>
+
+        <div class="management-section">
+            <div class="form-container">
+                <h2>Buscar Productos Por:</h2>
+                <div class="form-group">
+                    <label for="nombre">Nombre Producto</label>
+                    <input type="text" id="nombre" placeholder="Ingrese el nombre del producto">
+                </div>
+                
+                <div class="form-group">
+                    <label for="direccion">Marca</label>
+                    <input type="text" id="marca" placeholder="Ingrese la dirección completa">
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Descripcion</label>
+                    <input type="text" id="descripcion" placeholder="Ingrese la descripcion del producto">
+                </div>
+                 <div class="form-group">
+                    <label for="precio">Precio</label>
+                    <input type="number" id="precio" placeholder="Ingrese el precio del producto">
+                </div>
+                 <div class="form-group">
+                    <label for="cantidad">Cantidad</label>
+                    <input type="number" id="cantidad" placeholder="Ingrese la cantidad del producto">
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha-caducidad">Fecha de Caducidad</label>
+                    <input type="date" id="fecha-caducidad">
+                </div>
+
+                
+                <!-- BOTONES -->
+                <div class="button-group">
+                    <button class="action-button btn-update" id="actualizar">
+                        <i class="fas fa-search"></i> Buscar
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="client-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre Producto</th>
+                            <th>Marca</th>
+                            <th>Fecha de Fabricación</th>
+                            <th>Fecha de Caducidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>001</td>
+                            <td>Limpiador en Gel</td>
+                            <td>Marca A</td>
+                            <td>2022-01-01</td>
+                            <td>2023-01-01</td>
+                        </tr>
+                        <tr>
+                            <td>002</td>
+                            <td>Limpiador Cremoso</td>
+                            <td>Marca B</td>
+                            <td>2022-02-01</td>
+                            <td>2023-02-01</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+             <!-- NUEVOS BOTONES DE REPORTES -->
+                <div class="report-buttons">
+                    <button id="generateReport" class="report-button">
+                        <i class="fas fa-file-alt"></i> Generar Reporte
+                    </button>
+                    <button id="generateInvoice" class="report-button">
+                        <i class="fas fa-receipt"></i> Generar Factura
+                    </button>
+                </div>
+                <div id="downloadMessage" class="download-message"></div>
+        </div>
+    </div>
+
+    <div class="btn-Reportes"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Aquí puedes agregar la funcionalidad JavaScript
+            document.getElementById('agregar').addEventListener('click', function() {
+                alert('Función de Agregar cliente');
+                // Lógica para agregar cliente
+            });
+            
+            document.getElementById('actualizar').addEventListener('click', function() {
+                alert('Función de Actualizar cliente');
+                // Lógica para actualizar cliente
+            });
+            
+            document.getElementById('baja').addEventListener('click', function() {
+                alert('Función de Dar de baja cliente');
+                // Lógica para dar de baja
+            });
+
+
+            //funcionalidad para reportes
+            const generateReport = document.getElementById('generateReport');
+            const generateInvoice = document.getElementById('generateInvoice');
+            const downloadMessage = document.getElementById('downloadMessage');
+            
+            generateReport.addEventListener('click', function() {
+                downloadMessage.textContent = "✔ Reporte generado correctamente.";
+                downloadMessage.classList.add('show');
+                setTimeout(() => {
+                    downloadMessage.classList.remove('show');
+                }, 3000);
+            });
+            
+            generateInvoice.addEventListener('click', function() {
+                downloadMessage.textContent = "✔ Factura generada en formato PDF.";
+                downloadMessage.classList.add('show');
+                setTimeout(() => {
+                    downloadMessage.classList.remove('show');
+                }, 3000);
+            });
+        });
+    </script>
+</body>
+</html>
