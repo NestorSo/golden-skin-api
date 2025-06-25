@@ -1,0 +1,111 @@
+/* =============================================== */
+/* ESTILOS PÁGINA DE SERVICIOS           */
+/* =============================================== */
+
+/* Reutilizamos los estilos del banner y título que ya tenías */
+.page-banner {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1556228720-195a672e8a03?q=80&w=1887'); /* Elige una imagen inspiradora */
+    background-size: cover;
+    background-position: center;
+    padding: 80px 20px;
+    text-align: center;
+    color: #fff;
+}
+
+.banner-content h1 { font-size: 42px; font-weight: 700; margin-bottom: 10px; }
+.banner-content p { font-size: 18px; max-width: 600px; margin: 0 auto; font-weight: 300; }
+
+.page-content { max-width: 1100px; margin: 60px auto; padding: 0 20px; }
+
+.section-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    color: #D18D9A;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background-color: #D18D9A;
+}
+
+/* --- Grid para las tarjetas de servicio --- */
+.services-grid {
+    display: grid;
+    /* Crea columnas automáticas que se adaptan al espacio */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px; /* Espacio entre las tarjetas */
+}
+
+/* --- Estilo de cada tarjeta de servicio --- */
+.service-card {
+    background-color: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 8px;
+    padding: 35px 30px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-8px); /* Efecto de levantar la tarjeta */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.service-icon {
+    font-size: 50px;
+    line-height: 1;
+    color: #D18D9A; /* Color del ícono */
+    margin-bottom: 20px;
+}
+
+.service-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.service-description {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.7;
+}
+
+/* --- Llamada a la acción final --- */
+.final-cta {
+    text-align: center;
+    margin-top: 80px;
+    padding-top: 40px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.final-cta h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #D18D9A;
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #c57c8a; /* Un tono un poco más oscuro al pasar el mouse */
+}

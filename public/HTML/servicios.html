@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestros Servicios - GoldenSkin</title>
+    <link rel="stylesheet" href="/public/CSS/servicios.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded&display=swap" />
+    <link rel="stylesheet" href="../CSS/home.css ">
+    <link rel="stylesheet" href="../CSS/carrito.css">
+    <link rel="stylesheet" href="../CSS/cargaclientes.css">
+    <link rel="stylesheet" href="../CSS/alertas.css">
+    <link rel="stylesheet" href="../CSS/logout.css">
+    <link rel="stylesheet" href="../CSS/back.css">
+    <link rel="stylesheet" href="../CSS/busqueda.css">
+    <link rel="stylesheet" href="../CSS/preguntas.css">
+
+
+    <!-- Link Swiper JS CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+</head>
+
+<body>
+
+    <header class="main-header">
+        </header>
+
+         <nav class="navbar">
+        <div class="navbar-left">
+            <a class="logo" href="../HTML/home.html">GoldenSkin</a>
+
+        </div>
+
+        <div class="nav-icons">
+            <!-- 🔹 INICIO BLOQUE USUARIO -->
+            <div class="user-info" id="userInfo" style="margin-right: 20px;"></div>
+            <!-- 🔹 FIN BLOQUE USUARIO -->
+            <div class="nav-back">
+                <button onclick="goBackAndReload()" title="Volver" class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+            <!-- Ícono de usuario (login/logout) -->
+            <a id="userIconLink" href="#" class="nav-user-icon" title="Iniciar sesión o cerrar sesión">
+                <i class="fas fa-user"></i>
+            </a>
+
+            <a href="../HTML/catalogo.html"><i class="fas fa-store"></i></a>
+            
+        </div>
+    </nav>
+
+    <main>
+        <section class="page-banner">
+            <div class="banner-content">
+                <h1>Tu Experiencia GoldenSkin</h1>
+                <p>Más que productos, te ofrecemos confianza, asesoría y un servicio excepcional.</p>
+            </div>
+        </section>
+
+        <section class="page-content">
+            <h2 class="section-title">¿Qué Nos Hace Diferentes?</h2>
+
+            <div class="services-grid">
+
+                <div class="service-card">
+                    <div class="service-icon">💬</div>
+                    <h3 class="service-title">Asesoría Personalizada</h3>
+                    <p class="service-description">¿No sabes qué producto es el ideal para ti? Escríbenos por WhatsApp y nuestro equipo te ayudará a crear la rutina de skincare perfecta para tu tipo de piel y necesidades.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">✅</div>
+                    <h3 class="service-title">Garantía de Autenticidad</h3>
+                    <p class="service-description">Tu piel merece lo mejor. Garantizamos que todos nuestros productos son 100% originales, adquiridos directamente de las marcas y distribuidores oficiales. Cero imitaciones.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🚚</div>
+                    <h3 class="service-title">Envíos Rápidos y Seguros</h3>
+                    <p class="service-description">Procesamos tu orden en menos de 24 horas y la empacamos con el máximo cuidado para que llegue a tus manos en perfectas condiciones y en tiempo récord, a cualquier parte de Nicaragua.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🎁</div>
+                    <h3 class="service-title">Experiencia de Unboxing</h3>
+                    <p class="service-description">Creemos que recibir tus productos debe ser un momento de alegría. Cada pedido es preparado con detalles especiales para que desde el momento en que abres la caja, te sientas especial.</p>
+                </div>
+
+            </div>
+
+            <div class="final-cta">
+                <h3>¿Lista para empezar tu viaje con nosotros?</h3>
+                <a href="/public/HTML/catalogo.html" class="cta-button">Explorar Productos</a>
+            </div>
+
+        </section>
+    </main>
+
+    </body>
+</html>
