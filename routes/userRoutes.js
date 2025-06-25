@@ -146,7 +146,7 @@ router.get('/buscar', userController.buscarUsuarios);
  *       200:
  *         description: Lista completa
  */
-router.get('/listar', userController.listarUsuarios);
+router.get('/todos', userController.listarUsuarios);
 
 /**
  * @swagger

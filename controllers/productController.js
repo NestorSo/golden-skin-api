@@ -196,10 +196,15 @@ exports.obtenerImagenProducto = async (req, res) => {
 exports.obtenerProductoPorId = async (req, res) => {
   const { id } = req.params;
 
+  const parsedId = parseInt(id, 10);
+  if (isNaN(parsedId)) {
+    return res.status(400).json({ mensaje: '❌ El parámetro IdProducto debe ser un número válido.' });
+  }
+
   try {
     const pool = await sql.connect(config);
     const result = await pool.request()
-      .input('IdProducto', sql.Int, id)
+      .input('IdProducto', sql.Int, parsedId)
       .execute('sp_ObtenerProductoPorId');
 
     if (result.recordset.length === 0) {
@@ -212,3 +217,24 @@ exports.obtenerProductoPorId = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
+
+// 🔹 Listar productos ordenados
+exports.listarProductosOrdenados = async (req, res) => {
+  const { estado = 1, ordenarPor = 'id' } = req.query;
+
+  try {
+    const pool = await sql.connect(config);
+    const result = await pool.request()
+      .input('Estado', sql.Bit, estado)
+      .input('OrdenarPor', sql.NVarChar, ordenarPor)
+      .execute('sp_ListarProductosOrdenados');
+
+    res.json(result.recordset);
+  } catch (err) {
+    console.error('❌ Error al listar productos ordenados:', err);
+    res.status(500).send(err.message);
+  }
+};
+
+
+

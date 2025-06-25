@@ -1,151 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../CSS/AdministradorStyle.css">
-    <title>GoldenSkin - Administrador | Gestion de Usuarios</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GoldenSkin – Gestión de Usuarios</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../CSS/AdministradorStyle.css" />
 </head>
-
 <body>
-    <nav class="navbar">
-        <div class="logo">GoldenSkin</div>
-    </nav>
-
-    <div class="sidebar-horizontal">
-        <ul>
-            <li><a href="../HTML/homeAdmin.html"><i class="fas fa-home"></i> Inicio</a></li>
-            <li><a href="../HTML/GestionarProductos.html" class="active"><i class="fas fa-box"></i> Gestionar Productos</a></li>
-            <li><a href="../HTML/GestionarVentas.html"><i class="fas fa-shopping-cart"></i> Gestionar Ventas</a></li>
-            <li><a href="../HTML/GestionarUsuario.html"><i class="fas fa-users"></i> Gestionar Usuarios</a></li>
-        </ul>
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a class="logo" href="../HTML/homeAdmin.html">GoldenSkin</a>
     </div>
-    
-    <div class="main-container">
-        <header class="page-header">
-            <h1>Golden Skin - Gestión de Usuarios</h1>
-        </header>
+  </nav>
 
-        <section class="search-section">
-            <div class="search-container">
-                <input type="text" class="search-input" placeholder="Buscar usuario por nombre, teléfono o ID...">
-                <button class="search-button">
-                    <i class="fas fa-search"></i> Buscar
-                </button>
-            </div>
-        </section>
+  <div class="sidebar-horizontal">
+    <ul>
+      <li><a href="../HTML/homeAdmin.html"><i class="fas fa-home"></i> Inicio</a></li>
+      <li><a href="../HTML/GestionarProductos.html"><i class="fas fa-box"></i> Productos</a></li>
+      <li><a href="../HTML/GestionarUsuario.html" class="active"><i class="fas fa-users"></i> Usuarios</a></li>
+      <li><a href="../HTML/GestionarVentas.html"><i class="fas fa-shopping-cart"></i> Ventas</a></li>
+      <li><a href="../HTML/gestionMarcas.html"><i class="fas fa-copyright"></i> Marcas</a></li>
+      <li><a href="../HTML/gestionProveedores.html"><i class="fas fa-truck"></i> Proveedores</a></li>
+    </ul>
+  </div>
 
-        <div class="management-section">
-            <div class="form-container">
-                <h2>Gestión de Usuarios</h2>
-                <div class="form-group">
-                    <label for="nombre">Nombre Usuario</label>
-                    <input type="text" id="nombre" placeholder="Ingrese el nombre completo">
-                </div>
-                
-                <div class="form-group">
-                    <label for="apellido">Apellido Usuario</label>
-                    <input type="text" id="apellido" placeholder="Ingrese el apellido completo">
-                </div>
+  <div class="main-container">
+    <header class="page-header">
+      <h1>Gestión de Usuarios</h1>
+    </header>
 
-                <div class="form-group">
-                    <label for="telefono">Teléfono</label>
-                    <input type="tel" id="telefono" placeholder="Ingrese el número de teléfono">
-                </div>
-                
-                <div class="form-group">
-                    <label for="direccion">Dirección</label>
-                    <input type="text" id="direccion" placeholder="Ingrese la dirección completa">
-                </div>
-                <div class="form-group">
-                    <label for="cargo">Cargo</label>
-                    <input type="text" id="cargo" placeholder="Ingrese el cargo del empleado">
-                </div>
-                <div class="form-group">
-                    <label for="estado-login">Estado de Login</label>
-                    <input type="text" id="estado-login" placeholder="Logout">
-                </div>
+    <section class="search-section">
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="Buscar usuario por nombre, correo o ID..." />
+        <button class="search-button"><i class="fas fa-search"></i> Buscar</button>
+      </div>
+    </section>
 
-                <div class="button-group">
-                    <button class="action-button btn-add" id="agregar">
-                        <i class="fas fa-plus"></i> Agregar
-                    </button>
-                    <button class="action-button btn-update" id="actualizar">
-                        <i class="fas fa-sync-alt"></i> Actualizar
-                    </button>
-                    <button class="action-button btn-delete" id="baja">
-                        <i class="fas fa-user-minus"></i> Dar Baja
-                    </button>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table class="client-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre Completo</th>
-                            <th>Apellido Completo</th>
-                            <th>Teléfono</th>
-                            <th>Dirección</th>
-                            <th>Cargo</th>
-                            <th>Estado de Login</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>001</td>
-                            <td>María González</td>
-                            <td>González</td>
-                            <td>555-123-4567</td>
-                            <td>Calle Principal 123</td>
-                            <td>Gerente</td>
-                            <td>Logout</td>
-                        </tr>
-                        <tr>
-                            <td>002</td>
-                            <td>Juan Pérez</td>
-                            <td>Pérez</td>
-                            <td>555-987-6543</td>
-                            <td>Avenida Central 456</td>
-                            <td>Vendedor</td>
-                            <td>Login</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-             <!-- NUEVOS BOTONES DE REPORTES -->
-                <div class="report-buttons">
-                    <button id="generateReport" class="report-button">
-                        <i class="fas fa-file-alt"></i> Generar Reporte
-                    </button>
-                    <button id="generateInvoice" class="report-button">
-                        <i class="fas fa-receipt"></i> Generar Factura
-                    </button>
-                </div>
-                <div id="downloadMessage" class="download-message"></div>
-        </div>
+    <div class="management-section">
+      <div class="form-container">
+        <h2>Formulario de Usuario</h2>
+        <form id="formUsuario">
+          <div class="form-group">
+            <label for="Nombre">Nombre</label>
+            <input id="Nombre" name="Nombre" type="text" required /> 
+          </div>
+          <div class="form-group">
+            <label for="Email">Correo</label>
+            <input id="Email" name="Email" type="email" required />
+          </div>
+          <div class="form-group">
+            <label for="RolId">Rol</label>
+            <select id="RolId" name="RolId" required></select>
+          </div>
+    <!-- Filtros -->
+    <div class="form-group" style="margin-top: 20px;">
+      <label for="verInactivos">Mostrar Usuarios inactivos</label>
+      <input type="checkbox" id="verInactivos">
     </div>
+          <input type="hidden" id="UsuarioId" name="UsuarioId" />
+          <div class="button-group">
+            <button type="button" id="insertarUsuario" class="action-button btn-insert">
+              <i class="fas fa-user-plus"></i> Crear Usuario
+            </button>
+            <button type="button" id="actualizarUsuario" class="action-button btn-update">
+              <i class="fas fa-sync-alt"></i> Actualizar Usuario
+            </button>
+            <button type="button" id="eliminarUsuario" class="action-button btn-delete">
+              <i class="fas fa-user-minus"></i> Desactivar Usuario
+            </button>
+            <button type="button" id="limpiarUsuario" class="action-button btn-clear">
+              <i class="fas fa-broom"></i> Limpiar
+            </button>
+          </div>
+        </form>
+      </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Aquí puedes agregar la funcionalidad JavaScript
-            document.getElementById('agregar').addEventListener('click', function() {
-                alert('Función de Agregar cliente');
-                // Lógica para agregar cliente
-            });
-            
-            document.getElementById('actualizar').addEventListener('click', function() {
-                alert('Función de Actualizar cliente');
-                // Lógica para actualizar cliente
-            });
-            
-            document.getElementById('baja').addEventListener('click', function() {
-                alert('Función de Dar de baja cliente');
-                // Lógica para dar de baja
-            });
-        });
-    </script>
+      <div class="table-container">
+        <table class="client-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Rol</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="tablaUsuariosBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/gestionarUsuario.js"></script>
 </body>
 </html>

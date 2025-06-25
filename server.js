@@ -28,7 +28,7 @@ const proveedorRoutes = require('./routes/proveedorRoutes');
 
 app.use('/api/productos', productRoutes);
 app.use('/api/pedidos', pedidoRoutes);
-app.use('/api', userRoutes);
+app.use('/api/usuarios', userRoutes);
 app.use('/api/compras', compraRoutes);
 app.use('/api/ventas', ventaRoutes);
 app.use('/api/roles', rolRoutes);
@@ -46,7 +46,7 @@ console.log('📖 Swagger UI configurado en /api-docs');
 
 // 🔹 Ruta raíz
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'HTML', 'home.html'));
+  res.sendFile(path.join(__dirname, 'public', 'HTML', 'homeAdmin.html'));
 });
 
 // 🔹 Página de éxito

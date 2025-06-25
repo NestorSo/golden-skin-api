@@ -10,15 +10,19 @@
 
 <body>
     <nav class="navbar">
-        <div class="logo">GoldenSkin</div>
-    </nav>
+  <div class="navbar-left">
+            <a class="logo" href="../HTML/homeAdmin.html">GoldenSkin</a>
+            
+        </div>      </nav>
 
     <div class="sidebar-horizontal">
         <ul>
-            <li><a href="../HTML/homeAdmin.html"><i class="fas fa-home"></i> Inicio</a></li>
-            <li><a href="../HTML/GestionarProductos.html" class="active"><i class="fas fa-box"></i> Gestionar Productos</a></li>
-            <li><a href="../HTML/GestionarVentas.html"><i class="fas fa-shopping-cart"></i> Gestionar Ventas</a></li>
-            <li><a href="../HTML/GestionarUsuario.html"><i class="fas fa-users"></i> Gestionar Usuarios</a></li>
+           <li><a href="../HTML/homeAdmin.html" class="active"><i class="fas fa-home"></i> Inicio</a></li>
+      <li><a href="../HTML/GestionarProductos.html"><i class="fas fa-box"></i> Productos</a></li>
+      <li><a href="../HTML/GestionarVentas.html"><i class="fas fa-shopping-cart"></i> Ventas</a></li>
+      <li><a href="../HTML/GestionarUsuario.html"><i class="fas fa-users"></i> Usuarios</a></li>
+      <li><a href="../HTML/gestionMarcas.html"><i class="fas fa-copyright"></i> Marcas</a></li>
+      <li><a href="../HTML/gestionProveedores.html"><i class="fas fa-truck"></i> Proveedores</a></li>
         </ul>
     </div>
 
@@ -36,135 +40,134 @@
             </div>
         </section>
 
-        <div class="management-section">
-            <div class="form-container">
-                <h2>Gestión de Productos</h2>
-                <div class="form-group">
-                    <label for="nombre">Nombre Producto</label>
-                    <input type="text" id="nombre" placeholder="Ingrese el nombre del producto">
-                </div>
-                
-                <div class="form-group">
-                    <label for="direccion">Marca</label>
-                    <input type="text" id="marca" placeholder="Ingrese la dirección completa">
-                </div>
-                <div class="form-group">
-                    <label for="descripcion">Descripcion</label>
-                    <input type="text" id="descripcion" placeholder="Ingrese la descripcion del producto">
-                </div>
-                 <div class="form-group">
-                    <label for="precio">Precio</label>
-                    <input type="number" id="precio" placeholder="Ingrese el precio del producto">
-                </div>
-                 <div class="form-group">
-                    <label for="cantidad">Cantidad</label>
-                    <input type="number" id="cantidad" placeholder="Ingrese la cantidad del producto">
-                </div>
+     <!-- ... encabezado y navbar igual ... -->
 
-                <div class="form-group">
-                    <label for="fecha-caducidad">Fecha de Caducidad</label>
-                    <input type="date" id="fecha-caducidad">
-                </div>
+<div class="management-section">
+<div class="form-container">
+  <h2>Gestión de Productos</h2>
 
-                
-                <!-- BOTONES -->
-                <div class="button-group">
-                    <button class="action-button btn-add" id="agregar">
-                        <i class="fas fa-plus"></i> Agregar
-                    </button>
-                    <button class="action-button btn-update" id="actualizar">
-                        <i class="fas fa-sync-alt"></i> Actualizar
-                    </button>
-                    <button class="action-button btn-delete" id="baja">
-                        <i class="fas fa-user-minus"></i> Dar Baja
-                    </button>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table class="client-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre Producto</th>
-                            <th>Marca</th>
-                            <th>Fecha de Fabricación</th>
-                            <th>Fecha de Caducidad</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>001</td>
-                            <td>Limpiador en Gel</td>
-                            <td>Marca A</td>
-                            <td>2022-01-01</td>
-                            <td>2023-01-01</td>
-                        </tr>
-                        <tr>
-                            <td>002</td>
-                            <td>Limpiador Cremoso</td>
-                            <td>Marca B</td>
-                            <td>2022-02-01</td>
-                            <td>2023-02-01</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-             <!-- NUEVOS BOTONES DE REPORTES -->
-                <div class="report-buttons">
-                    <button id="generateReport" class="report-button">
-                        <i class="fas fa-file-alt"></i> Generar Reporte
-                    </button>
-                    <button id="generateInvoice" class="report-button">
-                        <i class="fas fa-receipt"></i> Generar Factura
-                    </button>
-                </div>
-                <div id="downloadMessage" class="download-message"></div>
-        </div>
+  <form id="formProducto" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="nombre">Nombre Producto</label>
+      <input type="text" id="nombre" name="NombreProducto" placeholder="Ingrese el nombre del producto" required>
     </div>
 
-    <div class="btn-Reportes"></div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Aquí puedes agregar la funcionalidad JavaScript
-            document.getElementById('agregar').addEventListener('click', function() {
-                alert('Función de Agregar cliente');
-                // Lógica para agregar cliente
-            });
-            
-            document.getElementById('actualizar').addEventListener('click', function() {
-                alert('Función de Actualizar cliente');
-                // Lógica para actualizar cliente
-            });
-            
-            document.getElementById('baja').addEventListener('click', function() {
-                alert('Función de Dar de baja cliente');
-                // Lógica para dar de baja
-            });
+    <div class="form-group">
+      <label for="marca">Marca</label>
+      <input type="text" id="marca" name="Marca" placeholder="Ingrese la marca del producto" required>
+    </div>
+
+    <div class="form-group">
+      <label for="descripcion">Descripción</label>
+      <input type="text" id="descripcion" name="Descripcion" placeholder="Ingrese la descripción del producto">
+    </div>
+
+    <div class="form-group">
+      <label for="precio">Precio</label>
+      <input type="number" id="precio" name="Precio" placeholder="Ingrese el precio" required>
+    </div>
+
+    <div class="form-group">
+      <label for="cantidad">Cantidad</label>
+      <input type="number" id="cantidad" name="Cantidad" placeholder="Ingrese la cantidad" required>
+    </div>
+
+    <div class="form-group">
+      <label for="fecha-fabricacion">Fecha de Fabricación</label>
+      <input type="date" id="fecha-fabricacion" name="FechaFabricacion">
+    </div>
+
+    <div class="form-group">
+      <label for="fecha-caducidad">Fecha de Caducidad</label>
+      <input type="date" id="fecha-caducidad" name="FechaVencimiento">
+    </div>
+
+    <div class="form-group custom-file-input">
+      <label for="imagen" id="imagenLabel">📷 Subir imagen</label>
+      <input type="file" id="imagen" name="Imagen" accept="image/*">
+      <span id="nombreArchivo">Ningún archivo seleccionado</span>
+    </div>
+
+    <input type="hidden" id="categoria" name="Categoria">
+    <input type="hidden" id="idmarca" name="IdMarca">
+
+    <!-- Agrupación de botones -->
+    <div class="button-group">
+      <button class="action-button btn-add" id="insertarProducto">
+        <i class="fas fa-upload"></i> Insertar Producto
+      </button>
+      <button class="action-button btn-add" id="agregarInventario">
+        <i class="fas fa-plus"></i> Agregar Inventario
+      </button>
+      <button class="action-button btn-add" id="actualizar">
+        <i class="fas fa-edit"></i> Actualizar Producto
+      </button>
+      <button class="action-button btn-add" id="baja">
+        <i class="fas fa-times"></i> Dar de Baja
+      </button>
+      <button class="action-button btn-add" id="limpiar">
+        <i class="fas fa-broom"></i> Limpiar
+      </button>
+    </div>
+
+    <!-- Filtros -->
+    <div class="form-group" style="margin-top: 20px;">
+      <label for="verInactivos">Mostrar productos inactivos</label>
+      <input type="checkbox" id="verInactivos">
+    </div>
+
+    <div class="form-group">
+      <label for="ordenarPor">Ordenar por:</label>
+      <select id="ordenarPor">
+        <option value="id">ID</option>
+        <option value="nombre">Nombre</option>
+        <option value="marca">Marca</option>
+        <option value="cantidad">Cantidad</option>
+        <option value="masvendido">Más Vendidos</option>
+      </select>
+    </div>
+  </form>
+</div>
 
 
-            //funcionalidad para reportes
-            const generateReport = document.getElementById('generateReport');
-            const generateInvoice = document.getElementById('generateInvoice');
-            const downloadMessage = document.getElementById('downloadMessage');
-            
-            generateReport.addEventListener('click', function() {
-                downloadMessage.textContent = "✔ Reporte generado correctamente.";
-                downloadMessage.classList.add('show');
-                setTimeout(() => {
-                    downloadMessage.classList.remove('show');
-                }, 3000);
-            });
-            
-            generateInvoice.addEventListener('click', function() {
-                downloadMessage.textContent = "✔ Factura generada en formato PDF.";
-                downloadMessage.classList.add('show');
-                setTimeout(() => {
-                    downloadMessage.classList.remove('show');
-                }, 3000);
-            });
-        });
-    </script>
+  <!-- TABLA DE PRODUCTOS -->
+  <div class="table-container">
+    <table class="client-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre Producto</th>
+          <th>Marca</th>
+          <th>Categoría</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Fecha de Fabricación</th>
+          <th>Fecha de Caducidad</th>
+          <th>Cantidad</th>
+          <th>Vendidos</th>
+        </tr>
+      </thead>
+      <tbody id="tablaProductosBody">
+        <!-- Contenido dinámico -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- REPORTES -->
+  <div class="report-buttons">
+    <button id="generateReport" class="report-button">
+      <i class="fas fa-file-alt"></i> Generar Reporte
+    </button>
+    <button id="generateInvoice" class="report-button">
+      <i class="fas fa-receipt"></i> Generar Factura
+    </button>
+  </div>
+
+  <div id="downloadMessage" class="download-message"></div>
+</div>
+
+<!-- SCRIPT -->
+<script src="../js/gestionarProductos.js"></script>
+
 </body>
 </html>

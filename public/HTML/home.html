@@ -262,6 +262,34 @@
     <script src="../js/cargaclientes.js"></script>
     <script src="../js/back.js"></script>>
     <script src="../js/busqueda.js"></script>>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+    if (usuario) {
+      const rol = usuario.NombreRol?.toLowerCase();
+
+      if (rol === 'vendedor') {
+        // Oculta todo lo que no le corresponde
+        document.getElementById('btnProductos')?.style.display = 'none';
+        document.getElementById('btnUsuarios')?.style.display = 'none';
+        document.getElementById('btnReporteProductos')?.style.display = 'none';
+      } else if (rol === 'bodeguero') {
+        // Solo ve productos
+        document.getElementById('btnVentas')?.style.display = 'none';
+        document.getElementById('btnUsuarios')?.style.display = 'none';
+        document.getElementById('btnReporteVentas')?.style.display = 'none';
+        document.getElementById('btnFacturaVentas')?.style.display = 'none';
+      }
+
+      // Mostrar nombre
+      const welcomeText = document.getElementById('welcomeText');
+      if (welcomeText) {
+        welcomeText.innerHTML = `👋 Bienvenido, ${usuario.Nombre} (${usuario.NombreRol})`;
+      }
+    }
+  });
+</script>
 
 
     

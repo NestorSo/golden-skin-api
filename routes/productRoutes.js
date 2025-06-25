@@ -221,7 +221,7 @@ router.get('/imagen/:id', productController.obtenerImagenProducto);
  *       404:
  *         description: Producto no encontrado
  */
-router.get('/:id', productController.obtenerProductoPorId);
+router.get('/obtener/:id', productController.obtenerProductoPorId);
 
 
 /**
@@ -240,5 +240,58 @@ router.get('/:id', productController.obtenerProductoPorId);
  *         description: Productos filtrados por categoría
  */
 router.get('/categoria', productController.filtrarPorCategoria);
+/**
+ * @swagger
+ * /api/productos/ordenados:
+ *   get:
+ *     summary: Listar productos ordenados por criterio
+ *     tags: [Productos]
+ *     parameters:
+ *       - in: query
+ *         name: estado
+ *         schema:
+ *           type: integer
+ *         description: Estado del producto (1=Activo, 0=Inactivo)
+ *       - in: query
+ *         name: ordenarPor
+ *         schema:
+ *           type: string
+ *           enum: [id, nombre, marca, fecha, cantidad, masvendido]
+ *         description: Campo por el cual se ordenarán los productos
+ *     responses:
+ *       200:
+ *         description: Lista de productos ordenada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   IdProducto:
+ *                     type: integer
+ *                   NombreProducto:
+ *                     type: string
+ *                   Marca:
+ *                     type: string
+ *                   Descripcion:
+ *                     type: string
+ *                   Precio:
+ *                     type: number
+ *                   Cantidad:
+ *                     type: integer
+ *                   FechaFabricacion:
+ *                     type: string
+ *                   FechaVencimiento:
+ *                     type: string
+ *                   EstadoProducto:
+ *                     type: integer
+ *                   CantidadVendida:
+ *                     type: integer
+ *       500:
+ *         description: Error en el servidor
+ */
+router.get('/todos', productController.listarProductosOrdenados);
+
 
 module.exports = router;

@@ -805,3 +805,57 @@ BEGIN
   FROM Usuarios
   WHERE EstadoLogin = 1;
 END
+
+
+ALTER PROCEDURE sp_ListarProductosOrdenados
+  @Estado BIT = 1,
+  @OrdenarPor NVARCHAR(50) = 'IdProducto'
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  DECLARE @SQL NVARCHAR(MAX);
+  DECLARE @OrdenCol NVARCHAR(100);
+
+  -- Validar columnas y asignar orden correcto
+  SET @OrdenCol = 
+    CASE LOWER(@OrdenarPor)
+      WHEN 'id' THEN 'p.IdProducto ASC'
+      WHEN 'nombre' THEN 'p.NombreProducto ASC'
+      WHEN 'marca' THEN 'm.NombreMarca ASC'
+      WHEN 'fecha' THEN 'p.FechaFabricacion ASC'
+      WHEN 'cantidad' THEN 'p.Cantidad DESc'
+      WHEN 'masvendido' THEN 'CantidadVendida DESC'
+      ELSE 'p.IdProducto ASC'
+    END;
+
+  -- SQL Dinámico con JOIN a Marcas
+  SET @SQL = '
+    SELECT 
+      p.IdProducto,
+      p.NombreProducto,
+      m.NombreMarca AS Marca,
+      p.Descripcion,
+      p.Precio,
+      p.Cantidad,
+      p.FechaFabricacion,
+      p.FechaVencimiento,
+      p.EstadoProducto,
+      ISNULL(SUM(dv.CantidadVendida), 0) AS CantidadVendida
+    FROM Productos p
+    LEFT JOIN DetalleVenta dv ON dv.IdProducto = p.IdProducto
+    LEFT JOIN Marcas m ON m.IdMarca = p.IdMarca
+    WHERE p.EstadoProducto = @Estado
+    GROUP BY 
+      p.IdProducto, p.NombreProducto, m.NombreMarca, p.Descripcion, p.Precio,
+      p.Cantidad, p.FechaFabricacion, p.FechaVencimiento, p.EstadoProducto
+    ORDER BY ' + @OrdenCol;
+
+  EXEC sp_executesql @SQL, N'@Estado BIT', @Estado;
+END;
+
+
+
+EXEC sp_ListarProductosOrdenados @Estado = 1, @OrdenarPor = 'nombre';
+EXEC sp_ListarProductosOrdenados @Estado = 0, @OrdenarPor = 'masvendido';
+EXEC sp_ListarProductosOrdenados @OrdenarPor = 'cantidad';

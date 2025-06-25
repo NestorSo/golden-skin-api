@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../CSS/AdministradorStyle.css">
+    <title>GoldenSkin | Administrador - Gestion de Proveedores</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">GoldenSkin</div>
+    </nav>
+
+    <div class="sidebar-horizontal">
+        <ul>
+            <li><a href="Home.html"><i class="fas fa-home"></i> Inicio</a></li>
+            <li><a href="../HTML/gestionarProducto.html" class="active"><i class="fas fa-box"></i> Gestionar Productos</a></li>
+            <li><a href="../HTML/GestionEmpleados.html"><i class="fas fa-user"></i> Gestionar Empleados</a></li>
+            <li><a href="../HTML/GestionClientes.html"><i class="fas fa-users"></i> Gestionar Clientes</a></li>
+            <li><a href="../HTML/GestionMarcas.html"><i class="fas fa-tags"></i> Gestionar Marcas</a></li>
+            <li><a href="../HTML/GestionProveedores.html"><i class="fas fa-truck"></i> Gestionar Proveedores</a></li>
+        </ul>
+    </div>
+
+    <div class="main-container">
+        <header class="page-header">
+            <h1>Golden Skin - Gestión de Proveedores</h1>
+        </header>
+
+        <section class="search-section">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Buscar proveedor por nombre, teléfono o ID...">
+                <button class="search-button">
+                    <i class="fas fa-search"></i> Buscar
+                </button>
+            </div>
+        </section>
+
+        <div class="management-section">
+            <div class="form-container">
+                <h2>Gestión de Proveedores</h2>
+                <div class="form-group">
+                    <label for="nombre">Nombre Proveedor</label>
+                    <input type="text" id="nombre" placeholder="Ingrese el nombre completo">
+                </div>
+                
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" placeholder="Ingrese el número de teléfono">
+                </div>
+                
+                <div class="form-group">
+                    <label for="direccion">Dirección</label>
+                    <input type="text" id="direccion" placeholder="Ingrese la dirección completa">
+                </div>
+
+                <div class="form-group">
+                    <label for="correo">Correo</label>
+                    <input type="email" id="correo" placeholder="Ingrese el correo electrónico">
+                </div>
+                
+                <div class="button-group">
+                    <button class="action-button btn-add" id="agregar">
+                        <i class="fas fa-plus"></i> Agregar
+                    </button>
+                    <button class="action-button btn-update" id="actualizar">
+                        <i class="fas fa-sync-alt"></i> Actualizar
+                    </button>
+                    <button class="action-button btn-delete" id="baja">
+                        <i class="fas fa-user-minus"></i> Dar Baja
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="client-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre Completo</th>
+                            <th>Teléfono</th>
+                            <th>Dirección</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>001</td>
+                            <td>María González</td>
+                            <td>555-123-4567</td>
+                            <td>Calle Principal 123</td>
+                            <td>prdu@nivea.com</td>
+                        </tr>
+                        <tr>
+                            <td>002</td>
+                            <td>Juan Pérez</td>
+                            <td>555-987-6543</td>
+                            <td>Avenida Central 456</td>
+                            <td>ventas@eucerin.com</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Aquí puedes agregar la funcionalidad JavaScript
+            document.getElementById('agregar').addEventListener('click', function() {
+                alert('Función de Agregar cliente');
+                // Lógica para agregar cliente
+            });
+            
+            document.getElementById('actualizar').addEventListener('click', function() {
+                alert('Función de Actualizar cliente');
+                // Lógica para actualizar cliente
+            });
+            
+            document.getElementById('baja').addEventListener('click', function() {
+                alert('Función de Dar de baja cliente');
+                // Lógica para dar de baja
+            });
+        });
+    </script>
+</body>
+</html>

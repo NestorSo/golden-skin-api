@@ -419,3 +419,145 @@
       border-radius: 50%;
       margin: 15px 0;
     }
+
+    
+a.logo{
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  padding: 5px 5px;
+}
+
+.oculto {
+  display: none !important;
+}
+
+/* Estilo general */
+#ordenarPor {
+  padding: 8px 12px;
+  border: 2px solid #c0c0c0;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover para mostrar más claramente que es interactivo */
+#ordenarPor:hover {
+  border-color: #c69c6d; /* Un dorado suave */
+  background-color: #fffbe6;
+  box-shadow: 0 0 8px rgba(198, 156, 109, 0.4);
+}
+
+/* Estilo de las opciones desplegadas */
+#ordenarPor:focus {
+  outline: none;
+  border-color: #c69c6d;
+  background-color: #fff;
+}
+.table-container {
+  max-height: 800px; /* Puedes ajustar este valor */
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+.management-section {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* más espacio para la tabla */
+  gap: 30px;
+}
+
+.hidden {
+  display: none;
+}
+
+#formProducto {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-top: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+#toggleForm {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #CF818E;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#toggleForm:hover {
+  background-color: #0056b3;
+}
+
+.custom-file-input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 1rem 0;
+}
+
+.custom-file-input input[type="file"] {
+  display: none;
+}
+
+.custom-file-input label {
+  background-color: #CF818E;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  width: fit-content;
+  transition: background-color 0.3s;
+}
+
+.custom-file-input label:hover {
+  background-color: #CF818E;
+}
+
+#nombreArchivo {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+
+.management-section {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* menos espacio al form, más a la tabla */
+  gap: 30px;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.action-button {
+  flex: 1 1 45%; /* que todos se vean iguales en tamaño adaptable */
+  padding: 10px;
+  background-color: #CF818E;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.action-button:hover {
+  background-color: #915A63;
+}
+

@@ -895,3 +895,40 @@ nav li a:hover {
     color: #f7f8f9;
     cursor: pointer;
 }
+
+/* 
+/*animacion transicion*/
+/* quiero crear una animacion con el transition view entre las paginas, como lo hago, deberia poderse con ese codigo qu tengo pero no hace nada*/
+/* 
+@view-transition{
+  navigation:auto;
+}
+::view-transition-group{
+  animation-duration: 3s;
+}
+::view-transition-old(root){
+animation: slide-out-to-left 3s forwards;
+}
+
+
+@keyframes slide-out-to-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+::view-transition-new(root){
+  animation: slide-in-from-right 3s forwards;
+}
+
+@keyframes slide-out-to-right {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+  
+} */ 

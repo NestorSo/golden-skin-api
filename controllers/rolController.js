@@ -52,11 +52,13 @@ exports.cambiarEstadoRol = async (req, res) => {
 };
 
 exports.listarRoles = async (req, res) => {
-  const { estado } = req.query;
+  const { estado } = req.params;
+  const estadoParam = estado === 'true' || estado === '1' ? 1 : 0;
+
   try {
     const pool = await sql.connect(config);
     const result = await pool.request()
-      .input('Estado', sql.Bit, estado)
+      .input('Estado', sql.Bit, estadoParam)
       .execute('sp_ListarRoles');
 
     res.json(result.recordset);
@@ -65,6 +67,7 @@ exports.listarRoles = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 exports.verPrivilegiosPorRol = async (req, res) => {
   const { id } = req.params;
