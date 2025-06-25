@@ -1,6 +1,5 @@
 // controllers/pedidoController.js
 const { sql, config } = require('../config/db');
-
 exports.crearPedido = async (req, res) => {
   const { clienteId, productos, nombre, direccion, telefono, metodoPago } = req.body;
 
@@ -17,20 +16,33 @@ exports.crearPedido = async (req, res) => {
   try {
     const pool = await sql.connect(config);
 
-    for (const producto of productos) {
-      const { id, cantidad } = producto;
-      await pool.request()
-        .input('IdCliente', sql.Int, clienteId)
-        .input('IdProducto', sql.Int, id)
-        .input('Cantidad', sql.Int, cantidad)
-        .input('Descripcion', sql.VarChar(100), descripcion)
-        .execute('GestionarPedidoGoldenSkin');
+    // 1. Insertar el pedido y obtener el ID
+    const result = await pool.request()
+      .input('IdCliente', sql.Int, clienteId)
+      .input('Descripcion', sql.VarChar(100), descripcion)
+      .output('IdPedido', sql.Int)
+      .execute('GestionarPedidoGoldenSkin');
+
+    const idPedido = result.output.IdPedido;
+
+    if (!idPedido || idPedido === 0) {
+      return res.status(500).json({ mensaje: '❌ No se pudo registrar el pedido.' });
     }
 
-    return res.status(201).json({ mensaje: '✅ Pedido registrado correctamente' });
+    // 2. Insertar cada producto en el detalle
+    for (const { id, cantidad } of productos) {
+      await pool.request()
+        .input('IdPedido', sql.Int, idPedido)
+        .input('IdProducto', sql.Int, id)
+        .input('Cantidad', sql.Int, cantidad)
+        .execute('NuevoDetallePedido');
+    }
+
+    res.status(201).json({ mensaje: '✅ Pedido registrado correctamente', id: idPedido });
   } catch (err) {
     console.error('❌ Error al registrar pedido:', err);
-    return res.status(500).json({ mensaje: '❌ Error en el servidor' });
+    res.status(500).json({ mensaje: '❌ Error en el servidor' });
   }
 };
+
 

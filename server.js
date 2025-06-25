@@ -14,10 +14,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 console.log('📦 Middleware y archivos estáticos configurados.');
 
-// Swagger setup
-const { swaggerUi, specs } = require('./swagger');
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
-console.log('📖 Swagger UI configurado en /api-docs');
 
 // 🔹 Rutas
 const userRoutes = require('./routes/userRoutes');
@@ -41,6 +37,12 @@ app.use('/api/proveedores', proveedorRoutes);
 
 
 console.log('🔗 Rutas cargadas correctamente.');
+
+// Swagger setup
+const { swaggerUi, specs } = require('./swagger');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+console.log('📖 Swagger UI configurado en /api-docs');
+
 
 // 🔹 Ruta raíz
 app.get('/', (req, res) => {
@@ -69,9 +71,12 @@ app.get('/error', (req, res) => {
   `);
 });
 
+
+
 // 🔹 Iniciar servidor
 const server = app.listen(PORT, () => {
   console.log(`✅ Servidor corriendo en http://localhost:${PORT}`);
+  console.log('🌐 Accede a la documentación de la API en http://localhost:3000/api-docs');
 });
 
 // 🔹 Cierre limpio

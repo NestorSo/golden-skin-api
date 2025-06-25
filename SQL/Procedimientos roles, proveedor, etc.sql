@@ -1,7 +1,8 @@
 ﻿
 use goldenskin
 
-
+sp_CrearRolConPrivilegios 'Cajero','Gestionar Ventas y Compras'
+select * from roles
 CREATE PROCEDURE sp_CrearRolConPrivilegios
     @NombreRol VARCHAR(50),
     @Privilegios NVARCHAR(MAX) -- Ej: 'Registrar usuarios;Ver reportes;Eliminar productos'
@@ -76,7 +77,7 @@ BEGIN
 END
 
 
-
+sp_CambiarEstadoRol 1,1
 CREATE PROCEDURE sp_CambiarEstadoRol
     @IdRol INT,
     @Estado BIT
@@ -117,9 +118,9 @@ BEGIN
     PRINT '✅ Privilegios eliminados para el rol.';
 END
 
-
+select * from marcas
 --- marca
-
+sp_CrearMarca 'Tresemé','Cuidado para el cabello','Shakira'
 CREATE PROCEDURE sp_CrearMarca
     @Nombre VARCHAR(100),
     @Descripcion VARCHAR(400),
@@ -155,7 +156,7 @@ BEGIN
     PRINT '✅ Marca actualizada.';
 END
 
-
+sp_CambiarEstadoMarca 11,0
 CREATE PROCEDURE sp_CambiarEstadoMarca
     @IdMarca INT,
     @Estado BIT
@@ -177,7 +178,7 @@ BEGIN
        OR Fabricante LIKE '%' + @Texto + '%';
 END
 
-
+sp_CrearProveedor 'Bimbo','Managua,carretera Norte','87675651','bimbo@gmail.com'
 -- proveedores
 CREATE PROCEDURE sp_CrearProveedor
     @Nombre VARCHAR(100),
@@ -221,7 +222,7 @@ BEGIN
     WHERE IdProveedor = @IdProveedor;
 END
 
-
+sp_BuscarProveedor 'bimbo'
 CREATE PROCEDURE sp_BuscarProveedor
     @Texto VARCHAR(100)
 AS

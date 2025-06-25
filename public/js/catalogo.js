@@ -123,7 +123,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const textoBusqueda = (params.get('busqueda') || '').toLowerCase();
 
   try {
-    const res = await fetch('/api/productos/todos');
+    const res = await fetch('/api/productos/todos?estado=1');
+
     productosCargados = await res.json();
 
     let productosMostrados = productosCargados;

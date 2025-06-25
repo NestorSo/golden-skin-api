@@ -124,7 +124,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try {
     // Cargar producto desde backend
-    const res = await fetch(`/api/productos/${id}`);
+const res = await fetch(`/api/productos/${id}`);
+
+
     if (!res.ok) throw new Error('No se pudo obtener el producto');
     const producto = await res.json();
 

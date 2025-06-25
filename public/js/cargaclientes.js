@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const usuario = JSON.parse(localStorage.getItem('usuario'));
 
   if (usuario) {
-    userInfo.innerHTML = `<span>👤 Bienvenido, <strong>${usuario.nombre}</strong></span>`;
+    userInfo.innerHTML = `<span>👤 Bienvenido, <strong>${usuario.Nombre}</strong></span>`;
   } else {
     userInfo.innerHTML = `<span>🔒 No has iniciado sesión</span>`;
   }

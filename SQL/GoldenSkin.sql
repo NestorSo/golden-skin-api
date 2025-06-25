@@ -170,10 +170,15 @@ SELECT * FROM GoldenSkin.dbo.usuarios;
 select * from roles
 select * from privilegios
 SELECT * FROM usuarios
+SELECT * FROM empleados
+
 SELECT * FROM Clientes
 SELECT * FROM Productos where Categoria='Bloqueadores solares'
 SELECT * FROM Pedidos
+SELECT * FROM DetallePedido
 SELECT * FROM Productos
+SELECT * FROM ventas
+SELECT * FROM detalleventa
 
 
 use goldenskin

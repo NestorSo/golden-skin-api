@@ -1,23 +1,3 @@
-// const express = require('express');
-// const router = express.Router();
-// const compraController = require('../controllers/compraController');
-
-// // 🔹 Registrar una compra
-// router.post('/', compraController.registrarCompra);
-
-// // 🔹 Obtener todas las compras
-// router.get('/', compraController.listarCompras);
-
-// // 🔹 Obtener compras por proveedor
-// router.get('/proveedor/:idProveedor', compraController.listarComprasPorProveedor);
-
-// // 🔹 Obtener compras entre fechas
-// router.get('/entre-fechas', compraController.listarComprasEntreFechas);
-
-// // 🔹 Ver detalle de una compra específica
-// router.get('/detalle/:idCompra', compraController.verDetalleCompra);
-
-// module.exports = router;
 const express = require('express');
 const router = express.Router();
 const compraController = require('../controllers/compraController');

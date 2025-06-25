@@ -2,6 +2,43 @@ const { sql, config } = require('../config/db');
 
 // 🔹 Registrar una compra
 exports.registrarCompra = async (req, res) => {
+  const { proveedorId, empleadoId, productos } = req.body;
+
+  if (!proveedorId || !empleadoId || !productos || productos.length === 0) {
+    return res.status(400).json({ mensaje: '❌ Faltan datos para procesar la compra' });
+  }
+
+  try {
+    const pool = await sql.connect(config);
+
+    // 1. Crear la compra
+    await pool.request()
+      .input('IdProveedor', sql.Int, proveedorId)
+      .input('IdEmpleado', sql.Int, empleadoId)
+      .execute('GestionarCompraMultiple');
+
+    // 2. Obtener el ID de compra recién generado
+    const compraIdResult = await pool.request().query('SELECT MAX(IdCompra) AS IdCompra FROM Compras');
+    const idCompra = compraIdResult.recordset[0].IdCompra;
+
+    // 3. Insertar detalle
+    for (const { id, cantidad, precioUnitario } of productos) {
+      await pool.request()
+        .input('IdCompra', sql.Int, idCompra)
+        .input('IdProducto', sql.Int, id)
+        .input('Cantidad', sql.Int, cantidad)
+        .input('PrecioUnitario', sql.Decimal(10, 2), precioUnitario)
+        .execute('NuevoDetalleCompra');
+    }
+
+    res.status(201).json({ mensaje: '✅ Compra registrada correctamente', id: idCompra });
+  } catch (err) {
+    console.error('❌ Error al registrar compra:', err);
+    res.status(500).json({ mensaje: '❌ Error interno del servidor' });
+  }
+};
+
+exports.Compra = async (req, res) => {
   const { idProveedor, idEmpleado, idProducto, cantidad, precioUnitario } = req.body;
 
   if (!idProveedor || !idEmpleado || !idProducto || !cantidad || !precioUnitario) {

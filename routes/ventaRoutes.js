@@ -1,28 +1,3 @@
-// const express = require('express');
-// const router = express.Router();
-// const ventaController = require('../controllers/ventaController');
-
-// // 🔹 Registrar una venta
-// router.post('/', ventaController.registrarVenta);
-
-// // 🔹 Obtener todas las ventas
-// router.get('/', ventaController.listarVentas);
-
-// // 🔹 Obtener ventas por cliente
-// router.get('/cliente/:idCliente', ventaController.listarVentasPorCliente);
-
-// // 🔹 Obtener ventas entre fechas
-// router.get('/entre-fechas', ventaController.listarVentasEntreFechas);
-
-// // 🔹 Ver detalle de una venta
-// router.get('/detalle/:idVenta', ventaController.verDetalleVenta);
-
-// // 🔹 Ver resumen de ventas por producto
-// router.get('/por-producto', ventaController.ventasPorProducto);
-
-// module.exports = router;
-
-
 const express = require('express');
 const router = express.Router();
 const ventaController = require('../controllers/ventaController');

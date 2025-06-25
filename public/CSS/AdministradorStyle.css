@@ -365,3 +365,57 @@
         max-width: 100%;
     }
 }
+
+.welcome {
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+    .clock {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #444;
+    }
+    .admin-dashboard {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .admin-card {
+      flex: 1 1 200px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      padding: 20px;
+      background-color: #fff;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+    .admin-card:hover {
+      transform: scale(1.03);
+    }
+    .admin-card i {
+      font-size: 2rem;
+      color: #cc99ff;
+    }
+    .admin-card h3 {
+      margin: 10px 0 5px;
+    }
+    .admin-card p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+    .admin-card a {
+      display: inline-block;
+      margin-top: 10px;
+      background-color: #cc99ff;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    .admin-image {
+      width: 100px;
+      border-radius: 50%;
+      margin: 15px 0;
+    }

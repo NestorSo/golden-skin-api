@@ -96,9 +96,9 @@ BEGIN
         AND u.Pass = CONVERT(VARCHAR(32), HASHBYTES('MD5', @Pass), 2)
         AND u.EstadoUsuario = 1;
 END
+use GoldenSkin
 
-
-
+sp_RegistrarUsuarioAdmin 'Leandro','Lacayo','leandrolacayo20@gmail.com','1234','Administrador','San judas','87675643','Gerente'
 --registro de los usuarios desde el punto del admin
 CREATE OR ALTER PROCEDURE sp_RegistrarUsuarioAdmin
     @Nombre     VARCHAR(100),
@@ -692,8 +692,8 @@ BEGIN
         P.Cantidad,
         P.FechaFabricacion,
         P.FechaVencimiento,
-        M.NombreMarca,
-        P.Categoria
+		M.NombreMarca AS Marca,
+		P.Categoria
     FROM Productos P
     LEFT JOIN Marcas M ON P.IdMarca = M.IdMarca
     WHERE P.EstadoProducto = 1

@@ -304,28 +304,51 @@ exports.registerDesdeAdmin = async (req, res) => {
   }
 };
 
-exports.loginUser = async (req, res) => {
+exports.loginUsuario = async (req, res) => {
   const { correo, contrasena } = req.body;
+
   if (!correo || !contrasena) {
-    return res.status(400).json({ mensaje: 'Faltan campos' });
+    return res.status(400).json({ mensaje: '❌ Correo y contraseña son obligatorios' });
   }
 
   try {
     const pool = await sql.connect(config);
     const result = await pool.request()
-      .input('Correo', sql.VarChar, correo)
+      .input('Email', sql.VarChar, correo)
       .input('Pass', sql.VarChar, contrasena)
       .execute('sp_LoginUsuario');
 
     const usuario = result.recordset[0];
+
     if (!usuario) {
-      return res.status(401).json({ mensaje: '❌ Credenciales inválidas' });
+      return res.status(401).json({ mensaje: '❌ Credenciales incorrectas' });
     }
 
     res.status(200).json({ mensaje: '✅ Login exitoso', usuario });
   } catch (err) {
     console.error('❌ Error en login:', err);
-    res.status(500).send('Error en el servidor');
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Buscar usuario por nombre o apellido
+exports.buscarPorNombre = async (req, res) => {
+  const { nombre } = req.query;
+
+  if (!nombre) {
+    return res.status(400).json({ error: '⚠️ El parámetro "nombre" es obligatorio' });
+  }
+
+  try {
+    const pool = await sql.connect(config);
+    const result = await pool.request()
+      .input('Nombre', sql.NVarChar, nombre)
+      .execute('sp_BuscarUsuarioPorNombre');
+
+    res.json(result.recordset);
+  } catch (err) {
+    console.error('❌ Error al buscar usuario por nombre:', err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -359,6 +382,30 @@ exports.listarUsuarios = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
+// Listar usuarios activos
+exports.listarActivos = async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const result = await pool.request().execute('sp_ListarUsuariosActivos');
+    res.json(result.recordset);
+  } catch (err) {
+    console.error('❌ Error al listar usuarios activos:', err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Listar usuarios inactivos
+exports.listarInactivos = async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const result = await pool.request().execute('sp_ListarUsuariosInactivos');
+    res.json(result.recordset);
+  } catch (err) {
+    console.error('❌ Error al listar usuarios inactivos:', err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
 
 exports.cambiarEstado = async (req, res) => {
   const { id } = req.params;

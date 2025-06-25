@@ -15,17 +15,26 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     const data = await res.json();
 
     if (res.status === 200) {
+      // Guardar el usuario en localStorage
       localStorage.setItem('usuario', JSON.stringify(data.usuario));
-      window.location.href = '../HTML/home.html';
+
+      const rol = data.usuario.NombreRol?.toLowerCase();
+      console.log('📦 Datos recibidos del backend:', data.usuario);
+
+      if (rol === 'cliente') {
+        window.location.href = '../HTML/home.html';
+      } else {
+        window.location.href = '../HTML/homeAdmin.html';
+      }
     } else {
-      messageBox.textContent = data.mensaje;
+      messageBox.textContent = data.mensaje || '❌ Credenciales incorrectas';
     }
+
   } catch (err) {
     console.error('Catch block error:', err);
     messageBox.textContent = '❌ Error de red o servidor.';
   }
 });
-
 
 
 

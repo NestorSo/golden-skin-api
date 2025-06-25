@@ -2,6 +2,43 @@ const { sql, config } = require('../config/db');
 
 // 🔹 Registrar venta
 exports.registrarVenta = async (req, res) => {
+  const { clienteId, empleadoId, productos } = req.body;
+
+  if (!clienteId || !empleadoId || !productos || productos.length === 0) {
+    return res.status(400).json({ mensaje: '❌ Faltan datos para procesar la venta' });
+  }
+
+  try {
+    const pool = await sql.connect(config);
+
+    // 1. Crear la venta
+    await pool.request()
+      .input('IdCliente', sql.Int, clienteId)
+      .input('IdEmpleado', sql.Int, empleadoId)
+      .input('Descripcion', sql.NVarChar, 'Venta generada desde sistema web')
+      .execute('GestionarVentaMultiple');
+
+    // 2. Obtener el ID recién insertado
+    const ventaIdResult = await pool.request().query('SELECT MAX(IdVenta) AS IdVenta FROM Ventas');
+    const idVenta = ventaIdResult.recordset[0].IdVenta;
+
+    // 3. Insertar detalle para cada producto
+    for (const { id, cantidad } of productos) {
+      await pool.request()
+        .input('IdVenta', sql.Int, idVenta)
+        .input('IdProducto', sql.Int, id)
+        .input('Cantidad', sql.Int, cantidad)
+        .execute('NuevoDetalleVenta');
+    }
+
+    res.status(201).json({ mensaje: '✅ Venta registrada correctamente', id: idVenta });
+  } catch (err) {
+    console.error('❌ Error al registrar venta:', err);
+    res.status(500).json({ mensaje: '❌ Error interno del servidor' });
+  }
+};
+
+exports.Venta = async (req, res) => {
   const { idCliente, idEmpleado, idProducto, cantidad } = req.body;
 
   if (!idCliente || !idEmpleado || !idProducto || !cantidad) {

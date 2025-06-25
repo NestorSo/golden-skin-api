@@ -559,3 +559,5 @@ UPDATE Productos SET Categoria = 'Bloqueadores solares' WHERE NombreProducto = '
 
 UPDATE Productos SET Categoria = 'Limpieza' WHERE NombreProducto = 'Acne Foaming cream cleanser';
 UPDATE Productos SET Categoria = 'Limpieza' WHERE NombreProducto = 'Acne control gel';
+
+UPDATE Roles SET EstadoRol = '1' WHERE NombreProducto = 'Acne control gel';

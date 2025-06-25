@@ -1,5 +1,22 @@
 ﻿
 use goldenskin
+
+
+select * from roles
+
+EXEC GestionarPedidoGoldenSkin 
+  @IdCliente = 1,
+  @IdProducto = 1,
+  @Cantidad = 10,
+  @Descripcion = 'Prueba manual'
+
+  select * from pedidos
+select * from DetallePedido
+select * from Ventas
+select * from DetalleVenta
+
+
+
 ----gestion de pedidos
 
 CREATE PROCEDURE NuevoDetallePedido
@@ -20,7 +37,8 @@ BEGIN
   VALUES (@IdPedido, @IdProducto, @Cantidad);
 END
 
-CREATE PROCEDURE GestionarPedidoGoldenSkin
+
+ALTER PROCEDURE GestionarPedidoGoldenSkin
   @IdCliente INT,
   @IdProducto INT,
   @Cantidad INT,
@@ -35,26 +53,32 @@ BEGIN
   BEGIN TRY
     BEGIN TRAN;
 
-    -- Insertar el pedido
+    -- 1. Insertar el pedido
     INSERT INTO Pedidos (IdCliente, FechaPedido, FechaEntrega, Descripcion, EstadoPedido)
-    VALUES (@IdCliente, GETDATE(), @FechaEntrega, @Descripcion, 1);
+    VALUES (@IdCliente, GETDATE(), @FechaEntrega, @Descripcion, 0);
 
     SET @IdPedido = SCOPE_IDENTITY();
 
-    -- Insertar el detalle
+    -- 2. Insertar detalle
     EXEC NuevoDetallePedido @IdPedido, @IdProducto, @Cantidad;
 
+    -- 3. Crear la venta relacionada al pedido (sin empleado porque es desde el sitio web)
+    EXEC GestionarVentaGoldenSkin @IdCliente = @IdCliente, @IdEmpleado = NULL, @IdProducto = @IdProducto, @Cantidad = @Cantidad;
+
     COMMIT;
-    PRINT '✅ Pedido registrado correctamente.';
+    PRINT '✅ Pedido y venta generados correctamente.';
   END TRY
   BEGIN CATCH
     ROLLBACK;
     DECLARE @Err NVARCHAR(4000) = ERROR_MESSAGE();
-    PRINT '❌ Error al registrar el pedido: ' + @Err;
+    PRINT '❌ Error al registrar el pedido o la venta: ' + @Err;
   END CATCH
 END
 
-CREATE TRIGGER tr_RegistrarVentaDesdePedidoDelivery
+
+DROP TRIGGER IF EXISTS tr_RegistrarVentaDesdePedidoDelivery;
+
+ALTER TRIGGER tr_RegistrarVentaDesdePedidoDelivery
 ON Pedidos
 AFTER INSERT
 AS
@@ -73,44 +97,45 @@ BEGIN
   IF @EsDelivery = 1
   BEGIN
     DECLARE @IdVenta INT;
-    DECLARE @IdEmpleado INT = 1; -- Cambiar si se desea dinámico
 
-    -- Insertar en Ventas con delivery = 1
+    -- Insertar en Ventas (Delivery=1, sin empleado)
     INSERT INTO Ventas (IdEmpleado, IdCliente, FechaVenta, Descuento, Total, Delivery)
-    VALUES (@IdEmpleado, @IdCliente, @FechaPedido, 0, 0, 1);
+    VALUES (NULL, @IdCliente, @FechaPedido, 0, 0, 1);
 
     SET @IdVenta = SCOPE_IDENTITY();
 
-    -- Insertar detalle
-    INSERT INTO DetalleVenta (IdVenta, IdProducto, Subtotal, CantidadVendida)
-    SELECT
-      @IdVenta,
-      DP.IdProducto,
-      P.Precio * DP.Cantidad,
-      DP.Cantidad
-    FROM DetallePedido DP
-    JOIN Productos P ON DP.IdProducto = P.IdProducto
-    WHERE DP.IdPedido = @IdPedido;
+    -- Variables para iteración
+    DECLARE @IdProducto INT, @Cantidad INT;
 
-    -- Calcular descuento
+    DECLARE detalle_cursor CURSOR FOR
+    SELECT IdProducto, Cantidad
+    FROM DetallePedido
+    WHERE IdPedido = @IdPedido;
+
+    OPEN detalle_cursor;
+    FETCH NEXT FROM detalle_cursor INTO @IdProducto, @Cantidad;
+
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+      EXEC NuevoDetalleVenta @IdVenta, @IdProducto, @Cantidad;
+      FETCH NEXT FROM detalle_cursor INTO @IdProducto, @Cantidad;
+    END
+
+    CLOSE detalle_cursor;
+    DEALLOCATE detalle_cursor;
+
+    -- Obtener y actualizar descuento
     DECLARE @Descuento DECIMAL(10,2) = dbo.CalcularDescuentoPorCantidad(@IdVenta);
 
-    -- Calcular subtotal
-    DECLARE @Subtotal DECIMAL(10,2);
-    SELECT @Subtotal = SUM(Subtotal) FROM DetalleVenta WHERE IdVenta = @IdVenta;
-
-    -- Calcular total (con IVA y 10% delivery extra)
-    DECLARE @Total DECIMAL(10,2) = (@Subtotal - @Descuento) * 1.15 * 1.10;
-
-    -- Actualizar venta
     UPDATE Ventas
-    SET Descuento = @Descuento,
-        Total = @Total
+    SET Descuento = @Descuento
     WHERE IdVenta = @IdVenta;
 
     PRINT '✅ Venta generada automáticamente por pedido delivery.';
   END
 END;
+
+
 
 
 CREATE TRIGGER tr_CalcularFechaEntrega
