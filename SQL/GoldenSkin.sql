@@ -173,7 +173,9 @@ SELECT * FROM usuarios
 SELECT * FROM empleados
 
 SELECT * FROM Clientes
-SELECT * FROM Productos where Categoria='Bloqueadores solares'
+SELECT * FROM Productos where NombreProducto='Gel de bano Watermelon'
+SELECT * FROM Productos where NombreProducto='Exfoliante coco colada'
+
 SELECT * FROM Pedidos
 SELECT * FROM DetallePedido
 SELECT * FROM Productos
@@ -285,3 +287,7 @@ VALUES
 ('Photoaging control protector solar', 'Photoaging control protector solar', 30, 2, '06/10/2025', 10, 1, 'Protector Solar', NULL),
 ('Photoderm Mineral protector solar', 'Photoderm Mineral protector solar', 25, 5, '06/10/2025', 5, 1, 'Protector Solar', NULL),
 ('Photoderm Creme protector solar', 'Photoderm Creme protector solar', 25, 5, '06/10/2025', 5, 1, 'Protector Solar', NULL);
+
+Backup database GoldenSkin 
+to disk = 'C:\Respaldos\GoldenSkin.bak'
+

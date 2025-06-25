@@ -721,6 +721,26 @@ BEGIN
     ORDER BY P.NombreProducto;
 END;
 
+CREATE PROCEDURE sp_ObtenerProductoPorId
+  @IdProducto INT
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  SELECT 
+    P.IdProducto,
+    P.NombreProducto,
+    P.Descripcion,
+    P.Precio,
+    P.Cantidad,
+    P.FechaFabricacion,
+    P.FechaVencimiento,
+    M.NombreMarca AS Marca,
+    P.Categoria
+  FROM Productos P
+  LEFT JOIN Marcas M ON P.IdMarca = M.IdMarca
+  WHERE P.IdProducto = @IdProducto;
+END
 
 
 -- filtros por categoria 

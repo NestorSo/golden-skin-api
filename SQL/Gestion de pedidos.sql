@@ -14,6 +14,7 @@ EXEC GestionarPedidoGoldenSkin
 select * from DetallePedido
 select * from Ventas
 select * from DetalleVenta
+select * from productos
 
 
 
@@ -36,6 +37,36 @@ BEGIN
   INSERT INTO DetallePedido (IdPedido, IdProducto, Cantidad)
   VALUES (@IdPedido, @IdProducto, @Cantidad);
 END
+
+
+ALTER PROCEDURE GestionarPedidoGoldenSkin
+  @IdCliente INT,
+  @Descripcion VARCHAR(100),
+  @IdPedido INT OUTPUT
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  DECLARE @FechaEntrega DATE = DATEADD(DAY, 1, GETDATE());
+
+  BEGIN TRY
+    BEGIN TRAN;
+
+    -- Insertar solo el pedido
+    INSERT INTO Pedidos (IdCliente, FechaPedido, FechaEntrega, Descripcion, EstadoPedido)
+    VALUES (@IdCliente, GETDATE(), @FechaEntrega, @Descripcion, 0);
+
+    SET @IdPedido = SCOPE_IDENTITY();
+
+    COMMIT;
+    PRINT '✅ Pedido registrado correctamente.';
+  END TRY
+  BEGIN CATCH
+    ROLLBACK;
+    SET @IdPedido = 0;
+    PRINT '❌ Error al registrar pedido: ' + ERROR_MESSAGE();
+  END CATCH
+END;
 
 
 ALTER PROCEDURE GestionarPedidoGoldenSkin

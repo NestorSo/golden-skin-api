@@ -1,6 +1,39 @@
 ﻿
 use GoldenSkin
 -------------compras y ventas
+
+alter PROCEDURE GestionCompraGoldenSkin
+  @IdProveedor INT,
+  @IdEmpleado INT
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  DECLARE @IdCompra INT;
+
+  BEGIN TRY
+    BEGIN TRAN;
+
+    -- Crear compra
+    INSERT INTO Compras (IdEmpleado, IdProveedor, FechaCompra, Total)
+    VALUES (@IdEmpleado, @IdProveedor, GETDATE(), 0);
+
+    SET @IdCompra = SCOPE_IDENTITY();
+
+    -- Insertar detalle desde backend (usando el mismo @IdCompra)
+
+    -- Actualizar precios
+    EXEC ActualizarPrecioProductos;
+
+    COMMIT;
+    PRINT '✅ Compra registrada con múltiples productos';
+  END TRY
+  BEGIN CATCH
+    ROLLBACK;
+    PRINT '❌ Error en la compra múltiple: ' + ERROR_MESSAGE();
+  END CATCH
+END
+
 CREATE PROCEDURE GestionCompraGoldenSkin
   @IdProveedor INT,
   @IdEmpleado INT,
@@ -278,7 +311,49 @@ BEGIN
   JOIN inserted I ON V.IdVenta = I.IdVenta;
 END;
 
+
+use goldenskin
 --gestion de la venta
+
+alter PROCEDURE GestionarVentaGoldenSkin
+  @IdCliente INT,
+  @IdEmpleado INT,
+  @Descripcion NVARCHAR(100)
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  DECLARE @IdVenta INT;
+
+  BEGIN TRY
+    BEGIN TRAN;
+
+    -- Crear venta inicial
+    INSERT INTO Ventas (IdEmpleado, IdCliente, FechaVenta, Descuento, Total, Delivery)
+    VALUES (@IdEmpleado, @IdCliente, GETDATE(), 0, 0, 0);
+
+    SET @IdVenta = SCOPE_IDENTITY();
+
+    -- Insertar cada producto (reutilizar con EXEC externo desde backend)
+    -- Backend hará bucles de ejecución de `NuevoDetalleVenta` por cada producto usando @IdVenta
+
+    -- Calcular descuento y actualizar
+    DECLARE @Descuento DECIMAL(10,2) = dbo.CalcularDescuentoPorCantidad(@IdVenta);
+    UPDATE Ventas
+    SET Descuento = @Descuento
+    WHERE IdVenta = @IdVenta;
+
+    COMMIT;
+    PRINT '✅ Venta registrada con múltiples productos';
+  END TRY
+  BEGIN CATCH
+    ROLLBACK;
+    PRINT '❌ Error en la venta múltiple: ' + ERROR_MESSAGE();
+  END CATCH
+END
+
+
+
 CREATE PROCEDURE GestionarVentaGoldenSkin
   @IdCliente INT,
   @IdEmpleado INT,
