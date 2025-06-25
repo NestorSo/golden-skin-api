@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../CSS/StyleAdmin.css">
-    <title>GoldenSkin | Vendedor - Gestion de Clientes</title>
+    <title>GoldenSkin | Administrador - Gestion de Proveedores</title>
 </head>
 
 <body>
@@ -26,12 +26,12 @@
 
     <div class="main-container">
         <header class="page-header">
-            <h1>Golden Skin - Gestión de Clientes</h1>
+            <h1>Golden Skin - Gestión de Proveedores</h1>
         </header>
 
         <section class="search-section">
             <div class="search-container">
-                <input type="text" class="search-input" placeholder="Buscar cliente por nombre, teléfono o ID...">
+                <input type="text" class="search-input" placeholder="Buscar proveedor por nombre, teléfono o ID...">
                 <button class="search-button">
                     <i class="fas fa-search"></i> Buscar
                 </button>
@@ -40,9 +40,9 @@
 
         <div class="management-section">
             <div class="form-container">
-                <h2>Gestión de Clientes</h2>
+                <h2>Gestión de Proveedores</h2>
                 <div class="form-group">
-                    <label for="nombre">Nombre Cliente</label>
+                    <label for="nombre">Nombre Proveedor</label>
                     <input type="text" id="nombre" placeholder="Ingrese el nombre completo">
                 </div>
                 
@@ -54,6 +54,11 @@
                 <div class="form-group">
                     <label for="direccion">Dirección</label>
                     <input type="text" id="direccion" placeholder="Ingrese la dirección completa">
+                </div>
+
+                <div class="form-group">
+                    <label for="correo">Correo</label>
+                    <input type="email" id="correo" placeholder="Ingrese el correo electrónico">
                 </div>
                 
                 <div class="button-group">
@@ -85,12 +90,14 @@
                             <td>María González</td>
                             <td>555-123-4567</td>
                             <td>Calle Principal 123</td>
+                            <td>prdu@nivea.com</td>
                         </tr>
                         <tr>
                             <td>002</td>
                             <td>Juan Pérez</td>
                             <td>555-987-6543</td>
                             <td>Avenida Central 456</td>
+                            <td>ventas@eucerin.com</td>
                         </tr>
                     </tbody>
                 </table>

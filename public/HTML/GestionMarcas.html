@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoldenSkin | Administrador - Gestion de Marcas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../CSS/StyleAdmin.css">
-    <title>GoldenSkin | Vendedor - Gestion de Clientes</title>
+    <title>GoldenSkin - Gestion de Clientes</title>
 </head>
 
 <body>
@@ -26,36 +27,37 @@
 
     <div class="main-container">
         <header class="page-header">
-            <h1>Golden Skin - Gestión de Clientes</h1>
+            <h1>Golden Skin - Gestión de Marcas</h1>
         </header>
 
         <section class="search-section">
             <div class="search-container">
-                <input type="text" class="search-input" placeholder="Buscar cliente por nombre, teléfono o ID...">
+                <input type="text" class="search-input" placeholder="Buscar marca por nombre o ID...">
                 <button class="search-button">
                     <i class="fas fa-search"></i> Buscar
                 </button>
             </div>
         </section>
 
-        <div class="management-section">
+          <div class="management-section">
             <div class="form-container">
-                <h2>Gestión de Clientes</h2>
+                <h2>Gestión de Marcas</h2>
                 <div class="form-group">
-                    <label for="nombre">Nombre Cliente</label>
-                    <input type="text" id="nombre" placeholder="Ingrese el nombre completo">
+                    <label for="nombre">Nombre Marca</label>
+                    <input type="text" id="marca" placeholder="Ingrese el nombre de la marca">
                 </div>
                 
                 <div class="form-group">
-                    <label for="telefono">Teléfono</label>
-                    <input type="tel" id="telefono" placeholder="Ingrese el número de teléfono">
+                    <label for="direccion">Descripcion</label>
+                    <input type="text" id="descripcion" placeholder="Ingrese una descripcion">
                 </div>
-                
                 <div class="form-group">
-                    <label for="direccion">Dirección</label>
-                    <input type="text" id="direccion" placeholder="Ingrese la dirección completa">
+                    <label for="fecha-caducidad">Fabricante</label>
+                    <input type="text" id="fabricante" placeholder="Ingrese el nombre del fabricante">
                 </div>
+
                 
+                <!-- BOTONES -->
                 <div class="button-group">
                     <button class="action-button btn-add" id="agregar">
                         <i class="fas fa-plus"></i> Agregar
@@ -69,53 +71,33 @@
                 </div>
             </div>
 
-            <div class="table-container">
+             <div class="table-container">
                 <table class="client-table">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Nombre Completo</th>
-                            <th>Teléfono</th>
-                            <th>Dirección</th>
+                            <th>Nombre Marca</th>
+                            <th>Descripcion</th>
+                            <th>Fabricante</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>001</td>
-                            <td>María González</td>
-                            <td>555-123-4567</td>
-                            <td>Calle Principal 123</td>
+                            <td>Eucerin</td>
+                            <td>Marca A</td>
+                            <td>Fabricante A</td>
                         </tr>
                         <tr>
                             <td>002</td>
-                            <td>Juan Pérez</td>
-                            <td>555-987-6543</td>
-                            <td>Avenida Central 456</td>
+                            <td>Nivea</td>
+                            <td>Marca B</td>
+                            <td>Fabricante B</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Aquí puedes agregar la funcionalidad JavaScript
-            document.getElementById('agregar').addEventListener('click', function() {
-                alert('Función de Agregar cliente');
-                // Lógica para agregar cliente
-            });
-            
-            document.getElementById('actualizar').addEventListener('click', function() {
-                alert('Función de Actualizar cliente');
-                // Lógica para actualizar cliente
-            });
-            
-            document.getElementById('baja').addEventListener('click', function() {
-                alert('Función de Dar de baja cliente');
-                // Lógica para dar de baja
-            });
-        });
-    </script>
+
 </body>
 </html>
