@@ -123,18 +123,60 @@ body {
   }
 
 
-.hero img {
-  width: 100%;
-  height: 500px;
-  display: block;
-  margin-bottom: 5rem;
+ /* Hero Banner */
+ .gold {
+    color: #CF818E;
 }
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.562), rgba(0, 0, 0, 0.61)), url('https://www.abeautyedit.com/wp-content/uploads/2021/08/the-ordinary-antioxidants-f-520x390.jpeg');
+    background-size: cover;
+    background-position: center;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+    margin-bottom: 3rem;
+}
+
+.hero h1 {
+    font-family:'Playfair Display', serif;
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .benefits-section {
   font-family: Arial, sans-serif; 
   padding: 60px 20px;
   text-align: center;
   background-color: #f9f9f9; 
   margin: 70px auto;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #A76670;
+    color: white;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.btn:hover {
+    background-color: #ce858e;
+    transform: translateY(-2px);
 }
 
 /* Título de la sección */
@@ -155,24 +197,41 @@ body {
   gap: 40px; /* Espacio entre los items */
 }
 
-/* Cada item de beneficio individual */
+/********* Cada item de beneficio individual ****************/
+.benefits {
+    padding: 60px 20px;
+    text-align: center;
+}
+.benefits-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
 .benefit-item {
-  flex-basis: 280px; /* Ancho base de cada item */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+   background-color: #ffffff;
+    border-radius: 16px;
+    padding: 30px 20px;
+    max-width: 300px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s;
+}
+.benefit-item:hover {
+    transform: translateY(-8px);
 }
 
 /* El ícono */
 .benefit-icon {
   font-size: 48px;
-  color: #333; /* Color oscuro para el ícono */
+  color: #ce858e; /* Color oscuro para el ícono */
   margin-bottom: 20px;
 }
 
 /* Nombre del beneficio */
 .benefit-name {
   font-size: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
   color: #333333;
   margin-top: 0;
   margin-bottom: 10px;
@@ -185,6 +244,11 @@ body {
   line-height: 1.5;
   margin-top: 0;
 }
+
+
+
+
+
 
 /* === RESPONSIVE - PARA MÓVILES === */
 @media (max-width: 768px) {
@@ -590,7 +654,7 @@ input[type="password"]:focus {
 }
 
 .card-list .card-item .card-link:hover{
-    border-color: #5372F0;
+    border-color: #A76670;
 }
 
 .card-list .card-link .card-image{
@@ -601,7 +665,7 @@ input[type="password"]:focus {
     }
 
 .card-list .card-link .badge{
-    color: #5372f0;
+    color: #A76670;
     padding: 8px 16px;
     font-size: 0.95rem;
     font-weight: 500;
@@ -614,21 +678,21 @@ input[type="password"]:focus {
 /* AGREGANDO COLOR DISTINTO A LOS BADGE */
 .card-list .card-link .badge.promo1{
     color: #b22485;
-    background: #e493dd;
+    background: #e493dda2;
 }
 
 .card-list .card-link .badge.promo2{
     color: #61290b;
-    background: #cea773;
+    background: #cea773a2;
 }
 .card-list .card-link .badge.promo3{
     color: #205c20;
-    background: #6daf6d;
+    background: #6daf6daf;
 }
 
 .card-list .card-link .badge.promo4{
-    color: #c0643f;
-    background: #b38468;
+    color: #c03f3f;
+    background: #ce4b4ba1;
 }
 .card-list .card-link .badge.promo5{
     color: #2479b2;
@@ -644,18 +708,18 @@ input[type="password"]:focus {
 .card-list .card-link .card-button{
     height: 35px;
     width: 35px;
-    color: #5372F0;
+    color: #A76670;
     border-radius: 50%;
     margin: 30px 0 5px;
     cursor: pointer;
-    border: 2px solid #5372F0;
+    border: 2px solid #A76670;
     transform: rotate(-45deg);
     transition: 0.4s ease;
 }
 
 .card-list .card-link:hover .card-button{
     color: #fff;
-    background: #5372F0;
+    background: #A76670;
 }
 
 nav li {
@@ -673,7 +737,7 @@ nav li a {
 }
 
 nav li a:hover {
-    background-color: #3a5bbf;
+    background-color: #b06a7a;
 }
 
 /* Sección productos */
