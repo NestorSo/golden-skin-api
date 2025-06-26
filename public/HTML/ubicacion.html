@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Ubicación - GoldenSkin</title>
+    <link rel="stylesheet" href="/public/CSS/ubicacion.css">
+     <link rel="stylesheet" href="/public/CSS/servicios.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded&display=swap" />
+    <link rel="stylesheet" href="../CSS/home.css ">
+    <link rel="stylesheet" href="../CSS/carrito.css">
+    <link rel="stylesheet" href="../CSS/cargaclientes.css">
+    <link rel="stylesheet" href="../CSS/alertas.css">
+    <link rel="stylesheet" href="../CSS/logout.css">
+    <link rel="stylesheet" href="../CSS/back.css">
+
+
+
+    <!-- Link Swiper JS CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    </head>
+<body>
+
+    <header class="main-header">
+        </header>
+         <nav class="navbar">
+        <div class="navbar-left">
+            <a class="logo" href="../HTML/home.html">GoldenSkin</a>
+
+        </div>
+
+        <div class="nav-icons">
+            <!-- 🔹 INICIO BLOQUE USUARIO -->
+            <div class="user-info" id="userInfo" style="margin-right: 20px;"></div>
+            <!-- 🔹 FIN BLOQUE USUARIO -->
+            <div class="nav-back">
+                <button onclick="goBackAndReload()" title="Volver" class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+            <!-- Ícono de usuario (login/logout) -->
+            <a id="userIconLink" href="#" class="nav-user-icon" title="Iniciar sesión o cerrar sesión">
+                <i class="fas fa-user"></i>
+            </a>
+
+            <a href="../HTML/catalogo.html"><i class="fas fa-store"></i></a>
+            
+        </div>
+    </nav>
+
+    <main>
+        <section class="page-banner">
+            <div class="banner-content">
+                <h1>Encuéntranos</h1>
+                <p>Visítanos para recoger tus productos o recibir asesoría personalizada.</p>
+            </div>
+        </section>
+
+        <section class="page-content">
+            <h2 class="section-title">Nuestra Ubicación</h2>
+
+            <div class="location-container">
+                <div class="map-wrapper">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d409.43412439920996!2d-86.21000819340591!3d12.134816837593496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f73ff002b8b4a03%3A0xb58729e5fc51db!2sAaly%20Conceptos!5e0!3m2!1ses!2sni!4v1750815947709!5m2!1ses!2sni" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+
+                <div class="contact-details">
+                    <h3>Visítanos</h3>
+                    <p>
+                        Colonia 9 de Junio, del monumento, 2 cuadras l sur. <br>
+                        Managua, Nicaragua.
+                    </p>
+
+                    <h3>Horario de Atención</h3>
+                    <p>
+                        Lunes a Viernes: 10:00 AM - 5:30 PM<br>
+                        Sábados: 9:30 AM - 4:00 PM
+                        Domingo: Cerrado
+                    </p>
+
+                    <h3>Contacto Directo</h3>
+                    <p>
+                        <strong>WhatsApp:</strong> +505 7712 2417<br>
+                        <strong>Correo:</strong> contacto@goldenskin.ni
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    </body>
+</html>

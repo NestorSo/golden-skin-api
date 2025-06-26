@@ -1,0 +1,85 @@
+/* =============================================== */
+/* ESTILOS PÁGINA DE UBICACIÓN           */
+/* =============================================== */
+
+/* Reutilizamos los estilos del banner y título que ya tenías */
+.page-banner {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/public/images/envase-de-crema-vista-superior-con-planta.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 80px 20px;
+    text-align: center;
+    color: #fff;
+}
+
+.banner-content h1 { font-size: 42px; font-weight: 700; margin-bottom: 10px; }
+.banner-content p { font-size: 18px; max-width: 600px; margin: 0 auto; font-weight: 300; }
+
+.page-content { max-width: 1200px; margin: 60px auto; padding: 0 20px; }
+
+.section-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    color: #D18D9A;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background-color: #D18D9A;
+}
+
+/* --- Estructura de dos columnas para mapa y detalles --- */
+.location-container {
+    display: flex;
+    flex-wrap: wrap; /* Para que se apilen en móviles */
+    gap: 40px; /* Espacio entre el mapa y los detalles */
+}
+
+.map-wrapper {
+    flex: 2; /* El mapa tomará el doble de espacio que los detalles */
+    min-width: 300px;
+}
+
+.contact-details {
+    flex: 1; /* Los detalles tomarán 1 parte del espacio */
+    min-width: 300px;
+}
+
+/* --- Estilos para que el mapa se vea bien --- */
+.map-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px; /* Bordes redondeados */
+}
+
+/* --- Estilos para los detalles de contacto --- */
+.contact-details h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.contact-details p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.contact-details strong {
+    color: #333;
+}

@@ -1,0 +1,102 @@
+.page-banner {
+    background-size: cover;
+    background-position: center;
+    padding: 80px 20px;
+    text-align: center;
+    color: #fff;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/public/images/coleccion-de-productos-de-maquillaje-y-belleza.jpg'); 
+
+
+    }
+.banner-content h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.banner-content p {
+    font-size: 18px;
+    max-width: 600px;
+    margin: 0 auto;
+    font-weight: 300;
+}
+
+/* --- Contenido Principal --- */
+.page-content {
+    max-width: 800px; /* Limita el ancho para mejor legibilidad */
+    margin: 60px auto; /* Centra el contenido y le da espacio */
+    padding: 0 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    color: #D18D9A; /* Color rosa de la marca */
+    margin-bottom: 50px;
+    position: relative;
+}
+
+/* Línea decorativa debajo del título */
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background-color: #D18D9A;
+}
+
+/* --- Acordeón de FAQ --- */
+.faq-accordion .faq-item {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 20px 0;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-question:hover {
+    color: #D18D9A;
+}
+
+.faq-icon {
+    font-size: 24px;
+    font-weight: 300;
+    transition: transform 0.3s ease;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+}
+
+.faq-answer p {
+    padding: 0 0 20px;
+    color: #555;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* Estilos para el estado activo del acordeón */
+.faq-item.active .faq-answer {
+    max-height: 300px; /* Ajusta si tus respuestas son muy largas */
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+}
