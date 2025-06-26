@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const API_PRODUCTOS = '/api/productos/todos?estado=1';
   const API_CLIENTES = '/api/usuarios/clientes';
 
+
   const tablaBody = document.getElementById('tablaVentasBody');
   const btnRegistrar = document.getElementById('nuevaVenta');
   const btnLimpiar = document.getElementById('limpiarVenta');
@@ -11,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const inputCantidad = document.getElementById('cantidad-vendida');
   const inputEmpleado = document.getElementById('empleado');
 
-  let ventas = [];
+ let ventas = [];
 
   btnRegistrar.onclick = registrarVenta;
   btnLimpiar.onclick = limpiarFormulario;
@@ -81,38 +82,63 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function cargarEmpleado() {
-    const usuario = JSON.parse(localStorage.getItem('usuario'));
-    if (usuario) {
-      inputEmpleado.value = `${usuario.Nombre} ${usuario.Apellido}`;
-      inputEmpleado.dataset.id = usuario.IdUsuario;
-    }
-  }
+  async function cargarEmpleado() {
+  const usuario = JSON.parse(localStorage.getItem('usuario'));
 
-  async function registrarVenta() {
+  if (usuario && usuario.IdUsuario) {
+    try {
+      const res = await fetch(`/api/empleados/por-usuario/${usuario.IdUsuario}`);
+      if (!res.ok) throw new Error('No se encontró empleado');
+
+      const data = await res.json(); // { IdEmpleado: 4 }
+
+      inputEmpleado.value = `${usuario.Nombre} ${usuario.Apellido}`;
+      inputEmpleado.dataset.id = data.IdEmpleado;
+
+    } catch (err) {
+      console.warn('⚠️ No se pudo obtener el ID del empleado', err);
+      inputEmpleado.value = 'Empleado no vinculado';
+    }
+  } else {
+    inputEmpleado.value = 'Empleado no cargado';
+  }
+}
+
+
+   async function registrarVenta() {
     const clienteId = selectCliente.value;
     const productoId = selectProducto.value;
     const cantidad = parseInt(inputCantidad.value);
-    const empleadoId = document.getElementById('empleado').dataset.id;
+    const empleadoId = inputEmpleado.dataset.id;
 
-    if (!clienteId || !productoId || isNaN(cantidad)) {
-      alert('⚠️ Por favor complete todos los campos');
+    if (!clienteId || !productoId || !empleadoId || isNaN(cantidad) || cantidad <= 0) {
+      alert('⚠️ Por favor complete todos los campos correctamente');
       return;
     }
 
+    const datosVenta = {
+      idCliente: parseInt(clienteId),
+      idEmpleado: parseInt(empleadoId),
+      idProducto: parseInt(productoId),
+      cantidad: parseInt(cantidad)
+    };
+
+    console.log('🟨 Enviando datos de venta:', datosVenta);
+
     try {
-      const res = await fetch(`${API_VENTAS}`, {
+      const res = await fetch(`${API_VENTAS}/tienda`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          idCliente: parseInt(clienteId),
-          idEmpleado: parseInt(empleadoId),
-          idProducto: parseInt(productoId),
-          cantidad: parseInt(cantidad)
-        })
+        body: JSON.stringify(datosVenta)
       });
 
       const result = await res.json();
+
+      if (!res.ok) {
+        alert(result.mensaje || '❌ Error al registrar venta');
+        return;
+      }
+
       alert(result.mensaje || '✅ Venta registrada');
       limpiarFormulario();
       cargarVentas();

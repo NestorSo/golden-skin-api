@@ -55,10 +55,18 @@
       <input type="text" id="nombre" name="NombreProducto" placeholder="Ingrese el nombre del producto" required>
     </div>
 
-    <div class="form-group">
-      <label for="marca">Marca</label>
-      <input type="text" id="marca" name="Marca" placeholder="Ingrese la marca del producto" required>
-    </div>
+<div class="form-group">
+  <label for="marca">Marca</label>
+  <select id="marca" name="IdMarca" required>
+    <option value="">Seleccione una marca</option>
+  </select>
+</div>
+<div class="form-group">
+  <label for="categoria">Categoria</label>
+  <select id="categoria" name="categoria" required>
+    <option value="">Seleccione una categoria</option>
+  </select>
+</div>
 
     <div class="form-group">
       <label for="descripcion">Descripción</label>
@@ -137,27 +145,29 @@
 
 
   <!-- TABLA DE PRODUCTOS -->
-  <div class="table-container">
+<!-- TABLA DE PRODUCTOS -->
+<div class="table-container">
+  <div class="table-producto" style="width: 65%; float: left; margin-top: 0;">
     <table class="client-table">
       <thead>
         <tr>
           <th>ID</th>
-          <th>Nombre Producto</th>
+          <th>Nombre</th>
           <th>Marca</th>
           <th>Categoría</th>
           <th>Descripción</th>
           <th>Precio</th>
-          <th>Fecha de Fabricación</th>
-          <th>Fecha de Caducidad</th>
+          <th>F. Fabricación</th>
+          <th>F. Caducidad</th>
           <th>Cantidad</th>
           <th>Vendidos</th>
         </tr>
       </thead>
-      <tbody id="tablaProductosBody">
-        <!-- Contenido dinámico -->
-      </tbody>
+      <tbody id="tablaProductosBody"></tbody>
     </table>
   </div>
+</div>
+
 
   <!-- REPORTES -->
   <div class="report-buttons">

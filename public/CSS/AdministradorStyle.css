@@ -668,3 +668,30 @@ button.action-button {
     flex-direction: column;
   }
 }
+/* Tamaño compacto para las tablas de productos y compras */
+.client-table th,
+.client-table td {
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+/* Limitar altura con scroll si hay muchos datos */
+.table-producto,
+.table-compras {
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: auto;
+  font-size: 13px;
+}
+.form-group input,
+.form-group select {
+  padding: 6px 10px;
+  font-size: 14px;
+}
+.form-group {
+  margin-bottom: 10px;
+}
+.form-container {
+  padding: 15px;
+}
+

@@ -45,14 +45,28 @@ async function cargarProveedores() {
 
 
 
+const inputEmpleado = document.getElementById('empleado');
 
-function cargarEmpleado() {
-  const empleado = JSON.parse(localStorage.getItem('usuario'));
-  const input = document.getElementById('empleado');
-  if (empleado) {
-    input.value = empleado.Nombre;
-    input.dataset.id = empleado.IdUsuario; // opcional para acceder al ID
-    input.disabled = true;
+
+  async function cargarEmpleado() {
+  const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+  if (usuario && usuario.IdUsuario) {
+    try {
+      const res = await fetch(`/api/empleados/por-usuario/${usuario.IdUsuario}`);
+      if (!res.ok) throw new Error('No se encontró empleado');
+
+      const data = await res.json(); // { IdEmpleado: 4 }
+
+      inputEmpleado.value = `${usuario.Nombre} ${usuario.Apellido}`;
+      inputEmpleado.dataset.id = data.IdEmpleado;
+
+    } catch (err) {
+      console.warn('⚠️ No se pudo obtener el ID del empleado', err);
+      inputEmpleado.value = 'Empleado no vinculado';
+    }
+  } else {
+    inputEmpleado.value = 'Empleado no cargado';
   }
 }
 
@@ -104,7 +118,7 @@ async function cargarCompras() {
       const fila = document.createElement('tr');
       fila.innerHTML = `
         <td>${c.IdCompra}</td>
-        <td>${c.Nombre}</td>
+        <td>${c.NombreProveedor}</td>
         <td>${c.Empleado}</td>
         <td>${c.Fecha?.split('T')[0]}</td>
         <td>${c.Total || '-'}</td>
@@ -120,7 +134,7 @@ async function registrarCompra(e) {
   e.preventDefault();
 
   const proveedorId = parseInt(document.getElementById('proveedor').value);
-  const empleadoId = parseInt(document.getElementById('empleado').value);
+const empleadoId = parseInt(inputEmpleado.dataset.id); // no del value
   const productoId = parseInt(document.getElementById('IdProducto').value);
   const cantidad = parseInt(document.getElementById('cantidad').value);
   const precio = parseFloat(document.getElementById('precioUnitario').value);

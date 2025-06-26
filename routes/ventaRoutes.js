@@ -70,7 +70,7 @@ router.post('/', ventaController.registrarVenta);
  *         description: Venta registrada correctamente
  */
 
-router.post('/', ventaController.Venta);
+router.post('/tienda', ventaController.Venta);
 
 /**
  * @swagger

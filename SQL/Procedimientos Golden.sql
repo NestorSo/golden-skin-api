@@ -420,6 +420,23 @@ BEGIN
      OR U.Apellido LIKE '%' + @Nombre + '%';
 END
 
+CREATE PROCEDURE sp_ListarUsuariosPorRol
+  @RolId INT
+AS
+BEGIN
+  SELECT IdUsuario, Nombre, Apellido, Email
+  FROM Usuarios
+  WHERE IdRol = @RolId AND EstadoUsuario = 1
+END
+
+CREATE PROCEDURE sp_ObtenerIdEmpleadoPorUsuario
+    @IdUsuario INT
+AS
+BEGIN
+    SELECT TOP 1 IdEmpleado
+    FROM Empleados
+    WHERE IdUsuario = @IdUsuario;
+END
 
 ----------------------------------------------------------Procedimientos para productos, compras y ventas
 

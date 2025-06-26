@@ -1,6 +1,65 @@
 ﻿
 use GoldenSkin
 -------------compras y ventas
+CREATE PROCEDURE GestionarCompraMultiple
+    @IdProveedor INT,
+    @IdEmpleado INT,
+    @Productos JSON -- [{ "id": 1, "cantidad": 5, "precioUnitario": 100.0 }, ...]
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @IdCompra INT;
+    DECLARE @Fecha DATETIME = GETDATE();
+    DECLARE @Total DECIMAL(10,2) = 0.00;
+
+    -- Crear la compra principal
+    INSERT INTO Compras (IdProveedor, IdEmpleado, Fecha)
+    VALUES (@IdProveedor, @IdEmpleado, @Fecha);
+
+    SET @IdCompra = SCOPE_IDENTITY();
+
+    -- Crear tabla temporal para productos
+    CREATE TABLE #Detalle (
+        IdProducto INT,
+        Cantidad INT,
+        PrecioUnitario DECIMAL(10,2)
+    );
+
+    -- Insertar los productos desde el JSON
+    INSERT INTO #Detalle (IdProducto, Cantidad, PrecioUnitario)
+    SELECT
+        JSON_VALUE(value, '$.id') AS IdProducto,
+        JSON_VALUE(value, '$.cantidad') AS Cantidad,
+        JSON_VALUE(value, '$.precioUnitario') AS PrecioUnitario
+    FROM OPENJSON(@Productos);
+
+    -- Insertar detalles de la compra y actualizar inventario
+    INSERT INTO DetalleCompra (IdCompra, IdProducto, Cantidad, PrecioUnitario, Subtotal)
+    SELECT 
+        @IdCompra,
+        IdProducto,
+        Cantidad,
+        PrecioUnitario,
+        Cantidad * PrecioUnitario
+    FROM #Detalle;
+
+    -- Actualizar el total
+    SELECT @Total = SUM(Cantidad * PrecioUnitario) FROM #Detalle;
+
+    -- Actualizar la compra con el total
+    UPDATE Compras SET Total = @Total WHERE IdCompra = @IdCompra;
+
+    -- Aumentar inventario
+    UPDATE p
+    SET p.Cantidad = p.Cantidad + d.Cantidad
+    FROM Productos p
+    INNER JOIN #Detalle d ON p.IdProducto = d.IdProducto;
+
+    DROP TABLE #Detalle;
+
+    PRINT '✅ Compra registrada exitosamente';
+END;
 
 alter PROCEDURE GestionCompraGoldenSkin
   @IdProveedor INT,
@@ -224,7 +283,7 @@ BEGIN
     RETURN @PrecioUnitario * @CantidadVendida;
 END;
 -- calcular el descuento
-CREATE FUNCTION CalcularDescuentoPorCantidad
+alter FUNCTION CalcularDescuentoPorCantidad
 (
     @IdVenta INT
 )
@@ -233,23 +292,26 @@ AS
 BEGIN
     DECLARE @Descuento DECIMAL(10,2) = 0.00;
 
-    IF (
-        SELECT COUNT(DISTINCT IdProducto)
-        FROM DetalleVenta
-        WHERE IdVenta = @IdVenta
-    ) > 3
+    -- Calcular la cantidad total de unidades vendidas en la venta
+    DECLARE @TotalCantidad INT;
+    SELECT @TotalCantidad = SUM(CantidadVendida)
+    FROM DetalleVenta
+    WHERE IdVenta = @IdVenta;
+
+    -- Si se vendieron más de 10 unidades en total, aplicar 5% de descuento
+    IF @TotalCantidad > 10
     BEGIN
-        -- Obtener subtotal de la venta
         DECLARE @Subtotal DECIMAL(10,2);
         SELECT @Subtotal = SUM(Subtotal)
         FROM DetalleVenta
         WHERE IdVenta = @IdVenta;
 
-        SET @Descuento = @Subtotal * 0.05; -- 5% de descuento
+        SET @Descuento = @Subtotal * 0.05;
     END
 
     RETURN @Descuento;
-END;
+END
+
 
 
 --nuevo detalle de venta

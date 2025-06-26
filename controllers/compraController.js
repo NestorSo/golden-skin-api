@@ -15,7 +15,7 @@ exports.registrarCompra = async (req, res) => {
     await pool.request()
       .input('IdProveedor', sql.Int, proveedorId)
       .input('IdEmpleado', sql.Int, empleadoId)
-      .execute('GestionarCompraMultiple');
+      .execute('GestionCompraGoldenSkin');
 
     // 2. Obtener el ID de compra recién generado
     const compraIdResult = await pool.request().query('SELECT MAX(IdCompra) AS IdCompra FROM Compras');

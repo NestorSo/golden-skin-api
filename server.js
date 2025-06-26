@@ -30,6 +30,7 @@ const ventaRoutes = require('./routes/ventaRoutes');
 const rolRoutes = require('./routes/rolRoutes');
 const marcaRoutes = require('./routes/marcaRoutes');
 const proveedorRoutes = require('./routes/proveedorRoutes');
+const empleadoRoute = require('./routes/empleadoRoute');
 
 
 app.use('/api/productos', productRoutes);
@@ -40,6 +41,8 @@ app.use('/api/ventas', ventaRoutes);
 app.use('/api/roles', rolRoutes);
 app.use('/api/marcas', marcaRoutes);
 app.use('/api/proveedores', proveedorRoutes);
+app.use('/api/empleados', empleadoRoute);
+
 
 
 console.log('🔗 Rutas cargadas correctamente.');
