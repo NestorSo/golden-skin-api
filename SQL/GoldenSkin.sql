@@ -171,6 +171,7 @@ select * from roles
 select * from privilegios
 SELECT * FROM usuarios
 SELECT * FROM empleados
+SELECT * FROM Proveedores
 
 SELECT * FROM Clientes
 SELECT * FROM Productos where NombreProducto='Gel de bano Watermelon'

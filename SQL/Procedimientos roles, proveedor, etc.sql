@@ -178,6 +178,36 @@ BEGIN
        OR Fabricante LIKE '%' + @Texto + '%';
 END
 
+CREATE PROCEDURE sp_ListarMarcas
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  SELECT 
+    IdMarca,
+    NombreMarca,
+    Descripcion,
+    Fabricante,
+    EstadoMarca
+  FROM Marcas
+  WHERE EstadoMarca = 1;
+END
+CREATE PROCEDURE sp_ListarMarcasInactivas
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  SELECT 
+    IdMarca,
+    NombreMarca,
+    Descripcion,
+    Fabricante,
+    EstadoMarca
+  FROM Marcas
+  WHERE EstadoMarca = 0;
+END
+
+
 sp_CrearProveedor 'Bimbo','Managua,carretera Norte','87675651','bimbo@gmail.com'
 -- proveedores
 CREATE PROCEDURE sp_CrearProveedor
@@ -233,4 +263,43 @@ BEGIN
        OR Correo LIKE '%' + @Texto + '%';
 END
 
+use GoldenSkin	
+select * from Proveedores
 
+ALTER PROCEDURE sp_ListarProveedores
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  SELECT 
+    IdProveedor, 
+    NombreProveedor,
+    Telefono,
+    Direccion,
+    Correo,
+    EstadoProveedor
+  FROM Proveedores
+  WHERE EstadoProveedor = 1;
+END
+
+
+CREATE PROCEDURE sp_ListarTodosProveedores
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  SELECT IdProveedor, NombreProveedor,
+         CASE WHEN EstadoProveedor = 1 THEN 'Activo' ELSE 'Inactivo' END AS Estado
+  FROM Proveedores
+END
+
+
+
+create PROCEDURE sp_ListarProveedoresInactivos
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+ SELECT IdProveedor, NombreProveedor FROM Proveedores WHERE EstadoProveedor = 0
+
+END
