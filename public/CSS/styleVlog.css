@@ -66,12 +66,19 @@ ul {
 
  /* --- Navbar --- */
         .navbar {
-            background: #CF818E;
-            padding: 20px 5%;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #d98aa0;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1rem 2rem;
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
         
         .logo a {
