@@ -48,14 +48,14 @@ fila.innerHTML = `
   <td>${p.Telefono}</td>
   <td>${p.Direccion}</td>
 `;
+fila.addEventListener('click', () => {
+  proveedorSeleccionado = p;
+  document.getElementById('nombre').value = p.NombreProveedor; // ✅ Corregido
+  document.getElementById('telefono').value = p.Telefono;
+  document.getElementById('direccion').value = p.Direccion;
+  document.getElementById('correo').value = p.Correo;
+});
 
-    fila.addEventListener('click', () => {
-      proveedorSeleccionado = p;
-      document.getElementById('nombre').value = p.Nombre;
-      document.getElementById('telefono').value = p.Telefono;
-      document.getElementById('direccion').value = p.Direccion;
-      document.getElementById('correo').value = p.Correo;
-    });
     tbody.appendChild(fila);
   });
 }

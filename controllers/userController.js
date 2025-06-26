@@ -447,3 +447,18 @@ exports.actualizarUsuario = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
+
+// 🔹 Listar solo clientes (usuarios con rolId = 2)
+exports.listarClientes = async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const result = await pool.request()
+      .input('RolId', sql.Int, 2)
+      .execute('sp_ListarUsuariosPorRol'); // ← Este SP debe existir
+
+    res.json(result.recordset);
+  } catch (err) {
+    console.error('❌ Error al listar clientes:', err);
+    res.status(500).json({ mensaje: '❌ Error al obtener clientes' });
+  }
+};
