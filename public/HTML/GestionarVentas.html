@@ -47,19 +47,26 @@
         <div class="management-section">
             <div class="form-container">
                 <h2>Gestión de Ventas</h2>
-                <div class="form-group">
-                    <label for="nombre">Nombre Producto</label>
-                    <input type="text" id="nombre" placeholder="Ingrese el nombre del producto">
-                </div>
-                
-                <div class="form-group">
-                    <label for="direccion">Marca</label>
-                    <input type="text" id="marca" placeholder="Ingrese la dirección completa">
-                </div>
-                <div class="form-group">
-                    <label for="cantidad-vendida">Cantidad Vendida</label>
-                    <input type="number" id="cantidad-vendida" placeholder="Ingrese la cantidad vendida">
-                </div>
+<div class="form-group">
+  <label for="selectCliente">Cliente</label>
+  <select id="cliente" required></select>
+</div>
+
+<div class="form-group">
+  <label for="Producto">Producto</label>
+  <select id="producto" required></select>
+</div>
+
+<!-- Empleado -->
+<div class="form-group">
+  <label for="empleado">Empleado</label>
+  <input type="text" id="empleado" disabled>
+</div>
+<div class="form-group">
+  <label for="cantidad-vendida">Cantidad Vendida</label>
+  <input type="number" id="cantidad-vendida" min="1" required placeholder="Ingrese la cantidad">
+</div>
+
 
                 <div class="form-group">
                     <label for="fecha-venta">Fecha de realizacion de Venta</label>

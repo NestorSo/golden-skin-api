@@ -258,5 +258,8 @@ router.put('/estado/:id', userController.cambiarEstado);
  */
 router.put('/actualizar/:id', userController.actualizarUsuario);
 
+// 🔹 Ruta para obtener todos los clientes
+router.get('/clientes', userController.listarClientes);
+
 module.exports = router;
 

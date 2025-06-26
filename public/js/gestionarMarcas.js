@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnInsertar = document.getElementById('insertarMarca');
   const btnActualizar = document.getElementById('actualizarMarca');
   const btnEliminar = document.getElementById('eliminarMarca');
-    const btnreactivar = document.getElementById('eliminarMarca');
+const btnReactivar = document.getElementById('reactivarMarca');
   const btnLimpiar = document.getElementById('limpiarMarca');
 
   let marcas = [];
@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
   btnInsertar.addEventListener('click', crearMarca);
   btnActualizar.addEventListener('click', actualizarMarca);
   btnEliminar.addEventListener('click', desactivarMarca);
+  btnReactivar.addEventListener('click', reactivarMarca);
+
   btnLimpiar.addEventListener('click', limpiarFormulario);
   inputBuscar.addEventListener('input', buscarMarca);
 
@@ -35,6 +37,31 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('❌ Error al cargar marcas:', err);
     }
   }
+async function reactivarMarca() {
+  const id = parseInt(inputId.value);
+  if (!id) {
+    alert('⚠️ Seleccione una marca para reactivarla');
+    return;
+  }
+
+  if (!confirm('¿Está seguro de reactivar esta marca?')) return;
+
+  try {
+    const res = await fetch(`${API_URL}/estado/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ estado: true })
+    });
+
+    const result = await res.json();
+    alert(result.mensaje || '✅ Marca reactivada');
+    limpiarFormulario();
+    cargarMarcas();
+  } catch (err) {
+    console.error('❌ Error al reactivar marca:', err);
+    alert('❌ Error al reactivar marca');
+  }
+}
 
   function renderTabla(lista) {
     tablaBody.innerHTML = '';
@@ -46,12 +73,13 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${m.Descripcion}</td>
         <td>${m.Fabricante}</td>
       `;
-      fila.addEventListener('click', () => {
-        inputId.value = m.IdMarca;
-        inputNombre.value = m.Nombre;
-        inputDescripcion.value = m.Descripcion;
-        inputFabricante.value = m.Fabricante;
-      });
+ fila.addEventListener('click', () => {
+  inputId.value = m.IdMarca;
+  inputNombre.value = m.NombreMarca;   // ✅ Corregido
+  inputDescripcion.value = m.Descripcion;
+  inputFabricante.value = m.Fabricante;
+});
+
       tablaBody.appendChild(fila);
     });
   }
