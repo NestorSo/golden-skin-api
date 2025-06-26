@@ -11,18 +11,15 @@ exports.registrarVenta = async (req, res) => {
   try {
     const pool = await sql.connect(config);
 
-    // 1. Crear la venta
     await pool.request()
       .input('IdCliente', sql.Int, clienteId)
       .input('IdEmpleado', sql.Int, empleadoId)
       .input('Descripcion', sql.NVarChar, 'Venta generada desde sistema web')
       .execute('GestionarVentaMultiple');
 
-    // 2. Obtener el ID recién insertado
     const ventaIdResult = await pool.request().query('SELECT MAX(IdVenta) AS IdVenta FROM Ventas');
     const idVenta = ventaIdResult.recordset[0].IdVenta;
 
-    // 3. Insertar detalle para cada producto
     for (const { id, cantidad } of productos) {
       await pool.request()
         .input('IdVenta', sql.Int, idVenta)
@@ -31,9 +28,9 @@ exports.registrarVenta = async (req, res) => {
         .execute('NuevoDetalleVenta');
     }
 
-    res.status(201).json({ mensaje: '✅ Venta registrada correctamente', id: idVenta });
+    res.status(201).json({ mensaje: '✅ Pedido registrado correctamente', id: idVenta });
   } catch (err) {
-    console.error('❌ Error al registrar venta:', err);
+    console.error('❌ Error en registrar venta múltiple:', err);
     res.status(500).json({ mensaje: '❌ Error interno del servidor' });
   }
 };
@@ -60,6 +57,7 @@ exports.Venta = async (req, res) => {
     res.status(500).json({ mensaje: '❌ Error interno al registrar la venta' });
   }
 };
+
 
 // 🔹 Listar todas las ventas
 exports.listarVentas = async (req, res) => {

@@ -18,10 +18,13 @@
     <ul>
       <li><a href="../HTML/homeAdmin.html"><i class="fas fa-home"></i> Inicio</a></li>
       <li><a href="../HTML/GestionarProductos.html"><i class="fas fa-box"></i> Productos</a></li>
+          <li><a href="../HTML/GestionarVentas.html"><i class="fas fa-shopping-cart"></i> Ventas</a></li>
+            <li><a href="../HTML/GestionarCompras.html"><i class="fas fa-boxes"></i> Compras</a></li>
       <li><a href="../HTML/GestionarUsuario.html" class="active"><i class="fas fa-users"></i> Usuarios</a></li>
-      <li><a href="../HTML/GestionarVentas.html"><i class="fas fa-shopping-cart"></i> Ventas</a></li>
       <li><a href="../HTML/gestionMarcas.html"><i class="fas fa-copyright"></i> Marcas</a></li>
       <li><a href="../HTML/gestionProveedores.html"><i class="fas fa-truck"></i> Proveedores</a></li>
+            <li><a href="../HTML/GestionarRoles.html" class="active"><i class="fas fa-user-tag"></i> Roles</a></li>
+
     </ul>
   </div>
 
@@ -46,18 +49,55 @@
             <input id="Nombre" name="Nombre" type="text" required /> 
           </div>
           <div class="form-group">
+            <label for="Apellido">Apellido</label>
+            <input id="Apellido" name="Apellido" type="text" required /> 
+          </div>
+          <div class="form-group">
             <label for="Email">Correo</label>
             <input id="Email" name="Email" type="email" required />
+          </div>
+          <div class="form-group">
+            <label for="Contrasena">Contraseña</label>
+            <input id="Contrasena" name="Contrasena" type="password" required />
           </div>
           <div class="form-group">
             <label for="RolId">Rol</label>
             <select id="RolId" name="RolId" required></select>
           </div>
-    <!-- Filtros -->
-    <div class="form-group" style="margin-top: 20px;">
-      <label for="verInactivos">Mostrar Usuarios inactivos</label>
-      <input type="checkbox" id="verInactivos">
-    </div>
+          <div class="form-group">
+            <label for="Direccion">Dirección</label>
+            <input id="Direccion" name="Direccion" type="text" />
+          </div>
+          <div class="form-group">
+            <label for="Telefono">Teléfono</label>
+            <input id="Telefono" name="Telefono" type="text" />
+          </div>
+          <div class="form-group">
+            <label for="Cargo">Cargo</label>
+            <input id="Cargo" name="Cargo" type="text" />
+          </div>
+
+          <!-- Campos exclusivos para cliente -->
+          <div id="camposCliente" style="display:none;">
+            <div class="form-group">
+              <label for="Genero">Género</label>
+              <select id="Genero" name="Genero">
+                <option value="">Seleccione</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="FechaNacimiento">Fecha de Nacimiento</label>
+              <input id="FechaNacimiento" name="FechaNacimiento" type="date" />
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top: 20px;">
+            <label for="verInactivos">Mostrar Usuarios inactivos</label>
+            <input type="checkbox" id="verInactivos">
+          </div>
+
           <input type="hidden" id="UsuarioId" name="UsuarioId" />
           <div class="button-group">
             <button type="button" id="insertarUsuario" class="action-button btn-insert">
@@ -69,6 +109,11 @@
             <button type="button" id="eliminarUsuario" class="action-button btn-delete">
               <i class="fas fa-user-minus"></i> Desactivar Usuario
             </button>
+<button type="button" id="reactivarUsuario" class="action-button btn-reactivate" >
+  <i class="fas fa-user-check"></i> Reactivar Usuario
+</button>
+
+
             <button type="button" id="limpiarUsuario" class="action-button btn-clear">
               <i class="fas fa-broom"></i> Limpiar
             </button>

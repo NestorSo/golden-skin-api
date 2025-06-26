@@ -13,6 +13,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 console.log('📦 Middleware y archivos estáticos configurados.');
+function verificarAdmin(req, res, next) {
+  if (req.user && req.user.rol === 'Administrador') {
+    return next();
+  }
+  return res.status(403).send('Acceso denegado');
+}
 
 
 // 🔹 Rutas
@@ -46,7 +52,7 @@ console.log('📖 Swagger UI configurado en /api-docs');
 
 // 🔹 Ruta raíz
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'HTML', 'homeAdmin.html'));
+  res.sendFile(path.join(__dirname, 'public', 'HTML', 'login.html'));
 });
 
 // 🔹 Página de éxito

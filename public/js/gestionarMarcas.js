@@ -1,0 +1,157 @@
+// public/js/gestionarMarcas.js
+document.addEventListener('DOMContentLoaded', () => {
+  const API_URL = '/api/marcas';
+
+  const inputBuscar = document.querySelector('.search-input');
+  const tablaBody = document.querySelector('.client-table tbody');
+
+  const inputId = document.getElementById('UsuarioId');
+  const inputNombre = document.getElementById('marca');
+  const inputDescripcion = document.getElementById('descripcion');
+  const inputFabricante = document.getElementById('fabricante');
+
+  const btnInsertar = document.getElementById('insertarMarca');
+  const btnActualizar = document.getElementById('actualizarMarca');
+  const btnEliminar = document.getElementById('eliminarMarca');
+    const btnreactivar = document.getElementById('eliminarMarca');
+  const btnLimpiar = document.getElementById('limpiarMarca');
+
+  let marcas = [];
+
+  btnInsertar.addEventListener('click', crearMarca);
+  btnActualizar.addEventListener('click', actualizarMarca);
+  btnEliminar.addEventListener('click', desactivarMarca);
+  btnLimpiar.addEventListener('click', limpiarFormulario);
+  inputBuscar.addEventListener('input', buscarMarca);
+
+  cargarMarcas();
+
+  async function cargarMarcas() {
+    try {
+      const res = await fetch(`${API_URL}/todos`);
+      marcas = await res.json();
+      renderTabla(marcas);
+    } catch (err) {
+      console.error('❌ Error al cargar marcas:', err);
+    }
+  }
+
+  function renderTabla(lista) {
+    tablaBody.innerHTML = '';
+    lista.forEach(m => {
+      const fila = document.createElement('tr');
+      fila.innerHTML = `
+        <td>${m.IdMarca}</td>
+        <td>${m.NombreMarca}</td>
+        <td>${m.Descripcion}</td>
+        <td>${m.Fabricante}</td>
+      `;
+      fila.addEventListener('click', () => {
+        inputId.value = m.IdMarca;
+        inputNombre.value = m.Nombre;
+        inputDescripcion.value = m.Descripcion;
+        inputFabricante.value = m.Fabricante;
+      });
+      tablaBody.appendChild(fila);
+    });
+  }
+
+  async function crearMarca() {
+    const data = leerFormulario();
+    if (!data) return;
+
+    try {
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const result = await res.json();
+      alert(result.mensaje || '✅ Marca registrada');
+      limpiarFormulario();
+      cargarMarcas();
+    } catch (err) {
+      console.error('❌ Error al registrar marca:', err);
+      alert('❌ Error al registrar marca');
+    }
+  }
+
+  async function actualizarMarca() {
+    const id = parseInt(inputId.value);
+    const data = leerFormulario();
+    if (!id || !data) {
+      alert('⚠️ Debe seleccionar una marca');
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API_URL}/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const result = await res.json();
+      alert(result.mensaje || '✅ Marca actualizada');
+      limpiarFormulario();
+      cargarMarcas();
+    } catch (err) {
+      console.error('❌ Error al actualizar marca:', err);
+      alert('❌ Error al actualizar marca');
+    }
+  }
+
+  async function desactivarMarca() {
+    const id = parseInt(inputId.value);
+    if (!id) {
+      alert('⚠️ Seleccione una marca para desactivarla');
+      return;
+    }
+
+    if (!confirm('¿Está seguro de desactivar esta marca?')) return;
+
+    try {
+      const res = await fetch(`${API_URL}/estado/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ estado: false })
+      });
+      const result = await res.json();
+      alert(result.mensaje || '✅ Marca desactivada');
+      limpiarFormulario();
+      cargarMarcas();
+    } catch (err) {
+      console.error('❌ Error al desactivar marca:', err);
+      alert('❌ Error al desactivar marca');
+    }
+  }
+
+  function buscarMarca() {
+    const texto = inputBuscar.value.toLowerCase();
+    const filtradas = marcas.filter(m =>
+      m.Nombre.toLowerCase().includes(texto) ||
+      m.Fabricante.toLowerCase().includes(texto) ||
+      String(m.IdMarca).includes(texto)
+    );
+    renderTabla(filtradas);
+  }
+
+  function leerFormulario() {
+    const nombre = inputNombre.value.trim();
+    const descripcion = inputDescripcion.value.trim();
+    const fabricante = inputFabricante.value.trim();
+
+    if (!nombre || !descripcion || !fabricante) {
+      alert('⚠️ Por favor complete todos los campos');
+      return null;
+    }
+
+    return { nombre, descripcion, fabricante };
+  }
+
+  function limpiarFormulario() {
+    inputId.value = '';
+    inputNombre.value = '';
+    inputDescripcion.value = '';
+    inputFabricante.value = '';
+  }
+});

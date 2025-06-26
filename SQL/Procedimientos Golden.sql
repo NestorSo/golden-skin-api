@@ -382,25 +382,25 @@ END
 
 
 
-CREATE PROCEDURE sp_ListarUsuariosInactivos
+alter PROCEDURE sp_ListarUsuariosInactivos
 AS
 BEGIN
   SET NOCOUNT ON;
 
-  SELECT U.IdUsuario, U.Nombre, U.Apellido, U.Email, R.NombreRol
+  SELECT U.IdUsuario, U.Nombre, U.Apellido, U.Email, R.NombreRol, U.EstadoUsuario
   FROM Usuarios U
   INNER JOIN Roles R ON U.IdRol = R.IdRol
   WHERE U.EstadoUsuario = 0;
 END
 
-
+use GoldenSkin
 
 CREATE OR ALTER PROCEDURE sp_ListarUsuariosActivos
 AS
 BEGIN
   SET NOCOUNT ON;
 
-  SELECT U.IdUsuario, U.Nombre, U.Apellido, U.Email, R.NombreRol
+  SELECT U.IdUsuario, U.Nombre, U.Apellido, U.Email, R.NombreRol, U.EstadoUsuario
   FROM Usuarios U
   INNER JOIN Roles R ON U.IdRol = R.IdRol
   WHERE U.EstadoUsuario = 1;

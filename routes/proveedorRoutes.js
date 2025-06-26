@@ -119,4 +119,22 @@ router.put('/estado/:id', proveedorController.cambiarEstadoProveedor);
  */
 router.get('/buscar', proveedorController.buscarProveedor);
 
+/**
+ * @swagger
+ * /api/proveedores/todos:
+ *   get:
+ *     summary: Listar proveedores activos 
+ *     tags: [Proveedores]
+ *     parameters:
+ *       - in: query
+ *         name: estado
+ *         schema:
+ *           type: string
+ *           enum: [0, 1]
+ *     responses:
+ *       200:
+ *         description: Lista de productos
+ */
+router.get('/todos', proveedorController.listarProveedores);
+
 module.exports = router;

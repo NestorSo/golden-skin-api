@@ -314,8 +314,8 @@ END;
 
 use goldenskin
 --gestion de la venta
-
-alter PROCEDURE GestionarVentaGoldenSkin
+GestionarVentaGoldenSkin
+create PROCEDURE GestionarVentaMultiple
   @IdCliente INT,
   @IdEmpleado INT,
   @Descripcion NVARCHAR(100)
@@ -353,8 +353,7 @@ BEGIN
 END
 
 
-
-CREATE PROCEDURE GestionarVentaGoldenSkin
+ALTER PROCEDURE GestionarVentaGoldenSkin
   @IdCliente INT,
   @IdEmpleado INT,
   @IdProducto INT,
@@ -368,35 +367,29 @@ BEGIN
   BEGIN TRY
     BEGIN TRAN;
 
-    -- Insertar la venta (Descuento y Total inicial en 0, Delivery por defecto en 0)
     INSERT INTO Ventas (IdEmpleado, IdCliente, FechaVenta, Descuento, Total, Delivery)
     VALUES (@IdEmpleado, @IdCliente, GETDATE(), 0, 0, 0);
 
     SET @IdVenta = SCOPE_IDENTITY();
 
-    -- Insertar detalle de venta
+    -- Insertar el detalle directamente
     EXEC NuevoDetalleVenta @IdVenta, @IdProducto, @Cantidad;
 
-    -- Obtener el descuento si aplica (más de 3 productos distintos)
+    -- Calcular y actualizar descuento
     DECLARE @Descuento DECIMAL(10,2) = dbo.CalcularDescuentoPorCantidad(@IdVenta);
 
-    -- Actualizar el campo descuento
     UPDATE Ventas
     SET Descuento = @Descuento
     WHERE IdVenta = @IdVenta;
 
-    -- Nota: el total se calculará automáticamente por el trigger tr_ActualizarTotalVenta
-    -- Y si es delivery, el trigger tr_AjustarTotalPorDelivery lo ajustará con el recargo
-
     COMMIT;
-    PRINT '✅ Venta registrada correctamente con cálculo automático de total.';
   END TRY
   BEGIN CATCH
     ROLLBACK;
-    DECLARE @Error NVARCHAR(4000) = ERROR_MESSAGE();
-    PRINT '❌ Error al registrar la venta: ' + @Error;
+    THROW;
   END CATCH
 END;
+
 
 
 

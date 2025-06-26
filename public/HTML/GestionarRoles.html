@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GoldenSkin – Gestión de Roles</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../CSS/AdministradorStyle.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a class="logo" href="../HTML/homeAdmin.html">GoldenSkin</a>
+    </div>
+  </nav>
+
+  <div class="sidebar-horizontal">
+    <ul>
+      <li><a href="../HTML/homeAdmin.html"><i class="fas fa-home"></i> Inicio</a></li>
+      <li><a href="../HTML/GestionarProductos.html"><i class="fas fa-box"></i> Productos</a></li>
+          <li><a href="../HTML/GestionarVentas.html"><i class="fas fa-shopping-cart"></i> Ventas</a></li>
+            <li><a href="../HTML/GestionarCompras.html"><i class="fas fa-boxes"></i> Compras</a></li>
+      <li><a href="../HTML/GestionarUsuario.html"><i class="fas fa-users"></i> Usuarios</a></li>
+      <li><a href="../HTML/gestionMarcas.html"><i class="fas fa-copyright"></i> Marcas</a></li>
+      <li><a href="../HTML/gestionProveedores.html"><i class="fas fa-truck"></i> Proveedores</a></li>
+      <li><a href="../HTML/GestionarRoles.html" class="active"><i class="fas fa-user-tag"></i> Roles</a></li>
+    </ul>
+  </div>
+
+  <div class="main-container">
+    <header class="page-header">
+      <h1>Gestión de Roles</h1>
+    </header>
+
+    <section class="search-section">
+      <div class="search-container">
+        <input type="text" id="busquedaRol" class="search-input" placeholder="Buscar rol por nombre o ID..." />
+        <button id="btnBuscarRol" class="search-button"><i class="fas fa-search"></i> Buscar</button>
+      </div>
+    </section>
+
+    <div class="management-section">
+      <div class="form-container">
+        <h2>Formulario de Rol</h2>
+        <form id="formRol">
+          <div class="form-group">
+            <label for="nombreRol">Nombre del Rol</label>
+            <input id="nombreRol" name="nombreRol" type="text" required />
+          </div>
+<!-- Filtro para mostrar inactivos -->
+<div class="form-group" style="margin-top: 20px;">
+  <label for="verInactivos">Mostrar inactivos</label>
+  <input type="checkbox" id="verInactivos">
+</div>
+
+          <input type="hidden" id="idRol" name="idRol" />
+
+          <div class="button-group">
+            <button type="button" id="btnInsertarRol" class="action-button btn-insert">
+              <i class="fas fa-plus"></i> Crear Rol
+            </button>
+            <button type="button" id="btnActualizarRol" class="action-button btn-update">
+              <i class="fas fa-sync-alt"></i> Actualizar
+            </button>
+            <button type="button" id="btnEliminarRol" class="action-button btn-delete">
+              <i class="fas fa-trash-alt"></i> Eliminar
+            </button>
+            <button type="button" id="reactivarRol" class="action-button btn-reactivate" >
+  <i class="fas fa-user-check"></i> Reactivar Rol
+</button>
+            <button type="button" id="btnLimpiarRol" class="action-button btn-clear">
+              <i class="fas fa-broom"></i> Limpiar
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="table-container">
+        <table class="client-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre del Rol</th>
+            </tr>
+          </thead>
+          <tbody id="tablaRolesBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/gestionarRoles.js"></script>
+</body>
+</html>

@@ -170,6 +170,19 @@
 <script src="../js/logout.js"></script>
 <script src="../js/alertas.js"></script>
 <script src="../js/back.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const userInfoDiv = document.getElementById('userInfo');
+    const user = JSON.parse(localStorage.getItem('usuario'));
+
+    if (user && user.Nombre && user.Apellido) {
+      userInfoDiv.textContent = `👤 ${user.Nombre} ${user.Apellido}`;
+    } else {
+      userInfoDiv.textContent = '👤 Usuario no identificado';
+    }
+  });
+</script>
+
 
 
 <div id="alerta" class="alerta-popup" style="display: none;"></div>

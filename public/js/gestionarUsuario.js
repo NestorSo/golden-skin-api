@@ -173,6 +173,7 @@
 //   }
 // });
 
+// gestionarUsuario.js
 
 // gestionarUsuario.js
 
@@ -187,6 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnActualizar = document.getElementById('actualizarUsuario');
   const btnEliminar = document.getElementById('eliminarUsuario');
   const btnLimpiar = document.getElementById('limpiarUsuario');
+  const btnReactivar = document.getElementById('reactivarUsuario'); // NUEVO
   const selectRol = document.getElementById('RolId');
   const checkInactivos = document.getElementById('verInactivos');
 
@@ -196,6 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
   btnActualizar.onclick = actualizarUsuario;
   btnEliminar.onclick = eliminarUsuario;
   btnLimpiar.onclick = limpiarFormulario;
+  btnReactivar.onclick = reactivarUsuario; // NUEVO
   inputBuscar.oninput = filtrarUsuarios;
   checkInactivos.onchange = cargarUsuarios;
 
@@ -216,42 +219,61 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  async function cargarUsuarios() {
-    const url = checkInactivos?.checked
-      ? `${API_URL}/listar/inactivos`
-      : `${API_URL}/listar/activos`;
+  selectRol.addEventListener('change', () => {
+    const rolSeleccionado = roles.find(r => r.IdRol == selectRol.value)?.NombreRol?.toLowerCase();
+    const camposCliente = document.querySelectorAll('.solo-cliente');
+    camposCliente.forEach(campo => {
+      campo.style.display = (rolSeleccionado === 'cliente') ? 'block' : 'none';
+    });
+  });
 
-    try {
-      const res = await fetch(url);
-      usuarios = await res.json();
-      renderTabla(usuarios);
-    } catch (e) {
-      console.error('❌ Error al cargar usuarios:', e);
-      tablaBody.innerHTML = '<tr><td colspan="5">❌ No se pudieron cargar usuarios</td></tr>';
-    }
+async function cargarUsuarios() {
+  const url = checkInactivos?.checked
+    ? `${API_URL}/listar/inactivos`
+    : `${API_URL}/listar/activos`;
+
+  try {
+    const res = await fetch(url);
+    usuarios = await res.json();
+
+    console.log('🧾 Usuarios cargados:', usuarios); // 👈 AÑADE ESTO
+
+    renderTabla(usuarios);
+  } catch (e) {
+    console.error('❌ Error al cargar usuarios:', e);
+    tablaBody.innerHTML = '<tr><td colspan="5">❌ No se pudieron cargar usuarios</td></tr>';
   }
+}
+
 
   function renderTabla(lista) {
-    tablaBody.innerHTML = '';
-    lista.forEach(u => {
-      const fila = document.createElement('tr');
-      fila.innerHTML = `
-        <td>${u.IdUsuario}</td>
-        <td>${u.Nombre}</td>
-        <td>${u.Email}</td>
-        <td>${u.NombreRol || 'Sin rol'}</td>
-        <td>${u.EstadoUsuario ? 'Activo' : 'Inactivo'}</td>
-      `;
-      fila.addEventListener('click', () => {
-        usuarioSeleccionado = u;
-        document.getElementById('Nombre').value = u.Nombre;
-        document.getElementById('Email').value = u.Email;
-        document.getElementById('RolId').value = roles.find(r => r.NombreRol === u.NombreRol)?.IdRol || '';
-        document.getElementById('UsuarioId').value = u.IdUsuario;
-      });
-      tablaBody.appendChild(fila);
-    });
-  }
+  tablaBody.innerHTML = '';
+  lista.forEach(u => {
+    const fila = document.createElement('tr');
+    fila.innerHTML = `
+      <td>${u.IdUsuario}</td>
+      <td>${u.Nombre}</td>
+      <td>${u.Email}</td>
+      <td>${u.NombreRol || 'Sin rol'}</td>
+<td>${u.EstadoUsuario ? 'Activo' : 'Inactivo'}</td>
+    `;
+    fila.addEventListener('click', () => {
+  usuarioSeleccionado = u;
+  document.getElementById('Nombre').value = u.Nombre;
+  document.getElementById('Email').value = u.Email;
+  document.getElementById('RolId').value = roles.find(r => r.NombreRol === u.NombreRol)?.IdRol || '';
+  document.getElementById('UsuarioId').value = u.IdUsuario;
+
+  // Mostrar/ocultar campos cliente
+  selectRol.dispatchEvent(new Event('change'));
+
+});
+
+
+    tablaBody.appendChild(fila); // 👈 ¡Asegúrate de que esto esté aquí dentro también!
+  });
+}
+
 
   function filtrarUsuarios() {
     const texto = inputBuscar.value.toLowerCase();
@@ -282,11 +304,18 @@ document.addEventListener('DOMContentLoaded', () => {
       apellido: 'Desconocido',
       correo: email,
       contrasena: 'Temporal123',
-      rolNombre,
+      rol: rolNombre,
       direccion: '',
       telefono: '',
       cargo: ''
     };
+
+    if (rolNombre.toLowerCase() === 'cliente') {
+      data.telefono = document.getElementById('Telefono').value.trim();
+      data.direccion = document.getElementById('Direccion').value.trim();
+      data.genero = document.getElementById('Genero').value;
+      data.fechaNacimiento = document.getElementById('FechaNacimiento').value;
+    }
 
     try {
       const res = await fetch(`${API_URL}/admin/register`, {
@@ -308,12 +337,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!usuarioSeleccionado) return alert('⚠️ Selecciona un usuario');
 
     const nombre = document.getElementById('Nombre').value.trim();
+        const apellido = document.getElementById('Apellido').value.trim();
+
     const email = document.getElementById('Email').value.trim();
 
     const data = {
       nombre,
-      apellido: 'Actualizado',
-      email,
+      apellido,
+      correo: email,
       direccion: '',
       telefono: '',
       cargo: ''
@@ -343,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const res = await fetch(`${API_URL}/estado/${usuarioSeleccionado.IdUsuario}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nuevoEstado: false })
+        body: JSON.stringify({ nuevoEstado: 0 })
       });
       if (!res.ok) throw new Error(await res.text());
       alert('✅ Usuario desactivado');
@@ -355,8 +386,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function limpiarFormulario() {
-    form.reset();
-    usuarioSeleccionado = null;
+  async function reactivarUsuario() {
+    if (!usuarioSeleccionado) return alert('⚠️ Selecciona un usuario');
+    if (!confirm('¿Deseas reactivar este usuario?')) return;
+
+    try {
+      const res = await fetch(`${API_URL}/estado/${usuarioSeleccionado.IdUsuario}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nuevoEstado: 1 })
+      });
+      if (!res.ok) throw new Error(await res.text());
+      alert('✅ Usuario reactivado');
+      limpiarFormulario();
+      cargarUsuarios();
+    } catch (e) {
+      console.error('❌ Error al reactivar usuario:', e);
+      alert('❌ ' + e.message);
+    }
   }
+
+function limpiarFormulario() {
+  form.reset();
+  usuarioSeleccionado = null;
+  btnReactivar.style.display = 'none'; // Ocultar el botón al limpiar
+  document.querySelectorAll('.solo-cliente').forEach(el => el.style.display = 'none');
+}
+
 });

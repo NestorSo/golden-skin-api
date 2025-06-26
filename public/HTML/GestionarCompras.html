@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GoldenSkin - Administración | Gestión de Compras</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../CSS/AdministradorStyle.css" />
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a class="logo" href="../HTML/homeAdmin.html">GoldenSkin</a>
+    </div>
+  </nav>
+
+  <div class="sidebar-horizontal">
+    <ul>
+      <li><a href="../HTML/homeAdmin.html"><i class="fas fa-home"></i> Inicio</a></li>
+      <li><a href="../HTML/GestionarProductos.html"><i class="fas fa-box"></i> Productos</a></li>
+      <li><a href="../HTML/GestionarVentas.html"><i class="fas fa-shopping-cart"></i> Ventas</a></li>
+            <li><a href="../HTML/GestionarCompras.html" class="active"><i class="fas fa-boxes"></i> Compras</a></li>
+      <li><a href="../HTML/GestionarUsuario.html"><i class="fas fa-users"></i> Usuarios</a></li>
+      <li><a href="../HTML/gestionMarcas.html"><i class="fas fa-copyright"></i> Marcas</a></li>
+      <li><a href="../HTML/gestionProveedores.html"><i class="fas fa-truck"></i> Proveedores</a></li>
+            <li><a href="../HTML/GestionarRoles.html" class="active"><i class="fas fa-user-tag"></i> Roles</a></li>
+
+    </ul>
+  </div>
+
+  <div class="main-container">
+    <header class="page-header">
+      <h1>Golden Skin - Gestión de Compras</h1>
+    </header>
+
+    <section class="search-section">
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="Buscar compra por fecha, proveedor o ID..." />
+        <button class="search-button">
+          <i class="fas fa-search"></i> Buscar
+        </button>
+      </div>
+    </section>
+
+    <div class="management-section">
+      <div class="form-container">
+        <h2>Registrar Compra</h2>
+
+        <form id="formCompra">
+          <div class="form-group">
+            <label for="proveedor">Proveedor</label>
+<select id="proveedor" class="form-control"></select>
+            <option value=""></option>
+          </select>
+
+          </div>
+
+          <div class="form-group">
+            <label for="empleado">Empleado</label>
+            <input type="text" id="empleado" disabled />
+          </div>
+
+          <div class="form-group">
+            <label for="producto">Producto</label>
+            <input type="text" id="IdProducto" disabled />
+          </div>
+
+          <div class="form-group">
+            <label for="nombreProducto">Nombre</label>
+            <input type="text" id="nombreProducto" disabled />
+          </div>
+
+          <div class="form-group">
+            <label for="marcaProducto">Marca</label>
+            <input type="text" id="marcaProducto" disabled />
+          </div>
+
+          <div class="form-group">
+            <label for="categoriaProducto">Categoría</label>
+            <input type="text" id="categoriaProducto" disabled />
+          </div>
+
+          <div class="form-group">
+            <label for="descripcionProducto">Descripción</label>
+            <input type="text" id="descripcionProducto" disabled />
+          </div>
+
+          <div class="form-group">
+            <label for="cantidad">Cantidad</label>
+            <input type="number" id="cantidad" required />
+          </div>
+
+          <div class="form-group">
+            <label for="precioUnitario">Precio Unitario</label>
+            <input type="number" id="precioUnitario" step="0.01" required />
+          </div>
+
+          <div class="button-group">
+            <button type="submit" class="action-button btn-insert">
+              <i class="fas fa-cart-plus"></i> Registrar Compra
+            </button>
+            <button type="button" id="limpiarCompra" class="action-button btn-clear">
+              <i class="fas fa-broom"></i> Limpiar
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="table-producto" style="width: 60%; float: right;">
+        <table class="client-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Marca</th>
+              <th>Categoría</th>
+              <th>Descripción</th>
+              <th>Precio</th>
+              <th>F. Fabricación</th>
+              <th>F. Caducidad</th>
+              <th>Cantidad</th>
+              <th>Vendidos</th>
+            </tr>
+          </thead>
+          <tbody id="tablaProductosBody"></tbody>
+        </table>
+      </div>
+
+      <div style="clear: both; padding-top: 30px;"></div>
+
+      <div class="table-compras">
+        <table class="client-table">
+          <thead>
+            <tr>
+              <th>ID Compra</th>
+              <th>Proveedor</th>
+              <th>Empleado</th>
+              <th>Fecha</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="tablaComprasBody"></tbody>
+        </table>
+      </div>
+
+      <div class="report-buttons" style="margin-top: 20px;">
+        <button id="generarReporteCompras" class="report-button">
+          <i class="fas fa-file-alt"></i> Generar Reporte
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/gestionarCompra.js"></script>
+</body>
+</html>

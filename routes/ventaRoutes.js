@@ -11,9 +11,9 @@ const ventaController = require('../controllers/ventaController');
 
 /**
  * @swagger
- * /api/ventas:
+ * /api/ventas/multiple:
  *   post:
- *     summary: Registrar una nueva venta
+ *     summary: Registrar venta múltiple
  *     tags: [Ventas]
  *     requestBody:
  *       required: true
@@ -21,29 +21,56 @@ const ventaController = require('../controllers/ventaController');
  *         application/json:
  *           schema:
  *             type: object
- *             required:
- *               - clienteId
- *               - empleadoId
- *               - productoId
- *               - cantidad
+ *             required: [clienteId, empleadoId, productos]
  *             properties:
  *               clienteId:
  *                 type: integer
  *               empleadoId:
  *                 type: integer
- *               productoId:
+ *               productos:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                     cantidad:
+ *                       type: integer
+ *     responses:
+ *       201:
+ *         description: Venta múltiple registrada correctamente
+ */
+
+router.post('/', ventaController.registrarVenta);
+
+/**
+ * @swagger
+ * /api/ventas:
+ *   post:
+ *     summary: Registrar venta individual
+ *     tags: [Ventas]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [idCliente, idEmpleado, idProducto, cantidad]
+ *             properties:
+ *               idCliente:
+ *                 type: integer
+ *               idEmpleado:
+ *                 type: integer
+ *               idProducto:
  *                 type: integer
  *               cantidad:
  *                 type: integer
  *     responses:
  *       201:
  *         description: Venta registrada correctamente
- *       400:
- *         description: Datos incompletos
- *       500:
- *         description: Error del servidor
  */
-router.post('/', ventaController.registrarVenta);
+
+router.post('/', ventaController.Venta);
 
 /**
  * @swagger

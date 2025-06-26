@@ -1,4 +1,4 @@
-// // Carrito de compras
+//  Carrito de compras
 // const cartCount = document.getElementById('cartCount');
 // const contentProducts = document.getElementById('contentProducts');
 // const totalElement = document.getElementById('total');
@@ -480,7 +480,7 @@ async function agregarAlCarrito(idProducto) {
   }
   if (!producto) {
     try {
-      const res = await fetch(`/api/productos/${idProducto}`);
+      const res = await fetch(`/api/productos/obtener/${idProducto}`);
       if (!res.ok) throw new Error('Producto no encontrado');
       producto = await res.json();
     } catch (err) {

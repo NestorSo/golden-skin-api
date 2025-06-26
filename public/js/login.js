@@ -6,7 +6,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
   const messageBox = document.getElementById('login-message');
 
   try {
-    const res = await fetch('/api/login', {
+    const res = await fetch('/api/usuarios/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ correo, contrasena })
@@ -34,6 +34,8 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     console.error('Catch block error:', err);
     messageBox.textContent = '❌ Error de red o servidor.';
   }
+
+  
 });
 
 

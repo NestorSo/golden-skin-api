@@ -11,9 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
 const ordenarPorSelect = document.getElementById('ordenarPor');
 
   // Eventos
-  document.getElementById('insertarProducto').addEventListener('click', agregarProducto); // ID corregido
+  document.getElementById('insertarProducto').addEventListener('click', agregarProducto);
+    document.getElementById('agregarInventario').addEventListener('click', agregarProducto); // ID corregido
+ // ID corregido
   document.getElementById('actualizar').addEventListener('click', actualizarProducto);
   document.getElementById('baja').addEventListener('click', darDeBaja);
+    document.getElementById('reactivarProducto').addEventListener('click', reactivarProducto); // ID corregido
+
   document.getElementById('limpiar').addEventListener('click', limpiarFormulario);
   inputBuscar.addEventListener('input', filtrarProductos);
   checkInactivos.addEventListener('change', ordenarPor);

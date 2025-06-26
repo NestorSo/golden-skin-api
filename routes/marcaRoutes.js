@@ -123,5 +123,19 @@ router.put('/estado/:id', marcaController.cambiarEstadoMarca);
  *         description: Error del servidor
  */
 router.get('/buscar', marcaController.buscarMarca);
+/**
+ * @swagger
+ * /api/marcas/todos:
+ *   get:
+ *     summary: Listar todas las marcas activas
+ *     tags: [Marcas]
+ *     responses:
+ *       200:
+ *         description: Lista de marcas
+ *       500:
+ *         description: Error del servidor
+ */
+router.get('/todos', marcaController.listarMarcas);
+
 
 module.exports = router;

@@ -17,12 +17,16 @@
 
     <div class="sidebar-horizontal">
         <ul>
-  <li><a href="../HTML/homeAdmin.html" class="active"><i class="fas fa-home"></i> Inicio</a></li>
+  <li>
+      <li><a href="../HTML/homeAdmin.html" class="active"><i class="fas fa-home"></i> Inicio</a></li>
       <li><a href="../HTML/GestionarProductos.html"><i class="fas fa-box"></i> Productos</a></li>
       <li><a href="../HTML/GestionarVentas.html"><i class="fas fa-shopping-cart"></i> Ventas</a></li>
+      <li><a href="../HTML/GestionarCompras.html"><i class="fas fa-boxes"></i> Compras</a></li>
       <li><a href="../HTML/GestionarUsuario.html"><i class="fas fa-users"></i> Usuarios</a></li>
       <li><a href="../HTML/gestionMarcas.html"><i class="fas fa-copyright"></i> Marcas</a></li>
       <li><a href="../HTML/gestionProveedores.html"><i class="fas fa-truck"></i> Proveedores</a></li>
+            <li><a href="../HTML/GestionarRoles.html" class="active"><i class="fas fa-user-tag"></i> Roles</a></li>
+
         </ul>
     </div>
 
@@ -64,46 +68,40 @@
 
                 
                 <!-- BOTONES -->
-                <div class="button-group">
-                    <button class="action-button btn-add" id="agregar">
-                        <i class="fas fa-plus"></i> Agregar
-                    </button>
-                    <button class="action-button btn-update" id="actualizar">
-                        <i class="fas fa-sync-alt"></i> Actualizar
-                    </button>
-                    <button class="action-button btn-delete" id="baja">
-                        <i class="fas fa-user-minus"></i> Dar Baja
-                    </button>
-                </div>
+            <input type="hidden" id="VentaId" name="VentaId" />
+          <div class="button-group">
+            <button type="button" id="nuevaVenta" class="action-button btn-insert">
+              <i class="fas fa-plus-square"></i> Realizar Venta
+            </button>
+            <button type="button" id="actualizarVenta" class="action-button btn-update">
+              <i class="fas fa-sync-alt"></i> Actualizar Venta
+            </button>
+            <button type="button" id="desactivarVenta" class="action-button btn-delete">
+              <i class="fas fa-user-minus"></i> Desactivar Venta
+            </button>
+            <button type="button" id="limpiarVenta" class="action-button btn-clear">
+              <i class="fas fa-broom"></i> Limpiar
+            </button>
+          </div>
             </div>
 
             <div class="table-container">
                 <table class="client-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre Producto</th>
-                            <th>Marca</th>
-                            <th>Fecha de Fabricación</th>
-                            <th>Fecha de Caducidad</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>001</td>
-                            <td>Limpiador en Gel</td>
-                            <td>Marca A</td>
-                            <td>2022-01-01</td>
-                            <td>2023-01-01</td>
-                        </tr>
-                        <tr>
-                            <td>002</td>
-                            <td>Limpiador Cremoso</td>
-                            <td>Marca B</td>
-                            <td>2022-02-01</td>
-                            <td>2023-02-01</td>
-                        </tr>
-                    </tbody>
+<thead>
+  <tr>
+    <th>ID Venta</th>
+    <th>Fecha</th>
+    <th>Empleado</th>
+    <th>Cliente</th>
+    <th>Descuento</th>
+    <th>Total</th>
+    <th>¿Delivery?</th>
+  </tr>
+</thead>
+<tbody id="tablaVentasBody"></tbody>
+
+          <tbody id="tablaVentasBody"></tbody>
+
                 </table>
             </div>
 
@@ -121,46 +119,7 @@
     </div>
 
     <div class="btn-Reportes"></div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Aquí puedes agregar la funcionalidad JavaScript
-            document.getElementById('agregar').addEventListener('click', function() {
-                alert('Función de Agregar cliente');
-                // Lógica para agregar cliente
-            });
-            
-            document.getElementById('actualizar').addEventListener('click', function() {
-                alert('Función de Actualizar cliente');
-                // Lógica para actualizar cliente
-            });
-            
-            document.getElementById('baja').addEventListener('click', function() {
-                alert('Función de Dar de baja cliente');
-                // Lógica para dar de baja
-            });
+      <script src="../js/gestionarVentas.js"></script>
 
-
-            //funcionalidad para reportes
-            const generateReport = document.getElementById('generateReport');
-            const generateInvoice = document.getElementById('generateInvoice');
-            const downloadMessage = document.getElementById('downloadMessage');
-            
-            generateReport.addEventListener('click', function() {
-                downloadMessage.textContent = "✔ Reporte generado correctamente.";
-                downloadMessage.classList.add('show');
-                setTimeout(() => {
-                    downloadMessage.classList.remove('show');
-                }, 3000);
-            });
-            
-            generateInvoice.addEventListener('click', function() {
-                downloadMessage.textContent = "✔ Factura generada en formato PDF.";
-                downloadMessage.classList.add('show');
-                setTimeout(() => {
-                    downloadMessage.classList.remove('show');
-                }, 3000);
-            });
-        });
-    </script>
 </body>
 </html>

@@ -77,3 +77,25 @@ exports.buscarProveedor = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+
+
+// 🔹 Listar productos por estado
+exports.listarProveedores = async (req, res) => {
+  const estado = req.query.estado; // 1, 0 o vacío
+
+  try {
+    const pool = await sql.connect(config);
+    let result;
+    if (estado === '0') {
+      result = await pool.request().execute('sp_ListarProveedoresInactivos');
+    } else {
+      result = await pool.request().execute('sp_ListarProveedores');
+    }
+
+    res.json(result.recordset);
+  } catch (err) {
+    console.error('❌ Error al listar proveedores:', err);
+    res.status(500).send(err.message);
+  }
+};

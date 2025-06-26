@@ -146,14 +146,20 @@
         }
         
         /* Tabla de clientes */
-        .table-container {
+        .table-products {
             background: white;
             padding: 25px;
             border-radius: 12px;
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
             overflow-x: auto;
         }
-        
+                .table-products {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+        }
         .client-table {
             width: 100%;
             border-collapse: collapse;
@@ -561,3 +567,104 @@ a.logo{
   background-color: #915A63;
 }
 
+/* Container principal */
+.management-section {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Formulario y tablas en columnas */
+.form-container, .table-producto, .table-compras {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  flex: 1 1 300px;
+}
+
+/* Formularios */
+.form-group {
+  margin-bottom: 15px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #333;
+}
+.form-group select,
+.form-group input[type="text"],
+.form-group input[type="number"] {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+button.action-button {
+  width: auto;
+  padding: 10px 20px;
+  margin-right: 10px;
+}
+.table-wrapper {
+  max-height: 300px;  /* o 400px según tu preferencia */
+  overflow-y: auto;
+  border: 1px solid #ccc;
+}
+.client-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.client-table th, .client-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+.tabla-container {
+  max-height: 400px; /* Altura máxima para la tabla con scroll */
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  margin-top: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.tabla-container table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tabla-container th, .tabla-container td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.tabla-container th {
+  background-color: #f8f8f8;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.tabla-container tr:hover {
+  background-color: #f1f1f1;
+}
+
+@media screen and (max-width: 768px) {
+  .tabla-container {
+    max-height: 250px;
+    overflow-x: auto;
+    font-size: 12px;
+  }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .management-section {
+    flex-direction: column;
+  }
+}

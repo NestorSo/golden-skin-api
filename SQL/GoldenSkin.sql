@@ -182,6 +182,8 @@ SELECT * FROM Productos
 SELECT * FROM ventas
 SELECT * FROM detalleventa
 
+insert into ventas (IdEmpleado,IdCliente,FechaVenta,Delivery)values(1,1,'2025-06-25',0)
+insert into DetalleVenta(IdVenta,IdProducto,CantidadVendida)values(12,1,20)
 
 use goldenskin
 use GoldenSkin
