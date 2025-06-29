@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -57,7 +57,7 @@
   <select id="producto" required></select>
 </div>
 
-<!-- Empleado -->
+<!-- Empleado 
 <div class="form-group">
   <label for="empleado">Empleado</label>
   <input type="text" id="empleado" disabled>
@@ -72,9 +72,14 @@
                     <label for="fecha-venta">Fecha de realizacion de Venta</label>
                     <input type="date" id="fecha-venta">
                 </div>
+<div class="form-group" style="margin-top: 20px;">
+  <label for="verSoloDelivery">Mostrar solo ventas Delivery</label>
+  <input type="checkbox" id="verSoloDelivery">
+</div>
+
 
                 
-                <!-- BOTONES -->
+                <!-- BOTONES --
             <input type="hidden" id="VentaId" name="VentaId" />
           <div class="button-group">
             <button type="button" id="nuevaVenta" class="action-button btn-insert">
@@ -112,21 +117,248 @@
                 </table>
             </div>
 
-             <!-- NUEVOS BOTONES DE REPORTES -->
+             <!-- NUEVOS BOTONES DE REPORTES --
                 <div class="report-buttons">
                     <button id="generateReport" class="report-button">
                         <i class="fas fa-file-alt"></i> Generar Reporte
                     </button>
-                    <button id="generateInvoice" class="report-button">
-                        <i class="fas fa-receipt"></i> Generar Factura
-                    </button>
+   <button id="btnVerFactura" class="report-button">
+    <i class="fas fa-file-invoice"></i> Ver Factura
+  </button>
+  <button id="btnDescargarPDF" class="report-button">
+    <i class="fas fa-file-download"></i> Descargar PDF
+  </button>
+  <button id="btnImprimirFactura" class="report-button">
+    <i class="fas fa-print"></i> Imprimir Factura
+  </button>
                 </div>
                 <div id="downloadMessage" class="download-message"></div>
         </div>
     </div>
 
     <div class="btn-Reportes"></div>
-      <script src="../js/gestionarVentas.js"></script>
+  <!-- MODAL DE FACTURA --
+<div id="modalFactura" class="modal-factura">
+  <div class="modal-content">
+    <button class="close-modal" onclick="cerrarModalFactura()">✖</button>
+    <!-- Contenedor de la factura --
+    <div id="facturaVenta" class="factura-content">
+      <h2 style="color: #CF818E;">Golden Skin - Factura de Venta</h2>
+      <p><strong>No. Factura:</strong> <span id="facturaNumero"></span></p>
+      <p><strong>Fecha:</strong> <span id="facturaFecha"></span></p>
+      <p><strong>Cliente:</strong> <span id="clienteNombre"></span></p>
+      <p><strong>Empleado:</strong> <span id="empleadoNombre"></span></p>
 
+      <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <thead>
+          <tr style="background-color: #CF818E; color: white;">
+            <th style="padding: 8px;">Producto</th>
+            <th style="padding: 8px;">Precio</th>
+            <th style="padding: 8px;">Cantidad</th>
+            <th style="padding: 8px;">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="detalleVenta"></tbody>
+      </table>
+
+      <div style="margin-top: 20px; text-align: right;">
+        <p><strong>Subtotal:</strong> <span id="subtotal"></span></p>
+        <p><strong>Descuento:</strong> <span id="descuento"></span></p>
+        <p><strong>Total a Pagar:</strong> <span id="total"></span></p>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+<button id="btnCerrarFactura">Cerrar</button>
+<button id="btnDescargarFactura">Descargar PDF</button>
+      <button id="btnImprimirFactura"> Imprimir</button>
+    </div>
+  </div>
+</div>
+
+
+
+      <script src="../js/gestionarVentas.js"></script>
+<!-- Librería para convertir HTML a PDF --
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GoldenSkin - Gestión de Ventas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../CSS/AdministradorStyle.css"/>
+  <link rel="stylesheet" href="../CSS/alertas.css">
+
+</head>
+<body>
+  <!-- Barra de navegación -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a class="logo" href="../HTML/homeAdmin.html">GoldenSkin</a>
+    </div>
+  </nav>
+
+  <!-- Menú lateral -->
+  <div class="sidebar-horizontal">
+    <ul>
+      <li><a href="../HTML/homeAdmin.html"><i class="fas fa-home"></i> Inicio</a></li>
+      <li><a href="../HTML/GestionarProductos.html"><i class="fas fa-box"></i> Productos</a></li>
+      <li><a href="../HTML/GestionarVentas.html" class="active"><i class="fas fa-shopping-cart"></i> Ventas</a></li>
+      <li><a href="../HTML/GestionarCompras.html"><i class="fas fa-boxes"></i> Compras</a></li>
+      <li><a href="../HTML/GestionarUsuario.html"><i class="fas fa-users"></i> Usuarios</a></li>
+      <li><a href="../HTML/gestionMarcas.html"><i class="fas fa-copyright"></i> Marcas</a></li>
+      <li><a href="../HTML/gestionProveedores.html"><i class="fas fa-truck"></i> Proveedores</a></li>
+      <li><a href="../HTML/GestionarRoles.html"><i class="fas fa-user-tag"></i> Roles</a></li>
+    </ul>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="main-container">
+    <header class="page-header">
+      <h1>Golden Skin - Gestión de Ventas</h1>
+    </header>
+
+    <!-- Formulario -->
+    <section class="search-section">
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="Buscar venta por fecha, cantidad o ID...">
+        <button class="search-button"><i class="fas fa-search"></i> Buscar</button>
+      </div>
+    </section>
+
+    <div class="management-section">
+      <div class="form-container">
+        <h2>Gestión de Ventas</h2>
+
+        <div class="form-group">
+          <label for="cliente">Cliente</label>
+          <select id="cliente" required></select>
+        </div>
+
+        <div class="form-group">
+          <label for="producto">Producto</label>
+          <select id="producto" required></select>
+        </div>
+
+        <div class="form-group">
+          <label for="empleado">Empleado</label>
+          <input type="text" id="empleado" disabled>
+        </div>
+
+        <div class="form-group">
+          <label for="cantidad-vendida">Cantidad Vendida</label>
+          <input type="number" id="cantidad-vendida" min="1" required placeholder="Ingrese la cantidad">
+        </div>
+
+        <div class="form-group">
+          <label for="fecha-venta">Fecha de Venta</label>
+          <input type="date" id="fecha-venta">
+        </div>
+
+        <div class="form-group" style="margin-top: 20px;">
+          <label for="verSoloDelivery">Mostrar solo ventas Delivery</label>
+          <input type="checkbox" id="verSoloDelivery">
+        </div>
+
+        <input type="hidden" id="VentaId" name="VentaId" />
+
+        <div class="button-group">
+          <button type="button" id="nuevaVenta" class="action-button btn-insert">
+            <i class="fas fa-plus-square"></i> Realizar Venta
+          </button>
+          <button type="button" id="actualizarVenta" class="action-button btn-update">
+            <i class="fas fa-sync-alt"></i> Actualizar Venta
+          </button>
+          <button type="button" id="desactivarVenta" class="action-button btn-delete">
+            <i class="fas fa-user-minus"></i> Desactivar Venta
+          </button>
+          <button type="button" id="limpiarVenta" class="action-button btn-clear">
+            <i class="fas fa-broom"></i> Limpiar
+          </button>
+        </div>
+      </div>
+
+      <!-- Tabla -->
+      <div class="table-container">
+        <table class="client-table">
+          <thead>
+            <tr>
+              <th>ID Venta</th>
+              <th>Fecha</th>
+              <th>Empleado</th>
+              <th>Cliente</th>
+              <th>Descuento</th>
+              <th>Total</th>
+              <th>¿Delivery?</th>
+            </tr>
+          </thead>
+          <tbody id="tablaVentasBody"></tbody>
+        </table>
+      </div>
+
+      <!-- Botones de reporte -->
+      <div class="report-buttons">
+        <button id="btnVerFactura" class="report-button"><i class="fas fa-file-invoice"></i> Ver Factura</button>
+        <!-- <button id="btnDescargarFactura" class="report-button"><i class="fas fa-file-download"></i> Descargar PDF</button>
+        <button id="btnImprimirFactura" class="report-button"><i class="fas fa-print"></i> Imprimir Factura</button> -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Factura -->
+  <div id="modalFactura" class="modal-factura" style="display: none;">
+     <div class="modal-content">
+    <button class="close-modal" id="btnCerrarModal">✖</button>
+
+    <!-- Contenido de la factura -->
+    <div id="facturaVenta" class="factura-content">
+      <h2 style="color: #CF818E;">Golden Skin - Factura de Venta</h2>
+      <p><strong>No. Factura:</strong> <span id="facturaNumero"></span></p>
+      <p><strong>Fecha:</strong> <span id="facturaFecha"></span></p>
+      <p><strong>Cliente:</strong> <span id="clienteNombre"></span></p>
+      <p><strong>Empleado:</strong> <span id="empleadoNombre"></span></p>
+
+      <table>
+        <thead>
+          <tr style="background-color: #CF818E; color: white;">
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="detalleVenta"></tbody>
+      </table>
+
+      <div style="margin-top: 20px; text-align: right;">
+        <p><strong>Subtotal:</strong> <span id="subtotal"></span></p>
+        <p><strong>Descuento:</strong> <span id="descuento"></span></p>
+        <p><strong>Total a Pagar:</strong> <span id="total"></span></p>
+      </div>
+    </div>
+
+    <!-- Botones internos -->
+    <div class="modal-buttons">
+      <button id="btnDescargarFactura">Descargar PDF</button>
+      <button id="btnImprimirFactura">Imprimir</button>
+    </div>
+  </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../js/gestionarVentas.js"></script>
+  <script src="../js/alertas.js"></script>
+<!-- Contenedor visual para alerta -->
+<div id="alerta" class="alerta-popup" style="display: none;"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+//gestionarProveedores.js
 let proveedores = [];
 let proveedorSeleccionado = null;
 
@@ -67,8 +68,8 @@ async function insertarProveedor() {
   const correo = document.getElementById('correo').value;
 
   if (!nombre || !telefono || !direccion || !correo) {
-    alert('⚠️ Completa todos los campos');
-    return;
+  mostrarAlerta('⚠️ Completa todos los campos');
+      return;
   }
 
   try {
@@ -79,18 +80,18 @@ async function insertarProveedor() {
     });
 
     const data = await res.json();
-    alert(data.mensaje || '✅ Proveedor agregado');
+mostrarAlerta(data.mensaje || '✅ Proveedor agregado');
     cargarProveedores();
     limpiarFormulario();
   } catch (err) {
     console.error('❌ Error al insertar proveedor:', err);
-    alert('❌ No se pudo insertar');
+mostrarAlerta('❌ No se pudo insertar');
   }
 }
 
 async function actualizarProveedor() {
   if (!proveedorSeleccionado) {
-    alert('⚠️ Selecciona un proveedor');
+  mostrarAlerta('⚠️ Selecciona un proveedor');
     return;
   }
 
@@ -108,24 +109,23 @@ async function actualizarProveedor() {
     });
 
     const data = await res.json();
-    alert(data.mensaje || '✅ Proveedor actualizado');
+mostrarAlerta(data.mensaje || '✅ Proveedor actualizado');
     cargarProveedores();
     limpiarFormulario();
   } catch (err) {
     console.error('❌ Error al actualizar proveedor:', err);
-    alert('❌ No se pudo actualizar');
+mostrarAlerta('❌ No se pudo actualizar');
   }
 }
 
 async function desactivarProveedor() {
   if (!proveedorSeleccionado) {
-    alert('⚠️ Selecciona un proveedor');
+  mostrarAlerta('⚠️ Selecciona un proveedor');
     return;
   }
 
-  const confirmacion = confirm('¿Seguro que deseas desactivar este proveedor?');
-  if (!confirmacion) return;
 
+mostrarAlertaConfirmación('¿Seguro que deseas desactivar este proveedor?', async () => {
   try {
     const res = await fetch(`/api/proveedores/estado/${proveedorSeleccionado.IdProveedor}`, {
       method: 'PUT',
@@ -134,13 +134,14 @@ async function desactivarProveedor() {
     });
 
     const data = await res.json();
-    alert(data.mensaje || '✅ Proveedor desactivado');
+    mostrarAlerta(data.mensaje || '✅ Proveedor desactivado');
     cargarProveedores();
     limpiarFormulario();
   } catch (err) {
     console.error('❌ Error al desactivar proveedor:', err);
-    alert('❌ No se pudo desactivar');
+    mostrarAlerta('❌ No se pudo desactivar');
   }
+});
 }
 
 function limpiarFormulario() {

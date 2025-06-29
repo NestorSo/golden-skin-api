@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>GoldenSkin - Panel de Administración</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded&display=swap" />
+      <link rel="stylesheet" href="../CSS/AdministradorStyle.css">
+  <link rel="stylesheet" href="../CSS/alertas.css">
+    <link rel="stylesheet" href="../CSS/logout.css">
+        <link rel="stylesheet" href="../CSS/back.css">
+
+
+  
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navbar-left">
+            <a class="logo" href="../HTML/homeAdmin.html">GoldenSkin</a>
+            
+      </div>
+      <div class="nav-icons">
+
+                <div class="nav-back">
+                <button onclick="goBackAndReload()" title="Volver" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                </button>
+                </div>
+                <!-- Ícono de usuario (login/logout) -->
+                <a id="userIconLink" href="#" class="nav-user-icon" title="Iniciar sesión o cerrar sesión">
+                <i class="fas fa-user"></i>
+                </a>
+
+
+        </div>
+      
+    </nav>
+
+  <div class="sidebar-horizontal">
+    <ul>
+<li id="menu-inicio"><a href="../HTML/homeAdmin.html"><i class="fas fa-home"></i> Inicio</a></li>
+<li id="menu-productos"><a href="../HTML/GestionarProductos.html"><i class="fas fa-box"></i> Productos</a></li>
+<li id="menu-ventas"><a href="../HTML/GestionarVentas.html"><i class="fas fa-shopping-cart"></i> Ventas</a></li>
+<li id="menu-compras"><a href="../HTML/GestionarCompras.html"><i class="fas fa-boxes"></i> Compras</a></li>
+<li id="menu-usuarios"><a href="../HTML/GestionarUsuario.html"><i class="fas fa-users"></i> Usuarios</a></li>
+<li id="menu-marcas"><a href="../HTML/gestionMarcas.html"><i class="fas fa-copyright"></i> Marcas</a></li>
+<li id="menu-proveedores"><a href="../HTML/gestionProveedores.html"><i class="fas fa-truck"></i> Proveedores</a></li>
+<li id="menu-roles"><a href="../HTML/GestionarRoles.html"><i class="fas fa-user-tag"></i> Roles</a></li>
+
+
+
+    </ul>
+  </div>
+
+  <div class="main-container">
+    <header class="page-header">
+      <h1>Panel Principal - Empleado</h1>
+      <div class="welcome" id="welcomeText">👋 Bienvenido</div>
+      <img src="../images/default.png" alt="Usuario" class="admin-image">
+      <div class="clock" id="clock">🕒 Cargando hora...</div>
+    </header>
+
+    <section class="search-section">
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="Buscar módulo o función...">
+        <button class="search-button"><i class="fas fa-search"></i> Buscar</button>
+      </div>
+    </section>
+
+    <div class="admin-dashboard">
+      <div class="admin-card">
+        <i class="fas fa-box"></i>
+        <h3>Productos</h3>
+        <p>Gestión y control de inventario.</p>
+        <a href="../HTML/GestionarProductos.html">Ir</a>
+      </div>
+
+      <div class="admin-card">
+        <i class="fas fa-shopping-cart"></i>
+        <h3>Ventas</h3>
+        <p>Revisión y registro de ventas.</p>
+        <a href="../HTML/GestionarVentas.html">Ir</a>
+      </div>
+
+      <div class="admin-card">
+        <i class="fas fa-users"></i>
+        <h3>Usuarios</h3>
+        <p>Control de clientes y empleados.</p>
+        <a href="../HTML/GestionarUsuario.html">Ir</a>
+      </div>
+
+      <div class="admin-card">
+        <i class="fas fa-file-alt"></i>
+        <h3>Reportes</h3>
+        <p>Acceso a informes del sistema.</p>
+        <a href="#">Ir</a>
+      </div>
+    </div>
+  </div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const usuario = JSON.parse(localStorage.getItem('usuario'));
+  if (!usuario) return;
+
+  const rol = usuario.NombreRol.toLowerCase();
+
+  // Ocultar según el rol
+  if (rol === 'vendedor') {
+    ocultar(['.sidebar-horizontal li:nth-child(2)', '.sidebar-horizontal li:nth-child(6)', '.sidebar-horizontal li:nth-child(7)', '.sidebar-horizontal li:nth-child(8)']); // productos, marcas, proveedores, roles
+  } else if (rol === 'bodeguero') {
+    ocultar(['.sidebar-horizontal li:not(:nth-child(2))']); // mostrar solo productos
+  }
+
+  function ocultar(selectores) {
+    selectores.forEach(sel => {
+      const el = document.querySelector(sel);
+      if (el) el.style.display = 'none';
+    });
+  }
+});
+</script>
+
+    <script src="../js/cargahome.js"></script>
+    <script src="../js/home.js"></script>
+    <script src="../js/logout.js"></script>
+    <script src="../js/alertas.js"></script>
+
+
+</body>
+</html>

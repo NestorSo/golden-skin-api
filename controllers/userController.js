@@ -284,8 +284,12 @@ exports.registerDesdeAdmin = async (req, res) => {
     return res.status(400).send('Campos obligatorios faltantes');
   }
 
+  const usuarioLogin = `${nombre}_${apellido}`.replace(/\s/g, '');
+
   try {
     const pool = await sql.connect(config);
+
+    // 1. Registrar usuario
     await pool.request()
       .input('Nombre', sql.VarChar, nombre)
       .input('Apellido', sql.VarChar, apellido)
@@ -297,12 +301,19 @@ exports.registerDesdeAdmin = async (req, res) => {
       .input('Cargo', sql.VarChar, cargo || '')
       .execute('sp_RegistrarUsuarioAdmin');
 
+    // 2. Asignar rol a nivel de base de datos (FUERA de la transacción anterior)
+    await pool.request()
+      .input('UsuarioDB', sql.VarChar, usuarioLogin)
+      .input('RolNombre', sql.VarChar, rol)
+      .execute('sp_AsignarRolBaseDatos');
+
     res.status(201).send('✅ Usuario registrado por admin');
   } catch (err) {
     console.error('❌ Error en registro admin:', err);
     res.status(500).send(err.message);
   }
 };
+
 
 exports.loginUsuario = async (req, res) => {
   const { correo, contrasena } = req.body;
@@ -462,3 +473,38 @@ exports.listarClientes = async (req, res) => {
     res.status(500).json({ mensaje: '❌ Error al obtener clientes' });
   }
 };
+
+
+// ///sql
+
+// const { asignarPermisosPorRol } = require('../utils/sqlRoleManager');
+
+// exports.registerDesdeAdmin = async (req, res) => {
+//   const { nombre, apellido, correo, contrasena, rol, direccion, telefono, cargo } = req.body;
+
+//   if (!nombre || !apellido || !correo || !contrasena || !rol) {
+//     return res.status(400).send('Campos obligatorios faltantes');
+//   }
+
+//   try {
+//     const pool = await sql.connect(config);
+//     await pool.request()
+//       .input('Nombre', sql.VarChar, nombre)
+//       .input('Apellido', sql.VarChar, apellido)
+//       .input('Email', sql.VarChar, correo)
+//       .input('Pass', sql.VarChar, contrasena)
+//       .input('RolNombre', sql.VarChar, rol)
+//       .input('Direccion', sql.VarChar, direccion || '')
+//       .input('Telefono', sql.VarChar, telefono || '')
+//       .input('Cargo', sql.VarChar, cargo || '')
+//       .execute('sp_RegistrarUsuarioAdmin');
+
+//     // 👇 Aquí se asigna el rol SQL automáticamente
+//     await asignarPermisosPorRol(correo, rol.toLowerCase());
+
+//     res.status(201).send('✅ Usuario registrado por admin y permisos asignados');
+//   } catch (err) {
+//     console.error('❌ Error en registro admin:', err);
+//     res.status(500).send(err.message);
+//   }
+// };

@@ -454,9 +454,53 @@ END;
 
 
 
+use GoldenSkin
+-----listados 
+--CREATE PROCEDURE sp_ListarTodasLasVentas
+--AS
+--BEGIN
+--    SET NOCOUNT ON;
 
----listados 
-CREATE PROCEDURE sp_ListarTodasLasVentas
+--    SELECT 
+--        V.IdVenta,
+--        V.FechaVenta,
+--        U.Nombre + ' ' + U.Apellido AS Empleado,
+--        C.IdCliente,
+--        CU.Nombre + ' ' + CU.Apellido AS Cliente,
+--        V.Descuento,
+--        V.Total,
+--        CASE WHEN V.Delivery = 1 THEN 'Sí' ELSE 'No' END AS EsDelivery
+--    FROM Ventas V
+--    INNER JOIN Empleados E ON V.IdEmpleado = E.IdEmpleado
+--    INNER JOIN Usuarios U ON E.IdUsuario = U.IdUsuario
+--    INNER JOIN Clientes C ON V.IdCliente = C.IdCliente
+--    INNER JOIN Usuarios CU ON C.IdUsuario = CU.IdUsuario
+--    ORDER BY V.FechaVenta DESC;
+--END;
+sp_ListarTodasLasVentas 
+CREATE OR ALTER PROCEDURE sp_ListarTodasLasVentas
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT 
+        V.IdVenta,
+        V.FechaVenta,
+        U.Nombre + ' ' + U.Apellido AS Empleado,
+        CU.Nombre + ' ' + CU.Apellido AS Cliente,
+        V.Descuento,
+        V.Total,
+        V.Delivery AS EsDelivery
+    FROM Ventas V
+    INNER JOIN Empleados E ON V.IdEmpleado = E.IdEmpleado
+    INNER JOIN Usuarios U ON E.IdUsuario = U.IdUsuario
+    INNER JOIN Clientes C ON V.IdCliente = C.IdCliente
+    INNER JOIN Usuarios CU ON C.IdUsuario = CU.IdUsuario
+    ORDER BY V.FechaVenta DESC;
+END;
+
+
+
+CREATE PROCEDURE sp_ListarVentasDelivery
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -465,19 +509,41 @@ BEGIN
         V.IdVenta,
         V.FechaVenta,
         U.Nombre + ' ' + U.Apellido AS Empleado,
-        C.IdCliente,
         CU.Nombre + ' ' + CU.Apellido AS Cliente,
         V.Descuento,
         V.Total,
-        CASE WHEN V.Delivery = 1 THEN 'Sí' ELSE 'No' END AS EsDelivery
+        'Sí' AS EsDelivery
     FROM Ventas V
     INNER JOIN Empleados E ON V.IdEmpleado = E.IdEmpleado
     INNER JOIN Usuarios U ON E.IdUsuario = U.IdUsuario
     INNER JOIN Clientes C ON V.IdCliente = C.IdCliente
     INNER JOIN Usuarios CU ON C.IdUsuario = CU.IdUsuario
+    WHERE V.Delivery = 1
     ORDER BY V.FechaVenta DESC;
 END;
-don
+CREATE PROCEDURE sp_ListarVentasNoDelivery
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        V.IdVenta,
+        V.FechaVenta,
+        U.Nombre + ' ' + U.Apellido AS Empleado,
+        CU.Nombre + ' ' + CU.Apellido AS Cliente,
+        V.Descuento,
+        V.Total,
+        'No' AS EsDelivery
+    FROM Ventas V
+    INNER JOIN Empleados E ON V.IdEmpleado = E.IdEmpleado
+    INNER JOIN Usuarios U ON E.IdUsuario = U.IdUsuario
+    INNER JOIN Clientes C ON V.IdCliente = C.IdCliente
+    INNER JOIN Usuarios CU ON C.IdUsuario = CU.IdUsuario
+    WHERE V.Delivery = 0
+    ORDER BY V.FechaVenta DESC;
+END;
+
+
 
 --por cliente
 CREATE PROCEDURE sp_ListarVentasPorCliente
@@ -549,3 +615,40 @@ BEGIN
 END;
 
 
+use GoldenSkin
+CREATE PROCEDURE sp_ObtenerFacturaVenta
+  @IdVenta INT
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  -- Cabecera de la factura: información general de la venta
+  SELECT 
+    v.IdVenta,
+    v.FechaVenta,
+    v.Descuento,
+    v.Total,
+    ISNULL(SUM(dv.Subtotal), 0) AS Subtotal,
+    v.Delivery AS EsDelivery,
+    CONCAT(uCli.Nombre, ' ', uCli.Apellido) AS Cliente,
+    CONCAT(uEmp.Nombre, ' ', uEmp.Apellido) AS Empleado
+  FROM Ventas v
+  INNER JOIN Clientes c ON v.IdCliente = c.IdCliente
+  INNER JOIN Usuarios uCli ON c.IdUsuario = uCli.IdUsuario
+  INNER JOIN Empleados e ON v.IdEmpleado = e.IdEmpleado
+  INNER JOIN Usuarios uEmp ON e.IdUsuario = uEmp.IdUsuario
+  LEFT JOIN DetalleVenta dv ON v.IdVenta = dv.IdVenta
+  WHERE v.IdVenta = @IdVenta
+  GROUP BY 
+    v.IdVenta, v.FechaVenta, v.Descuento, v.Total, v.Delivery,
+    uCli.Nombre, uCli.Apellido, uEmp.Nombre, uEmp.Apellido;
+
+  -- Detalle de productos vendidos
+  SELECT 
+    p.NombreProducto,
+    dv.Subtotal / NULLIF(dv.CantidadVendida, 0) AS PrecioUnitario,
+    dv.CantidadVendida AS Cantidad
+  FROM DetalleVenta dv
+  INNER JOIN Productos p ON dv.IdProducto = p.IdProducto
+  WHERE dv.IdVenta = @IdVenta;
+END;

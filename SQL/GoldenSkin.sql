@@ -181,6 +181,7 @@ SELECT * FROM Pedidos
 SELECT * FROM DetallePedido
 SELECT * FROM Productos
 SELECT * FROM ventas
+select * from Ventas where Delivery=1
 SELECT * FROM detalleventa
 
 insert into ventas (IdEmpleado,IdCliente,FechaVenta,Delivery)values(1,1,'2025-06-25',0)

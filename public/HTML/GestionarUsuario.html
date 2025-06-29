@@ -6,6 +6,8 @@
   <title>GoldenSkin – Gestión de Usuarios</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="../CSS/AdministradorStyle.css" />
+    <link rel="stylesheet" href="../CSS/alertas.css">
+
 </head>
 <body>
   <nav class="navbar">
@@ -72,10 +74,11 @@
             <label for="Telefono">Teléfono</label>
             <input id="Telefono" name="Telefono" type="text" />
           </div>
-          <div class="form-group">
-            <label for="Cargo">Cargo</label>
-            <input id="Cargo" name="Cargo" type="text" />
-          </div>
+<div class="solo-empleado" style="display: none;">
+  <label for="Cargo">Cargo</label>
+  <input type="text" id="Cargo" placeholder="Ej: Vendedor, Bodeguero" />
+</div>
+
 
           <!-- Campos exclusivos para cliente -->
           <div id="camposCliente" style="display:none;">
@@ -139,5 +142,8 @@
   </div>
 
   <script src="../js/gestionarUsuario.js"></script>
+    <script src="../js/alertas.js"></script>
+<!-- Contenedor visual para alerta -->
+<div id="alerta" class="alerta-popup" style="display: none;"></div>
 </body>
 </html>

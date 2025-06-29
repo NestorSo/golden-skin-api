@@ -140,14 +140,13 @@ const empleadoId = parseInt(inputEmpleado.dataset.id); // no del value
   const precio = parseFloat(document.getElementById('precioUnitario').value);
 
   if (!productoId || isNaN(cantidad) || isNaN(precio)) {
-    alert('⚠️ Producto no seleccionado o datos incorrectos');
+mostrarAlerta('⚠️ Producto no seleccionado o datos incorrectos');
     return;
   }
 
   productosCompra.push({ id: productoId, cantidad, precioUnitario: precio });
 
-  if (!confirm('¿Deseas registrar esta compra ahora?')) return;
-
+return mostrarAlertaConfirmación('¿Deseas registrar esta compra ahora?', async () => {
   try {
     const res = await fetch(`${API_URL}`, {
       method: 'POST',
@@ -155,19 +154,22 @@ const empleadoId = parseInt(inputEmpleado.dataset.id); // no del value
       body: JSON.stringify({ proveedorId, empleadoId, productos: productosCompra })
     });
     if (!res.ok) {
-  const text = await res.text();
-  throw new Error(`Error del servidor: ${text}`);
-}
+      const text = await res.text();
+      throw new Error(`Error del servidor: ${text}`);
+    }
+
     const result = await res.json();
-    alert(result.mensaje);
+    mostrarAlerta(result.mensaje);
     productosCompra = [];
     limpiarFormulario();
     cargarCompras();
     cargarProductos();
   } catch (err) {
     console.error('❌ Error al registrar compra:', err);
-    alert('❌ Error al registrar compra');
+    mostrarAlerta('❌ Error al registrar compra');
   }
+});
+
 }
 
 function limpiarFormulario() {

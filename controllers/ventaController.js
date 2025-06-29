@@ -61,15 +61,22 @@ exports.Venta = async (req, res) => {
 
 // 🔹 Listar todas las ventas
 exports.listarVentas = async (req, res) => {
+  const soloDelivery = req.query.soloDelivery === 'true'; // true o false
+
   try {
     const pool = await sql.connect(config);
-    const result = await pool.request().execute('sp_ListarTodasLasVentas');
+    const result = await pool.request()
+      .input('SoloDelivery', sql.Bit, soloDelivery)
+      .execute('sp_ListarTodasLasVentas');
+
     res.json(result.recordset);
   } catch (error) {
     console.error('❌ Error al listar ventas:', error);
     res.status(500).json({ mensaje: '❌ Error al obtener ventas' });
   }
 };
+
+
 
 // 🔹 Listar ventas por cliente
 exports.listarVentasPorCliente = async (req, res) => {
@@ -142,5 +149,72 @@ exports.ventasPorProducto = async (req, res) => {
   } catch (error) {
     console.error('❌ Error al listar ventas por producto:', error);
     res.status(500).json({ mensaje: '❌ Error interno del servidor' });
+  }
+};
+
+
+// ventasController.js
+exports.obtenerFacturaPorVenta = async (req, res) => {
+  const { idVenta } = req.params;
+
+  if (isNaN(idVenta)) {
+    return res.status(400).json({ mensaje: '❌ ID de venta inválido' });
+  }
+
+  try {
+    const pool = await sql.connect(config);
+
+    // Ejecutar el procedimiento que devuelve dos conjuntos de resultados
+    const result = await pool.request()
+      .input('IdVenta', sql.Int, idVenta)
+      .execute('sp_ObtenerFacturaVenta');
+
+    const cabecera = result.recordsets[0][0]; // Primer conjunto: información general
+    const detalle = result.recordsets[1];     // Segundo conjunto: productos vendidos
+
+    if (!cabecera) {
+      return res.status(404).json({ mensaje: '❌ Venta no encontrada' });
+    }
+
+    // Construir el objeto completo de factura
+    const factura = {
+      IdVenta: cabecera.IdVenta,
+      Fecha: cabecera.FechaVenta,
+      Cliente: cabecera.Cliente,
+      Empleado: cabecera.Empleado,
+      Subtotal: parseFloat(cabecera.Subtotal),
+      Descuento: parseFloat(cabecera.Descuento),
+      Total: parseFloat(cabecera.Total),
+      EsDelivery: cabecera.EsDelivery,
+      Detalle: detalle.map(p => ({
+        NombreProducto: p.NombreProducto,
+        PrecioUnitario: parseFloat(p.PrecioUnitario),
+        Cantidad: p.Cantidad
+      }))
+    };
+
+    res.json(factura);
+  } catch (err) {
+    console.error('❌ Error obteniendo factura:', err);
+    res.status(500).json({ mensaje: '❌ Error interno del servidor' });
+  }
+};
+
+exports.listarVentas = async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const { soloDelivery } = req.query;
+
+    let result;
+    if (soloDelivery === 'true') {
+      result = await pool.request().execute('sp_ListarVentasDelivery');
+    } else {
+      result = await pool.request().execute('sp_ListarVentasNoDelivery');
+    }
+
+    res.json(result.recordset);
+  } catch (error) {
+    console.error('❌ Error al listar ventas:', error);
+    res.status(500).json({ mensaje: '❌ Error al obtener ventas' });
   }
 };

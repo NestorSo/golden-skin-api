@@ -1,3 +1,4 @@
+//gestionarProductos.js
 let productos = [];
 let productoSeleccionado = null;
 let marcas = [];
@@ -97,13 +98,13 @@ function cargarCategoriasDesdeProductos(productos) {
     const idMarca = selectMarca.value;
     const categoria = selectCategoria.value;
 
-    if (!idMarca || isNaN(idMarca)) {
-      return alert('⚠️ Debe seleccionar una marca válida');
-    }
+if (!idMarca || isNaN(idMarca)) {
+  return mostrarAlerta('⚠️ Debe seleccionar una marca válida');
+}
 
-    if (!categoria) {
-      return alert('⚠️ Debe seleccionar una categoría válida');
-    }
+if (!categoria) {
+  return mostrarAlerta('⚠️ Debe seleccionar una categoría válida');
+}
 
     formData.set('IdMarca', parseInt(idMarca));
     formData.set('Categoria', categoria);
@@ -114,17 +115,17 @@ function cargarCategoriasDesdeProductos(productos) {
         body: formData
       });
       if (!res.ok) throw new Error(await res.text());
-      alert('✅ Producto agregado');
+mostrarAlerta('✅ Producto agregado');
       limpiarFormulario();
       cargarProductos();
     } catch (err) {
       console.error('❌ Error al insertar producto:', err);
-      alert('❌ Error al agregar producto');
+mostrarAlerta('❌ Error al agregar producto');
     }
   }
 
   async function actualizarProducto() {
-    if (!productoSeleccionado) return alert('❌ Selecciona un producto');
+if (!productoSeleccionado) return mostrarAlerta('❌ Selecciona un producto');
     const form = document.getElementById('formProducto');
     const formData = new FormData(form);
     formData.append('IdProducto', productoSeleccionado.IdProducto);
@@ -132,13 +133,13 @@ function cargarCategoriasDesdeProductos(productos) {
     const idMarca = selectMarca.value;
     const categoria = selectCategoria.value;
 
-    if (!idMarca || isNaN(idMarca)) {
-      return alert('⚠️ Debe seleccionar una marca válida');
-    }
+if (!idMarca || isNaN(idMarca)) {
+  return mostrarAlerta('⚠️ Debe seleccionar una marca válida');
+}
 
-    if (!categoria) {
-      return alert('⚠️ Debe seleccionar una categoría válida');
-    }
+if (!categoria) {
+  return mostrarAlerta('⚠️ Debe seleccionar una categoría válida');
+}
 
     formData.set('IdMarca', parseInt(idMarca));
     formData.set('Categoria', categoria);
@@ -149,52 +150,52 @@ function cargarCategoriasDesdeProductos(productos) {
         body: formData
       });
       if (!res.ok) throw new Error(await res.text());
-      alert('✅ Producto actualizado');
+mostrarAlerta('✅ Producto actualizado');
       limpiarFormulario();
       cargarProductos();
     } catch (err) {
       console.error(err);
-      alert('❌ Error al actualizar producto');
+mostrarAlerta('❌ Error al actualizar producto');
     }
   }
 
   async function darDeBaja() {
-    if (!productoSeleccionado) return alert('❌ Selecciona un producto');
-    if (!confirm('¿Estás seguro de dar de baja este producto?')) return;
-
-    try {
-      const res = await fetch(`${API_URL}/estado`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ IdProducto: productoSeleccionado.IdProducto, NuevoEstado: false })
-      });
-      if (!res.ok) throw new Error(await res.text());
-      alert('✅ Producto dado de baja');
-      limpiarFormulario();
-      cargarProductos();
-    } catch (err) {
-      console.error(err);
-      alert('❌ Error al dar de baja');
-    }
+if (!productoSeleccionado) return mostrarAlerta('❌ Selecciona un producto');
+   mostrarAlertaConfirmación('¿Estás seguro de dar de baja este producto?', async () => {
+  try {
+    const res = await fetch(`${API_URL}/estado`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ IdProducto: productoSeleccionado.IdProducto, NuevoEstado: false })
+    });
+    if (!res.ok) throw new Error(await res.text());
+    mostrarAlerta('✅ Producto dado de baja');
+    limpiarFormulario();
+    cargarProductos();
+  } catch (err) {
+    console.error(err);
+    mostrarAlerta('❌ Error al dar de baja');
+  }
+});
   }
 
   async function reactivarProducto() {
-    if (!productoSeleccionado) return alert('❌ Selecciona un producto');
+if (!productoSeleccionado) return mostrarAlerta('❌ Selecciona un producto');
 
-    try {
-      const res = await fetch(`${API_URL}/estado`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ IdProducto: productoSeleccionado.IdProducto, NuevoEstado: true })
-      });
-      if (!res.ok) throw new Error(await res.text());
-      alert('✅ Producto reactivado');
-      limpiarFormulario();
-      cargarProductos();
-    } catch (err) {
-      console.error(err);
-      alert('❌ Error al reactivar');
-    }
+try {
+  const res = await fetch(`${API_URL}/estado`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ IdProducto: productoSeleccionado.IdProducto, NuevoEstado: true })
+  });
+  if (!res.ok) throw new Error(await res.text());
+  mostrarAlerta('✅ Producto reactivado');
+  limpiarFormulario();
+  cargarProductos();
+} catch (err) {
+  console.error(err);
+  mostrarAlerta('❌ Error al reactivar');
+}
   }
 
   function renderTabla(lista) {

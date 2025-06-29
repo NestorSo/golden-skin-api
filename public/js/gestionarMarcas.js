@@ -40,13 +40,12 @@ const btnReactivar = document.getElementById('reactivarMarca');
 async function reactivarMarca() {
   const id = parseInt(inputId.value);
   if (!id) {
-    alert('⚠️ Seleccione una marca para reactivarla');
+    mostrarAlerta('⚠️ Seleccione una marca para reactivarla');
     return;
   }
-
-  if (!confirm('¿Está seguro de reactivar esta marca?')) return;
-
-  try {
+  
+  mostrarAlertaConfirmación('¿Está seguro de reactivar esta marca?', async () => {
+ try {
     const res = await fetch(`${API_URL}/estado/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -61,6 +60,7 @@ async function reactivarMarca() {
     console.error('❌ Error al reactivar marca:', err);
     alert('❌ Error al reactivar marca');
   }
+});
 }
 
   function renderTabla(lista) {
@@ -95,12 +95,12 @@ async function reactivarMarca() {
         body: JSON.stringify(data)
       });
       const result = await res.json();
-      alert(result.mensaje || '✅ Marca registrada');
+mostrarAlerta(result.mensaje || '✅ Marca registrada');
       limpiarFormulario();
       cargarMarcas();
     } catch (err) {
       console.error('❌ Error al registrar marca:', err);
-      alert('❌ Error al registrar marca');
+mostrarAlerta('❌ Error al registrar marca');
     }
   }
 
@@ -108,7 +108,7 @@ async function reactivarMarca() {
     const id = parseInt(inputId.value);
     const data = leerFormulario();
     if (!id || !data) {
-      alert('⚠️ Debe seleccionar una marca');
+mostrarAlerta('⚠️ Debe seleccionar una marca');
       return;
     }
 
@@ -119,38 +119,38 @@ async function reactivarMarca() {
         body: JSON.stringify(data)
       });
       const result = await res.json();
-      alert(result.mensaje || '✅ Marca actualizada');
+      mostrarAlerta(result.mensaje || '✅ Marca actualizada');
       limpiarFormulario();
       cargarMarcas();
     } catch (err) {
       console.error('❌ Error al actualizar marca:', err);
-      alert('❌ Error al actualizar marca');
+      mostrarAlerta('❌ Error al actualizar marca');
     }
   }
 
   async function desactivarMarca() {
     const id = parseInt(inputId.value);
     if (!id) {
-      alert('⚠️ Seleccione una marca para desactivarla');
+      mostrarAlerta('⚠️ Seleccione una marca para desactivarla');
       return;
     }
 
-    if (!confirm('¿Está seguro de desactivar esta marca?')) return;
-
-    try {
+     mostrarAlertaConfirmación('¿Está seguro de desactivar esta marca?', async () => {
+  try {
       const res = await fetch(`${API_URL}/estado/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ estado: false })
       });
       const result = await res.json();
-      alert(result.mensaje || '✅ Marca desactivada');
+      mostrarAlerta(result.mensaje || '✅ Marca desactivada');
       limpiarFormulario();
       cargarMarcas();
     } catch (err) {
       console.error('❌ Error al desactivar marca:', err);
-      alert('❌ Error al desactivar marca');
+      mostrarAlerta('❌ Error al desactivar marca');
     }
+});
   }
 
   function buscarMarca() {
@@ -169,7 +169,7 @@ async function reactivarMarca() {
     const fabricante = inputFabricante.value.trim();
 
     if (!nombre || !descripcion || !fabricante) {
-      alert('⚠️ Por favor complete todos los campos');
+      mostrarAlerta('⚠️ Por favor complete todos los campos');
       return null;
     }
 

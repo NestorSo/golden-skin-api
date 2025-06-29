@@ -51,10 +51,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   btnInsertar.addEventListener("click", async () => {
     const nombre = nombreRolInput.value.trim();
-    if (!nombre) return alert("⚠️ Debes ingresar un nombre de rol.");
+if (!nombre) return mostrarAlerta("⚠️ Debes ingresar un nombre de rol.");
 
-    const privilegios = prompt("🔐 Ingresa los privilegios separados por ';'").trim();
-    if (!privilegios) return alert("⚠️ Debes ingresar al menos un privilegio.");
+const privilegios = prompt("🔐 Ingresa los privilegios separados por ';'")?.trim();
+if (!privilegios) return mostrarAlerta("⚠️ Debes ingresar al menos un privilegio.");
+
 
     try {
       const res = await fetch(`${API_URL}/crear`, {
@@ -64,13 +65,14 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       const data = await res.json();
-      if (res.ok) {
-        alert(data.mensaje);
-        limpiarFormulario();
-        cargarRoles();
-      } else {
-        alert(data.error || "❌ Error al crear rol.");
-      }
+if (res.ok) {
+  mostrarAlerta(data.mensaje);
+  limpiarFormulario();
+  cargarRoles();
+} else {
+  mostrarAlerta(data.error || "❌ Error al crear rol.");
+}
+
     } catch (err) {
       console.error("❌ Error:", err);
     }
@@ -79,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
   btnActualizar.addEventListener("click", async () => {
     const id = idRolInput.value;
     const nuevoNombre = nombreRolInput.value.trim();
-    if (!id || !nuevoNombre) return alert("⚠️ Completa todos los campos.");
+if (!id || !nuevoNombre) return mostrarAlerta("⚠️ Completa todos los campos.");
 
     try {
       const res = await fetch(`${API_URL}/actualizar/${id}`, {
@@ -89,13 +91,14 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       const data = await res.json();
-      if (res.ok) {
-        alert(data.mensaje);
-        limpiarFormulario();
-        cargarRoles();
-      } else {
-        alert(data.error);
-      }
+if (res.ok) {
+  mostrarAlerta(data.mensaje);
+  limpiarFormulario();
+  cargarRoles();
+} else {
+  mostrarAlerta(data.error);
+}
+
     } catch (err) {
       console.error("❌ Error:", err);
     }
@@ -103,33 +106,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
   btnEliminar.addEventListener("click", async () => {
     const id = idRolInput.value;
-    if (!id) return alert("⚠️ Selecciona un rol para eliminar.");
+if (!id) return mostrarAlerta("⚠️ Selecciona un rol para eliminar.");
 
-    if (!confirm("❗¿Estás seguro de eliminar este rol?")) return;
+mostrarAlertaConfirmación("❗¿Estás seguro de eliminar este rol?", async () => {
+  try {
+    const res = await fetch(`${API_URL}/estado/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ estado: 0 }),
+    });
 
-    try {
-      const res = await fetch(`${API_URL}/estado/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ estado: 0 }),
-      });
-
-      const data = await res.json();
-      if (res.ok) {
-        alert(data.mensaje);
-        limpiarFormulario();
-        cargarRoles();
-      } else {
-        alert(data.error);
-      }
-    } catch (err) {
-      console.error("❌ Error:", err);
+    const data = await res.json();
+    if (res.ok) {
+      mostrarAlerta(data.mensaje);
+      limpiarFormulario();
+      cargarRoles();
+    } else {
+      mostrarAlerta(data.error);
     }
+  } catch (err) {
+    console.error("❌ Error:", err);
+  }
+});
+
   });
 
   btnReactivar.addEventListener("click", async () => {
     const id = idRolInput.value;
-    if (!id) return alert("⚠️ Selecciona un rol para reactivar.");
+
+    if (!id) return mostrarAlerta("⚠️ Selecciona un rol para reactivar.");
+    mostrarAlertaConfirmación("✅ ¿Estás seguro de reactivar este rol?", async () => {
+      try {
+        const res = await fetch(`${API_URL}/estado/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ estado: 1 }),
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          mostrarAlerta(data.mensaje);
+          limpiarFormulario();
+          cargarRoles();
+        } else {
+          mostrarAlerta(data.error);
+        }
+      } catch (err) {
+        console.error("❌ Error:", err);
+      }
+    });
 
     try {
       const res = await fetch(`${API_URL}/estado/${id}`, {
@@ -139,13 +164,14 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       const data = await res.json();
-      if (res.ok) {
-        alert(data.mensaje);
-        limpiarFormulario();
-        cargarRoles();
-      } else {
-        alert(data.error);
-      }
+if (res.ok) {
+  mostrarAlerta(data.mensaje);
+  limpiarFormulario();
+  cargarRoles();
+} else {
+  mostrarAlerta(data.error);
+}
+
     } catch (err) {
       console.error("❌ Error:", err);
     }

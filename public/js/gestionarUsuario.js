@@ -192,6 +192,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const selectRol = document.getElementById('RolId');
   const checkInactivos = document.getElementById('verInactivos');
 
+
+
+  
   let usuarios = [], usuarioSeleccionado = null, roles = [];
 
   btnInsertar.onclick = crearUsuario;
@@ -219,13 +222,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  selectRol.addEventListener('change', () => {
-    const rolSeleccionado = roles.find(r => r.IdRol == selectRol.value)?.NombreRol?.toLowerCase();
-    const camposCliente = document.querySelectorAll('.solo-cliente');
-    camposCliente.forEach(campo => {
-      campo.style.display = (rolSeleccionado === 'cliente') ? 'block' : 'none';
-    });
+selectRol.addEventListener('change', () => {
+  const rolSeleccionado = roles.find(r => r.IdRol == selectRol.value)?.NombreRol?.toLowerCase();
+  const camposCliente = document.querySelectorAll('.solo-cliente');
+  const camposEmpleado = document.querySelectorAll('.solo-empleado');
+
+  camposCliente.forEach(campo => {
+    campo.style.display = (rolSeleccionado === 'cliente') ? 'block' : 'none';
   });
+
+  camposEmpleado.forEach(campo => {
+    campo.style.display = (rolSeleccionado !== 'cliente') ? 'block' : 'none';
+  });
+});
+
 
 async function cargarUsuarios() {
   const url = checkInactivos?.checked
@@ -290,18 +300,22 @@ async function cargarUsuarios() {
 
   async function crearUsuario() {
     const nombre = document.getElementById('Nombre').value.trim();
+        const apellido = document.getElementById('Apellido').value.trim();
+const cargo = document.getElementById('Cargo').value.trim();
+
     const email = document.getElementById('Email').value.trim();
     const rolId = parseInt(document.getElementById('RolId').value);
     const rolNombre = roles.find(r => r.IdRol === rolId)?.NombreRol;
 
-    if (!nombre || !email || !rolNombre) {
-      alert('⚠️ Todos los campos son obligatorios');
-      return;
-    }
+if (!nombre || !email || !rolNombre) {
+  mostrarAlerta('⚠️ Todos los campos son obligatorios');
+  return;
+}
+
 
     const data = {
       nombre,
-      apellido: 'Desconocido',
+      apellido: apellido || 'Desconocido',
       correo: email,
       contrasena: 'Temporal123',
       rol: rolNombre,
@@ -311,11 +325,14 @@ async function cargarUsuarios() {
     };
 
     if (rolNombre.toLowerCase() === 'cliente') {
+        mostrarAlerta('⚠️ Debes ingresar el cargo para empleados.');
+
       data.telefono = document.getElementById('Telefono').value.trim();
       data.direccion = document.getElementById('Direccion').value.trim();
-      data.genero = document.getElementById('Genero').value;
-      data.fechaNacimiento = document.getElementById('FechaNacimiento').value;
-    }
+
+    }else {
+  data.cargo = cargo; // Asegúrate de incluirlo
+}
 
     try {
       const res = await fetch(`${API_URL}/admin/register`, {
@@ -324,17 +341,17 @@ async function cargarUsuarios() {
         body: JSON.stringify(data)
       });
       if (!res.ok) throw new Error(await res.text());
-      alert('✅ Usuario registrado');
+mostrarAlerta('✅ Usuario registrado');
       limpiarFormulario();
       cargarUsuarios();
     } catch (e) {
       console.error('❌ Error al registrar:', e);
-      alert('❌ ' + e.message);
+mostrarAlerta('❌ ' + e.message);
     }
   }
 
   async function actualizarUsuario() {
-    if (!usuarioSeleccionado) return alert('⚠️ Selecciona un usuario');
+if (!usuarioSeleccionado) return mostrarAlerta('⚠️ Selecciona un usuario');
 
     const nombre = document.getElementById('Nombre').value.trim();
         const apellido = document.getElementById('Apellido').value.trim();
@@ -357,53 +374,55 @@ async function cargarUsuarios() {
         body: JSON.stringify(data)
       });
       if (!res.ok) throw new Error(await res.text());
-      alert('✅ Usuario actualizado');
+mostrarAlerta('✅ Usuario actualizado');
       limpiarFormulario();
       cargarUsuarios();
     } catch (e) {
       console.error('❌ Error al actualizar:', e);
-      alert('❌ ' + e.message);
+mostrarAlerta('❌ ' + e.message);
     }
   }
 
   async function eliminarUsuario() {
-    if (!usuarioSeleccionado) return alert('⚠️ Selecciona un usuario');
-    if (!confirm('¿Deseas desactivar este usuario?')) return;
+if (!usuarioSeleccionado) return mostrarAlerta('⚠️ Selecciona un usuario');
+    mostrarAlertaConfirmación('¿Deseas desactivar este usuario?', async () => {
+  try {
+    const res = await fetch(`${API_URL}/estado/${usuarioSeleccionado.IdUsuario}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nuevoEstado: 0 })
+    });
+    if (!res.ok) throw new Error(await res.text());
+    mostrarAlerta('✅ Usuario desactivado');
+    limpiarFormulario();
+    cargarUsuarios();
+  } catch (e) {
+    console.error('❌ Error al desactivar usuario:', e);
+    mostrarAlerta('❌ ' + e.message);
+  }
+});
 
-    try {
-      const res = await fetch(`${API_URL}/estado/${usuarioSeleccionado.IdUsuario}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nuevoEstado: 0 })
-      });
-      if (!res.ok) throw new Error(await res.text());
-      alert('✅ Usuario desactivado');
-      limpiarFormulario();
-      cargarUsuarios();
-    } catch (e) {
-      console.error('❌ Error al desactivar usuario:', e);
-      alert('❌ ' + e.message);
-    }
   }
 
   async function reactivarUsuario() {
-    if (!usuarioSeleccionado) return alert('⚠️ Selecciona un usuario');
-    if (!confirm('¿Deseas reactivar este usuario?')) return;
+if (!usuarioSeleccionado) return mostrarAlerta('⚠️ Selecciona un usuario');
+    mostrarAlertaConfirmación('¿Deseas reactivar este usuario?', async () => {
+  try {
+    const res = await fetch(`${API_URL}/estado/${usuarioSeleccionado.IdUsuario}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nuevoEstado: 1 })
+    });
+    if (!res.ok) throw new Error(await res.text());
+    mostrarAlerta('✅ Usuario reactivado');
+    limpiarFormulario();
+    cargarUsuarios();
+  } catch (e) {
+    console.error('❌ Error al reactivar usuario:', e);
+    mostrarAlerta('❌ ' + e.message);
+  }
+});
 
-    try {
-      const res = await fetch(`${API_URL}/estado/${usuarioSeleccionado.IdUsuario}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nuevoEstado: 1 })
-      });
-      if (!res.ok) throw new Error(await res.text());
-      alert('✅ Usuario reactivado');
-      limpiarFormulario();
-      cargarUsuarios();
-    } catch (e) {
-      console.error('❌ Error al reactivar usuario:', e);
-      alert('❌ ' + e.message);
-    }
   }
 
 function limpiarFormulario() {

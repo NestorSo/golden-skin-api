@@ -872,6 +872,34 @@ BEGIN
 END;
 
 
+ use goldenskin
+
+CREATE PROCEDURE sp_AsignarRolBaseDatos
+    @UsuarioDB NVARCHAR(100),
+    @RolNombre NVARCHAR(50)
+AS
+BEGIN
+    -- 1. Crear usuario en la base si no existe
+    IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = @UsuarioDB)
+    BEGIN
+        EXEC sp_adduser @loginame = @UsuarioDB, @name_in_db = @UsuarioDB;
+    END
+
+    -- 2. Asignar rol según el nombre
+    IF @RolNombre = 'Admin'
+    BEGIN
+        EXEC sp_addrolemember 'db_owner', @UsuarioDB;
+    END
+    ELSE IF @RolNombre = 'Vendedor'
+    BEGIN
+        EXEC sp_addrolemember 'rol_vendedor', @UsuarioDB;
+    END
+    ELSE IF @RolNombre = 'Bodeguero'
+    BEGIN
+        EXEC sp_addrolemember 'rol_bodeguero', @UsuarioDB;
+    END
+END
+
 
 EXEC sp_ListarProductosOrdenados @Estado = 1, @OrdenarPor = 'nombre';
 EXEC sp_ListarProductosOrdenados @Estado = 0, @OrdenarPor = 'masvendido';

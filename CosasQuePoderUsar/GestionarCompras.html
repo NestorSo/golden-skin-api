@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GoldenSkin - Administración | Gestión de Compras</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="../CSS/AdministradorStyle.css"/>
-    <link rel="stylesheet" href="../CSS/alertas.css">
-
+  <link rel="stylesheet" href="../CSS/AdministradorStyle.css" />
 </head>
 
 <body>
@@ -46,7 +44,6 @@
     </section>
 
     <div class="management-section">
-        <!-- <div class="tablasjuntas"> -->
       <div class="form-container">
         <h2>Registrar Compra</h2>
 
@@ -110,8 +107,7 @@
         </form>
       </div>
 
-     <div class="listar-tabl">
-      <div class="table-producto" > <!-- style="width: 60%; float: right;" -->
+      <div class="table-producto" style="width: 60%; float: right;">
         <table class="client-table">
           <thead>
             <tr>
@@ -134,34 +130,29 @@
       <div style="clear: both; padding-top: 30px;"></div>
 
       <div class="table-compras">
-          <table class="client-table">
-            <thead>
-              <tr>
-                <th>ID Compra</th>
-                <th>Proveedor</th>
-                <th>Producto</th>
-                <th>Empleado</th>
-                <th>Fecha</th> 
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody id="tablaComprasBody"></tbody>
-          </table>
+        <table class="client-table">
+          <thead>
+            <tr>
+              <th>ID Compra</th>
+              <th>Proveedor</th>
+              <th>Producto</th>
+              <th>Empleado</th>
+              <th>Fecha</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="tablaComprasBody"></tbody>
+        </table>
       </div>
-      </div>
-    </div>
-  </div>
-  
 
-   <div class="report-buttons" style="margin-top: 20px;"> <!--   -->
+      <div class="report-buttons" style="margin-top: 20px;">
         <button id="generarReporteCompras" class="report-button">
           <i class="fas fa-file-alt"></i> Generar Reporte
         </button>
       </div>
+    </div>
+  </div>
 
   <script src="/js/gestionarCompra.js"></script>
-    <script src="../js/alertas.js"></script>
-<!-- Contenedor visual para alerta -->
-<div id="alerta" class="alerta-popup" style="display: none;"></div>
 </body>
 </html>

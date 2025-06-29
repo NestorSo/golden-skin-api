@@ -173,4 +173,31 @@ router.get('/detalle/:idVenta', ventaController.verDetalleVenta);
  */
 router.get('/por-producto', ventaController.ventasPorProducto);
 
+/**
+ * @swagger
+ * /api/ventas/factura/{idVenta}:
+ *   get:
+ *     summary: Obtener los datos completos para la factura de una venta
+ *     tags: [Ventas]
+ *     parameters:
+ *       - in: path
+ *         name: idVenta
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID de la venta
+ *     responses:
+ *       200:
+ *         description: Datos completos de la factura
+ *       404:
+ *         description: Venta no encontrada
+ *       500:
+ *         description: Error interno del servidor
+ */
+router.get('/factura/:idVenta', ventaController.obtenerFacturaPorVenta);
+
+
+
+
+
 module.exports = router;
