@@ -190,109 +190,108 @@ document.getElementById('btnCerrarModal').addEventListener('click', function() {
 
 
 
+
 /***********************PARA EL MODAL***************************/
-// Función para formatear la fecha como DD/MM/AAAA
-function obtenerFechaActual() {
-  const ahora = new Date();
-  const dia = ahora.getDate().toString().padStart(2, '0');
-  const mes = (ahora.getMonth() + 1).toString().padStart(2, '0');
-  const año = ahora.getFullYear();
-  return `${dia}/${mes}/${año}`;
-}
+// // factura.js - Generación de factura PDF desde tabla de productos
 
-// Función para generar la factura PDF
-function generarFacturaPDF() {
-  const facturaVisual = document.getElementById('facturaVenta');
-  const btnDescargar = document.getElementById('btnDescargarFactura');
+// // Función principal que se ejecuta al cargar la página
+// // Función para cargar los datos de la venta en el modal
+// function cargarDatosVentaEnModal(venta) {
+//   document.getElementById('facturaNumero').textContent = venta.idVenta;
+//   document.getElementById('facturaFecha').textContent = venta.fechaVenta;
+//   document.getElementById('clienteNombre').textContent = venta.nombreCliente;
+//   document.getElementById('empleadoNombre').textContent = venta.nombreEmpleado;
   
-  // Deshabilitar botones temporalmente
-  btnDescargar.disabled = true;
-  document.getElementById('btnImprimirFactura').disabled = true;
+//   // Cargar detalles de la venta
+//   const detalleVenta = document.getElementById('detalleVenta');
+//   detalleVenta.innerHTML = '';
   
-  const opt = {
-    margin: 10,
-    filename: `factura_${document.getElementById('facturaNumero').textContent}.pdf`,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { 
-      scale: 2,
-      windowWidth: document.getElementById('facturaVenta').scrollWidth
-    },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-  };
-
-  html2pdf().set(opt).from(facturaVisual).save().finally(() => {
-    // Rehabilitar botones después de generar el PDF
-    btnDescargar.disabled = false;
-    document.getElementById('btnImprimirFactura').disabled = false;
-  });
-}
-
-// Función para cargar datos en la factura
-function cargarDatosFactura(datosVenta) {
-  // Establecer fecha actual
-  document.getElementById('facturaFecha').textContent = obtenerFechaActual();
-  
-  // Datos de la factura
-  document.getElementById('facturaNumero').textContent = datosVenta.numeroFactura || `F-${Date.now().toString().slice(-6)}`;
-  document.getElementById('empleadoNombre').textContent = datosVenta.empleado;
-  document.getElementById('clienteNombre').textContent = datosVenta.cliente;
-  
-  // Detalles de productos
-  const detallesContainer = document.getElementById('detalleVenta');
-  detallesContainer.innerHTML = '';
-  
-  let subtotal = 0;
-  
-  datosVenta.productos.forEach(producto => {
-    const subtotalProducto = producto.Precio * producto.cantidad;
-    subtotal += subtotalProducto;
+//   // Aquí deberías hacer una llamada AJAX para obtener los detalles de la venta
+//   // o pasarlos como parte del objeto venta
+//   if (venta.detalles) {
+//     let subtotal = 0;
+//     venta.detalles.forEach(detalle => {
+//       const row = document.createElement('tr');
+//       row.innerHTML = `
+//         <td>${detalle.nombreProducto}</td>
+//         <td>${detalle.precioUnitario}</td>
+//         <td>${detalle.cantidad}</td>
+//         <td>${detalle.subtotal}</td>
+//       `;
+//       detalleVenta.appendChild(row);
+//       subtotal += parseFloat(detalle.subtotal);
+//     });
     
-    const fila = document.createElement('tr');
-    fila.innerHTML = `
-      <td style="padding: 8px; border: 1px solid #ccc;">${producto.NombreProducto}</td>
-      <td style="padding: 8px; border: 1px solid #ccc; text-align: right;">C$ ${producto.Precio.toFixed(2)}</td>
-      <td style="padding: 8px; border: 1px solid #ccc; text-align: center;">${producto.cantidad}</td>
-      <td style="padding: 8px; border: 1px solid #ccc; text-align: right;">C$ ${subtotalProducto.toFixed(2)}</td>
-    `;
-    detallesContainer.appendChild(fila);
-  });
-  
-  // Calcular totales
-  const descuento = datosVenta.descuento || 0;
-  const total = subtotal - descuento;
-  
-  document.getElementById('subtotal').textContent = `C$ ${subtotal.toFixed(2)}`;
-  document.getElementById('descuento').textContent = `C$ ${descuento.toFixed(2)}`;
-  document.getElementById('total').textContent = `C$ ${total.toFixed(2)}`;
-}
+//     document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+//     document.getElementById('descuento').textContent = venta.descuento || '0.00';
+//     document.getElementById('total').textContent = (subtotal - (venta.descuento || 0)).toFixed(2);
+//   }
+// }
 
-// Función para mostrar el modal de factura
-function mostrarFactura(datosVenta) {
-  // Cargar los datos en la factura
-  cargarDatosFactura(datosVenta);
+// // Evento para mostrar el modal cuando se selecciona una venta
+// document.addEventListener('DOMContentLoaded', function() {
+//   const btnVerFactura = document.getElementById('btnVerFactura');
   
-  // Mostrar el modal
-  document.getElementById('modalFactura').style.display = 'block';
+//   btnVerFactura.addEventListener('click', function() {
+//     const ventaSeleccionada = obtenerVentaSeleccionada(); // Implementa esta función según tu código
+    
+//     if (ventaSeleccionada) {
+//       cargarDatosVentaEnModal(ventaSeleccionada);
+//       document.getElementById('modalFactura').style.display = 'block';
+//     } else {
+//       mostrarAlerta('Por favor seleccione una venta primero', 'error');
+//     }
+//   });
   
-  // Configurar eventos de los botones (evitando duplicados)
-  const btnDescargar = document.getElementById('btnDescargarFactura');
-  const btnImprimir = document.getElementById('btnImprimirFactura');
-  
-  // Clonar y reemplazar los botones para eliminar event listeners previos
-  btnDescargar.replaceWith(btnDescargar.cloneNode(true));
-  btnImprimir.replaceWith(btnImprimir.cloneNode(true));
-  
-  // Agregar nuevos event listeners
-  document.getElementById('btnDescargarFactura').addEventListener('click', generarFacturaPDF);
-  document.getElementById('btnImprimirFactura').addEventListener('click', function() {
-    window.print();
-  });
-}
+//   // Cerrar modal
+//   document.getElementById('btnCerrarModal').addEventListener('click', function() {
+//     document.getElementById('modalFactura').style.display = 'none';
+//   });
+// });
 
-// Función para cerrar el modal de factura
-function cerrarModalFactura() {
-  document.getElementById('modalFactura').style.display = 'none';
-}
+// // Función de ejemplo para obtener la venta seleccionada (debes adaptarla a tu código)
+// function obtenerVentaSeleccionada() {
+//   // Aquí debes implementar la lógica para obtener la venta seleccionada en la tabla
+//   // Por ejemplo:
+//   const filaSeleccionada = document.querySelector('#tablaVentasBody tr.selected');
+//   if (!filaSeleccionada) return null;
+  
+//   return {
+//     idVenta: filaSeleccionada.cells[0].textContent,
+//     fechaVenta: filaSeleccionada.cells[1].textContent,
+//     nombreEmpleado: filaSeleccionada.cells[2].textContent,
+//     nombreCliente: filaSeleccionada.cells[3].textContent,
+//     descuento: parseFloat(filaSeleccionada.cells[4].textContent),
+//     // Aquí deberías incluir los detalles de la venta, posiblemente con una llamada AJAX
+//     detalles: obtenerDetallesVenta(filaSeleccionada.cells[0].textContent)
+//   };
+// }
+
+// // Función de ejemplo para obtener detalles (debes implementar la llamada real a tu API)
+// function obtenerDetallesVenta(idVenta) {
+//   // Esto es un ejemplo - implementa la llamada real a tu backend
+//   return [
+//     {
+//       nombreProducto: "Producto 1",
+//       precioUnitario: "50.00",
+//       cantidad: 2,
+//       subtotal: "100.00"
+//     },
+//     {
+//       nombreProducto: "Producto 2",
+//       precioUnitario: "30.00",
+//       cantidad: 1,
+//       subtotal: "30.00"
+//     }
+//   ];
+// }
+
+
+
+
+
+
+
 
 
 
