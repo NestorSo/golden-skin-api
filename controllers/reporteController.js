@@ -107,3 +107,36 @@ exports.reporteMarcas = async (req, res) => {
     res.status(500).json({ mensaje: 'Error al generar el reporte de marcas' });
   }
 };
+
+exports.reporteProductos = async (req, res) => {
+  const { tipoReporte, IdMarca, Categoria } = req.query;
+  try {
+    const pool = await sql.connect(config);
+
+    let result;
+    switch (tipoReporte) {
+      case 'general':
+        result = await pool.request().execute('sp_ReporteProductosGeneral');
+        break;
+      case 'sinStock':
+        result = await pool.request().execute('sp_ReporteProductosSinStock');
+        break;
+      case 'masVendidos':
+        result = await pool.request().execute('sp_ReporteProductosMasVendidos');
+        break;
+      case 'porMarca':
+        result = await pool.request().input('IdMarca', sql.Int, IdMarca).execute('sp_ReporteProductosPorMarca');
+        break;
+      case 'porCategoria':
+        result = await pool.request().input('Categoria', sql.VarChar, Categoria).execute('sp_ReporteProductosPorCategoria');
+        break;
+      default:
+        return res.status(400).json({ mensaje: "Tipo de reporte inválido" });
+    }
+
+    res.json(result.recordset);
+  } catch (err) {
+    console.error("❌ Error reporte productos:", err);
+    res.status(500).json({ mensaje: "Error interno al generar el reporte" });
+  }
+};

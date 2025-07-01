@@ -184,19 +184,19 @@
     </div>
     <!-- Selector y filtros en el modal de reporte -->
 <div class="modal-buttons">
-  <select id="tipoReporteProductos">
+ <h4>Reportes de Productos</h4>
+<select id="tipoReporteProductos">
   <option value="general">Todos los productos</option>
-  <option value="sinStock">Productos sin stock</option>
+  <option value="sinStock">Sin stock</option>
   <option value="masVendidos">Más vendidos</option>
   <option value="porMarca">Por marca</option>
   <option value="porCategoria">Por categoría</option>
 </select>
 
+<div id="filtrosExtrasProductos" style="margin-top: 10px;"></div>
 
+<button id="btnEjecutarReporteProductos">📦 Ejecutar Reporte Productos</button>
 
-  <div id="filtrosExtras" style="margin-top: 10px;"></div>
-
-  <button id="btnEjecutarReporte">📊 Ejecutar Reporte</button>
   <button onclick="descargarReportePDF()">⬇️ Descargar PDF</button>
   <button onclick="imprimirReporte()">🖨 Imprimir</button>
 </div>
@@ -219,7 +219,7 @@
 <script src="../js/gestionarProductos.js"></script>
     <script src="../js/alertas.js"></script>
     <script src="../js/view-transitions.js" defer></script>
-        <script src="../js/gestionarReportes.js" defer></script>
+<script src="../js/gestionarReportes.js"></script>
 
 
 <!-- Contenedor visual para alerta -->
