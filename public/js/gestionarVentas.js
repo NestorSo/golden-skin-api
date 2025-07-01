@@ -404,37 +404,37 @@ btnCerrarModal?.addEventListener('click', () => {
   modalFactura.style.display = 'none';
 });
 
-document.getElementById('btnDescargarFactura').addEventListener('click', () => {
-  const original = document.getElementById('facturaVenta');
+// document.getElementById('btnDescargarFactura').addEventListener('click', () => {
+//   const original = document.getElementById('facturaVenta');
 
-  // Clonar factura sin estilos de modal
-  const copia = original.cloneNode(true);
-  copia.style.display = 'block';
-  copia.style.position = 'static';
-  copia.style.margin = '0 auto';
-  copia.style.backgroundColor = '#fff';
-  copia.style.color = '#000';
-  copia.style.fontFamily = 'Arial';
+//   // Clonar factura sin estilos de modal
+//   const copia = original.cloneNode(true);
+//   copia.style.display = 'block';
+//   copia.style.position = 'static';
+//   copia.style.margin = '0 auto';
+//   copia.style.backgroundColor = '#fff';
+//   copia.style.color = '#000';
+//   copia.style.fontFamily = 'Arial';
 
-  // Contenedor temporal oculto
-  const contenedorTemporal = document.createElement('div');
-  contenedorTemporal.style.position = 'absolute';
-  contenedorTemporal.style.left = '-9999px';
-  contenedorTemporal.appendChild(copia);
-  document.body.appendChild(contenedorTemporal);
+//   // Contenedor temporal oculto
+//   const contenedorTemporal = document.createElement('div');
+//   contenedorTemporal.style.position = 'absolute';
+//   contenedorTemporal.style.left = '-9999px';
+//   contenedorTemporal.appendChild(copia);
+//   document.body.appendChild(contenedorTemporal);
 
-  const opciones = {
-    margin: 0.5,
-    filename: `Factura-${new Date().toISOString().slice(0, 10)}.pdf`,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-  };
+//   const opciones = {
+//     margin: 0.5,
+//     filename: `Factura-${new Date().toISOString().slice(0, 10)}.pdf`,
+//     image: { type: 'jpeg', quality: 0.98 },
+//     html2canvas: { scale: 2 },
+//     jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+//   };
 
-  html2pdf().set(opciones).from(copia).save().then(() => {
-    document.body.removeChild(contenedorTemporal);
-  });
-});
+//   html2pdf().set(opciones).from(copia).save().then(() => {
+//     document.body.removeChild(contenedorTemporal);
+//   });
+// });
 
 
 

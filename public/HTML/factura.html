@@ -1,4 +1,23 @@
 <!-- FACTURA VISUAL -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+ <style>
+    /* Estilos adicionales para mejorar el PDF */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #facturaVisual, #facturaVisual * {
+        visibility: visible;
+      }
+      #facturaVisual {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="../js/facturapdf.js">
 <div id="facturaVisual" style="max-width: 800px; margin: auto; padding: 30px; background: #fff; border: 1px solid #ccc; border-radius: 10px; font-family: Arial, sans-serif;">
   <h2 style="text-align: center; color: #CF818E;">GoldenSkin</h2>
   <p style="text-align: center; font-size: 14px; color: #666;">

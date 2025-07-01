@@ -652,3 +652,92 @@ BEGIN
   INNER JOIN Productos p ON dv.IdProducto = p.IdProducto
   WHERE dv.IdVenta = @IdVenta;
 END;
+
+
+use goldenskin
+
+sp_ReporteVentas '','', 1,''
+alter PROCEDURE sp_ReporteVentas
+    @FechaInicio DATE = NULL,
+    @FechaFin DATE = NULL,
+    @IdEmpleado INT = NULL,
+    @IdCliente INT = NULL,
+    @TipoReporte VARCHAR(50) = 'general'
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF @TipoReporte = 'general'
+    BEGIN
+        SELECT V.IdVenta, U.Nombre + ' ' + U.Apellido AS Empleado, C.Nombre + ' ' + C.Apellido AS Cliente,
+               V.FechaVenta, V.Total, V.Descuento
+        FROM Ventas V
+        JOIN Empleados E ON V.IdEmpleado = E.IdEmpleado
+        JOIN Usuarios U ON E.IdUsuario = U.IdUsuario
+        JOIN Clientes CL ON V.IdCliente = CL.IdCliente
+        JOIN Usuarios C ON CL.IdUsuario = C.IdUsuario
+    END
+
+    ELSE IF @TipoReporte = 'porFecha' AND @FechaInicio IS NOT NULL AND @FechaFin IS NOT NULL
+    BEGIN
+        SELECT V.IdVenta, V.FechaVenta, V.Total, V.Descuento
+        FROM Ventas V
+        WHERE V.FechaVenta BETWEEN @FechaInicio AND @FechaFin
+    END
+
+    ELSE IF @TipoReporte = 'porEmpleado' AND @IdEmpleado IS NOT NULL
+    BEGIN
+        SELECT V.IdVenta, V.FechaVenta, V.Total
+        FROM Ventas V
+        WHERE V.IdEmpleado = @IdEmpleado
+    END
+
+    ELSE IF @TipoReporte = 'porCliente' AND @IdCliente IS NOT NULL
+    BEGIN
+        SELECT V.IdVenta, V.FechaVenta, V.Total
+        FROM Ventas V
+        WHERE V.IdCliente = @IdCliente
+    END
+
+    ELSE IF @TipoReporte = 'productosVendidos'
+    BEGIN
+        SELECT P.NombreProducto, SUM(DV.CantidadVendida) AS TotalVendidas
+        FROM DetalleVenta DV
+        JOIN Productos P ON DV.IdProducto = P.IdProducto
+        GROUP BY P.NombreProducto
+        ORDER BY TotalVendidas DESC
+    END
+
+    ELSE IF @TipoReporte = 'topVentas'
+    BEGIN
+        SELECT TOP 10 V.IdVenta, V.Total, V.FechaVenta
+        FROM Ventas V
+        ORDER BY V.Total DESC
+    END
+
+    ELSE
+    BEGIN
+        SELECT '❌ Tipo de reporte no válido o parámetros incompletos' AS Error;
+    END
+END;
+
+EXEC sp_ReporteVentas 
+    @TipoReporte = 'porFecha',
+    @FechaInicio = CONVERT(DATE, GETDATE()),
+    @FechaFin = CONVERT(DATE, GETDATE());
+
+
+
+	EXEC sp_ReporteVentas 
+    @TipoReporte = 'porFecha',
+    @FechaInicio = '2025-06-01',
+    @FechaFin = '2025-06-30';
+
+	EXEC sp_ReporteVentas 
+    @TipoReporte = 'porEmpleado',
+    @IdEmpleado = 1;
+	EXEC sp_ReporteVentas 
+    @TipoReporte = 'porCliente',
+    @IdCliente = 1;
+	EXEC sp_ReporteVentas @TipoReporte = 'productosVendidos';
+	EXEC sp_ReporteVentas @TipoReporte = 'topVentas';

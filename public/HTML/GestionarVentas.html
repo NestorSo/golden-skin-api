@@ -194,13 +194,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link rel="stylesheet" href="../CSS/AdministradorStyle.css"/>
   <link rel="stylesheet" href="../CSS/alertas.css">
+<link rel="stylesheet" href="/css/view-transitions.css">
 
 </head>
 <body>
   <!-- Barra de navegación -->
   <nav class="navbar">
     <div class="navbar-left">
-      <a class="logo" href="../HTML/homeAdmin.html">GoldenSkin</a>
+      <a class="logo" href="../HTML/homeGestion.html">GoldenSkin</a>
     </div>
   </nav>
 
@@ -305,6 +306,9 @@
       <!-- Botones de reporte -->
       <div class="report-buttons">
         <button id="btnVerFactura" class="report-button"><i class="fas fa-file-invoice"></i> Ver Factura</button>
+            <button id="generateReport" class="report-button">
+      <i class="fas fa-file-alt"></i> Generar Reporte
+    </button>
         <!-- <button id="btnDescargarFactura" class="report-button"><i class="fas fa-file-download"></i> Descargar PDF</button>
         <button id="btnImprimirFactura" class="report-button"><i class="fas fa-print"></i> Imprimir Factura</button> -->
       </div>
@@ -354,6 +358,11 @@
   <!-- Scripts -->
   <script src="../js/gestionarVentas.js"></script>
   <script src="../js/alertas.js"></script>
+  <script src="/js/view-transitions.js" defer></script>
+<script src="../js/reporteHelper.js"></script>
+<script src="../js/facturapdf.js"></script>
+
+
 <!-- Contenedor visual para alerta -->
 <div id="alerta" class="alerta-popup" style="display: none;"></div>
 

@@ -7,18 +7,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../CSS/AdministradorStyle.css">
         <link rel="stylesheet" href="../CSS/alertas.css">
+<link rel="stylesheet" href="/css/view-transitions.css">
 
     <title>GoldenSkin - Gestion de Clientes</title>
 </head>
 
 <body>
     <nav class="navbar">
-        <div class="logo">GoldenSkin</div>
+            <div class="navbar-left">
+      <a class="logo" href="../HTML/homeGestion.html">GoldenSkin</a>
+    </div>
     </nav>
 
     <div class="sidebar-horizontal">
         <ul>
-      <li><a href="../HTML/homeAdmin.html" class="active"><i class="fas fa-home"></i> Inicio</a></li>
+      <li><a href="../HTML/homeGestion.html" class="active"><i class="fas fa-home"></i> Inicio</a></li>
       <li><a href="../HTML/GestionarProductos.html"><i class="fas fa-box"></i> Productos</a></li>
       <li><a href="../HTML/GestionarVentas.html"><i class="fas fa-shopping-cart"></i> Ventas</a></li>
       <li><a href="../HTML/GestionarCompras.html"><i class="fas fa-boxes"></i> Compras</a></li>
@@ -106,6 +109,8 @@
 
 <script src="../js/gestionarMarcas.js"></script>
     <script src="../js/alertas.js"></script>
+    <script src="/js/view-transitions.js" defer></script>
+
 <!-- Contenedor visual para alerta -->
 <div id="alerta" class="alerta-popup" style="display: none;"></div>
 </body>
