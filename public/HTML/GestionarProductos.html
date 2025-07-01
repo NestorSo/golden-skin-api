@@ -175,15 +175,41 @@
 </div>
 </div>
 
+<!-- Reporte Universal -->
+<div id="modalReporte" class="modal-factura" style="display: none;">
+  <div class="modal-content">
+    <button class="close-modal" onclick="cerrarReporte()">✖</button>
+    <div id="contenidoReporte" class="factura-content">
+      <!-- Aquí se inyecta dinámicamente el contenido -->
+    </div>
+    <!-- Selector y filtros en el modal de reporte -->
+<div class="modal-buttons">
+  <select id="tipoReporteProductos">
+  <option value="general">Todos los productos</option>
+  <option value="sinStock">Productos sin stock</option>
+  <option value="masVendidos">Más vendidos</option>
+  <option value="porMarca">Por marca</option>
+  <option value="porCategoria">Por categoría</option>
+</select>
+
+
+
+  <div id="filtrosExtras" style="margin-top: 10px;"></div>
+
+  <button id="btnEjecutarReporte">📊 Ejecutar Reporte</button>
+  <button onclick="descargarReportePDF()">⬇️ Descargar PDF</button>
+  <button onclick="imprimirReporte()">🖨 Imprimir</button>
+</div>
+
+  </div>
+</div>
 
   <!-- REPORTES -->
   <div class="report-buttons">
     <button id="generateReport" class="report-button">
       <i class="fas fa-file-alt"></i> Generar Reporte
     </button>
-    <button id="generateInvoice" class="report-button">
-      <i class="fas fa-receipt"></i> Generar Factura
-    </button>
+
   </div>
 
   <div id="downloadMessage" class="download-message"></div>
@@ -192,9 +218,7 @@
 <!-- SCRIPT -->
 <script src="../js/gestionarProductos.js"></script>
     <script src="../js/alertas.js"></script>
-    <script src="../js/facturapdf.js"></script>
-<!--     <script src="../js/gestionarReportes.js"></script>
- -->    <script src="/js/view-transitions.js" defer></script>
+    <script src="/js/view-transitions.js" defer></script>
 
 <!-- Contenedor visual para alerta -->
 <div id="alerta" class="alerta-popup" style="display: none;"></div>

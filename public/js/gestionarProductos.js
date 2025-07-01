@@ -248,6 +248,78 @@ try {
 });
 
 
+document.getElementById('generateReportProductos').addEventListener('click', () => {
+  document.getElementById('modalReporte').style.display = 'block';
+  document.getElementById('contenidoReporte').innerHTML = ''; // Limpiar contenido anterior
+});
+
+const tipoReporte = document.getElementById('tipoReporteProductos');
+const filtrosExtras = document.getElementById('filtrosExtrasProductos');
+const btnEjecutar = document.getElementById('btnEjecutarReporteProductos');
+
+tipoReporte.addEventListener('change', async () => {
+  filtrosExtras.innerHTML = '';
+
+  if (tipoReporte.value === 'porMarca') {
+    filtrosExtras.innerHTML = `
+      <label>Marca:
+        <select id="filtroMarca">
+          ${marcas.map(m => `<option value="${m.IdMarca}">${m.NombreMarca}</option>`).join('')}
+        </select>
+      </label>`;
+  }
+
+  if (tipoReporte.value === 'porCategoria') {
+    filtrosExtras.innerHTML = `
+      <label>Categoría:
+        <select id="filtroCategoria">
+          ${categorias.map(c => `<option value="${c.NombreCategoria}">${c.NombreCategoria}</option>`).join('')}
+        </select>
+      </label>`;
+  }
+});
+
+btnEjecutar.addEventListener('click', async () => {
+  const tipo = tipoReporte.value;
+  const params = new URLSearchParams({ tipoReporte: tipo });
+
+  if (tipo === 'porMarca') {
+    const marca = document.getElementById('filtroMarca')?.value;
+    if (!marca) return alert('⚠️ Selecciona una marca');
+    params.append('IdMarca', marca);
+  }
+
+  if (tipo === 'porCategoria') {
+    const categoria = document.getElementById('filtroCategoria')?.value;
+    if (!categoria) return alert('⚠️ Selecciona una categoría');
+    params.append('Categoria', categoria);
+  }
+
+  try {
+    const res = await fetch(`/api/reportes/productos?${params.toString()}`);
+    const data = await res.json();
+
+    if (!Array.isArray(data) || data.length === 0) {
+      return alert('⚠️ No se encontraron datos');
+    }
+
+    const columnas = Object.keys(data[0]).map(key => ({
+      header: key,
+      key
+    }));
+
+    mostrarReporte({
+      titulo: `Reporte de productos: ${tipo}`,
+      columnas,
+      data
+    });
+  } catch (err) {
+    console.error("❌ Error al obtener el reporte:", err);
+    alert("❌ No se pudo obtener el reporte");
+  }
+});
+
+
 // //funcionalidad que puso la kelly dentro del html
 // document.addEventListener('DOMContentLoaded', function() {
 //             // Aquí puedes agregar la funcionalidad JavaScript
