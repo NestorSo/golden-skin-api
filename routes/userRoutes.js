@@ -262,5 +262,6 @@ router.put('/actualizar/:id', userController.actualizarUsuario);
 router.get('/clientes', userController.listarClientes);
 
 
+
 module.exports = router;
 

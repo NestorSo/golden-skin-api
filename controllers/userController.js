@@ -474,7 +474,6 @@ exports.listarClientes = async (req, res) => {
   }
 };
 
-
 // ///sql
 
 // const { asignarPermisosPorRol } = require('../utils/sqlRoleManager');

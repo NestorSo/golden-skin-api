@@ -23,4 +23,7 @@ const empleadoController = require('../controllers/empleadoController');
  */
 router.get('/por-usuario/:id', empleadoController.obtenerEmpleadoPorUsuario);
 
+// routes/empleadoRoute.js
+router.get('/todos', empleadoController.obtenerTodosLosEmpleados);
+
 module.exports = router;

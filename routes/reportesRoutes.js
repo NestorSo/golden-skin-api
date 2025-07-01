@@ -1,10 +1,8 @@
+// routes/reportesRoutes.js
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/reportesController');
+const reporteController = require('../controllers/reporteController');
 
-router.get('/ventas', controller.reporteVentas);
-// Se pueden agregar más reportes según el módulo
-router.get('/productos', controller.reporteProductos);
-router.get('/compras', controller.reporteCompras);
+router.get('/ventas', reporteController.reporteVentas); // Ruta: /api/reportes/ventas
 
 module.exports = router;

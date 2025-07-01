@@ -218,3 +218,65 @@ exports.listarVentas = async (req, res) => {
     res.status(500).json({ mensaje: '❌ Error al obtener ventas' });
   }
 };
+
+
+
+exports.insertarVentaCompleta = async (req, res) => {
+  const { idCliente, idEmpleado, descuento = 0, delivery = true, productos } = req.body;
+
+  if (!idCliente || !idEmpleado || !productos || productos.length === 0) {
+    return res.status(400).json({ mensaje: 'Datos incompletos para la venta' });
+  }
+
+  const total = productos.reduce((acc, p) => acc + p.subtotal, 0) - descuento;
+
+  try {
+    const pool = await sql.connect(config);
+    const transaction = new sql.Transaction(pool);
+
+    await transaction.begin();
+
+    const ventaRequest = new sql.Request(transaction);
+    const ventaResult = await ventaRequest
+      .input('IdEmpleado', sql.Int, idEmpleado)
+      .input('IdCliente', sql.Int, idCliente)
+      .input('Descuento', sql.Decimal(10, 2), descuento)
+      .input('Total', sql.Decimal(10, 2), total)
+      .input('Delivery', sql.Bit, delivery ? 1 : 0)
+      .query(`
+        INSERT INTO Ventas (IdEmpleado, IdCliente, FechaVenta, Descuento, Total, Delivery)
+        VALUES (@IdEmpleado, @IdCliente, GETDATE(), @Descuento, @Total, @Delivery);
+        SELECT SCOPE_IDENTITY() AS IdVenta;
+      `);
+
+    const idVenta = ventaResult.recordset[0].IdVenta;
+
+    for (const prod of productos) {
+      await new sql.Request(transaction)
+        .input('IdVenta', sql.Int, idVenta)
+        .input('IdProducto', sql.Int, prod.idProducto)
+        .input('CantidadVendida', sql.Int, prod.cantidad)
+        .input('Subtotal', sql.Decimal(10, 2), prod.subtotal)
+        .query(`
+          INSERT INTO DetalleVenta (IdVenta, IdProducto, CantidadVendida, Subtotal)
+          VALUES (@IdVenta, @IdProducto, @CantidadVendida, @Subtotal)
+        `);
+
+      // Actualizar inventario
+      await new sql.Request(transaction)
+        .input('IdProducto', sql.Int, prod.idProducto)
+        .input('Cantidad', sql.Int, prod.cantidad)
+        .query(`
+          UPDATE Productos SET Cantidad = Cantidad - @Cantidad
+          WHERE IdProducto = @IdProducto
+        `);
+    }
+
+    await transaction.commit();
+
+    res.json({ mensaje: '✅ Venta registrada correctamente', idVenta });
+  } catch (error) {
+    console.error('❌ Error al registrar venta completa:', error);
+    res.status(500).json({ mensaje: 'Error al registrar la venta' });
+  }
+};

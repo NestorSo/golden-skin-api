@@ -23,3 +23,18 @@ exports.obtenerEmpleadoPorUsuario = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.obtenerTodosLosEmpleados = async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const result = await pool.request().query(`
+      SELECT E.IdEmpleado, U.Nombre, U.Apellido
+      FROM Empleados E
+      JOIN Usuarios U ON E.IdUsuario = U.IdUsuario
+    `);
+    res.json(result.recordset);
+  } catch (error) {
+    console.error("❌ Error al listar empleados:", error);
+    res.status(500).json({ mensaje: "Error al obtener empleados" });
+  }
+};

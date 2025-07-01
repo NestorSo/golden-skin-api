@@ -404,54 +404,7 @@ btnCerrarModal?.addEventListener('click', () => {
   modalFactura.style.display = 'none';
 });
 
-// document.getElementById('btnDescargarFactura').addEventListener('click', () => {
-//   const original = document.getElementById('facturaVenta');
 
-//   // Clonar factura sin estilos de modal
-//   const copia = original.cloneNode(true);
-//   copia.style.display = 'block';
-//   copia.style.position = 'static';
-//   copia.style.margin = '0 auto';
-//   copia.style.backgroundColor = '#fff';
-//   copia.style.color = '#000';
-//   copia.style.fontFamily = 'Arial';
-
-//   // Contenedor temporal oculto
-//   const contenedorTemporal = document.createElement('div');
-//   contenedorTemporal.style.position = 'absolute';
-//   contenedorTemporal.style.left = '-9999px';
-//   contenedorTemporal.appendChild(copia);
-//   document.body.appendChild(contenedorTemporal);
-
-//   const opciones = {
-//     margin: 0.5,
-//     filename: `Factura-${new Date().toISOString().slice(0, 10)}.pdf`,
-//     image: { type: 'jpeg', quality: 0.98 },
-//     html2canvas: { scale: 2 },
-//     jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-//   };
-
-//   html2pdf().set(opciones).from(copia).save().then(() => {
-//     document.body.removeChild(contenedorTemporal);
-//   });
-// });
-
-
-
-btnImprimirFactura?.addEventListener('click', () => {
-  const factura = document.getElementById('facturaVenta');
-  const ventana = window.open('', '', 'width=800,height=600');
-  ventana.document.write(`
-    <html>
-    <head><title>Factura</title></head>
-    <body>${factura.innerHTML}</body>
-    </html>
-  `);
-  ventana.document.close();
-  ventana.focus();
-  ventana.print();
-  ventana.close();
-});
 
 window.onclick = (event) => {
   if (event.target === modalFactura) modalFactura.style.display = 'none';
