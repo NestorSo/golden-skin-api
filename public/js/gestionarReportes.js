@@ -2,12 +2,12 @@ const tipoReporte = document.getElementById("tipoReporte");
 const filtrosExtras = document.getElementById("filtrosExtras");
 const btnEjecutarReporte = document.getElementById("btnEjecutarReporte");
 
-// Cambiar filtros según el tipo de reporte
+// ========== FILTROS DINÁMICOS ==========
 tipoReporte.addEventListener("change", async () => {
-  filtrosExtras.innerHTML = ''; // limpiar filtros
-
+  filtrosExtras.innerHTML = '';
   const tipo = tipoReporte.value;
 
+  // 🎯 Filtros para Ventas
   if (tipo === "porFecha") {
     filtrosExtras.innerHTML = `
       <label>Desde: <input type="date" id="fechaInicio"></label>
@@ -15,14 +15,12 @@ tipoReporte.addEventListener("change", async () => {
     `;
   }
 
-if (tipo === "porEmpleado") {
+  if (tipo === "porEmpleado") {
     const empleados = await fetch("/api/empleados/todos").then(r => r.json());
     filtrosExtras.innerHTML = `
       <label>Empleado:
         <select id="filtroEmpleado">
-          ${empleados.map(e => `
-            <option value="${e.IdEmpleado}">${e.Nombre} ${e.Apellido}</option>
-          `).join("")}
+          ${empleados.map(e => `<option value="${e.IdEmpleado}">${e.Nombre} ${e.Apellido}</option>`).join("")}
         </select>
       </label>
     `;
@@ -40,11 +38,12 @@ if (tipo === "porEmpleado") {
   }
 });
 
-// Ejecutar el reporte al hacer clic
+// ========== EJECUTAR REPORTE ==========
 btnEjecutarReporte.addEventListener("click", async () => {
   const tipo = tipoReporte.value;
-const params = new URLSearchParams({ tipoReporte: tipo });
+  const params = new URLSearchParams({ tipoReporte: tipo });
 
+  // 🎯 Parámetros de filtrado (ventas)
   if (tipo === "porFecha") {
     const desde = document.getElementById("fechaInicio")?.value;
     const hasta = document.getElementById("fechaFin")?.value;
@@ -65,8 +64,17 @@ const params = new URLSearchParams({ tipoReporte: tipo });
     params.append("IdCliente", id);
   }
 
+  // 🧠 Determinar ruta del reporte según tipo
+  let url = "/api/reportes/ventas"; // por defecto
+
+  if (["productos", "productosVendidos"].includes(tipo)) {
+    url = "/api/reportes/productos";
+  } else if (tipo === "compras") {
+    url = "/api/reportes/compras";
+  }
+
   try {
-    const res = await fetch(`/api/reportes/ventas?${params.toString()}`);
+    const res = await fetch(`${url}?${params.toString()}`);
     const data = await res.json();
 
     if (!Array.isArray(data) || data.length === 0) {
@@ -83,56 +91,53 @@ const params = new URLSearchParams({ tipoReporte: tipo });
       columnas,
       data
     });
-
   } catch (err) {
     console.error("❌ Error al generar el reporte:", err);
     mostrarAlerta("❌ No se pudo generar el reporte.");
   }
 });
 
-// Mostrar datos en el modal de reporte
+// ========== MOSTRAR REPORTE ==========
 function mostrarReporte({ titulo, columnas, data }) {
   const contenedor = document.getElementById("contenidoReporte");
   contenedor.innerHTML = `
     <h2 style="color:#C57A88; text-align:center;">${titulo}</h2>
     <table class="client-table" style="width: 100%; margin-top: 20px;">
       <thead>
-        <tr>
-          ${columnas.map(col => `<th>${col.header}</th>`).join('')}
-        </tr>
+        <tr>${columnas.map(col => `<th>${col.header}</th>`).join('')}</tr>
       </thead>
       <tbody>
         ${data.map(row => `
-          <tr>
-            ${columnas.map(col => `<td>${row[col.key]}</td>`).join('')}
-          </tr>`).join('')}
+          <tr>${columnas.map(col => `<td>${row[col.key]}</td>`).join('')}</tr>
+        `).join('')}
       </tbody>
     </table>
   `;
 
-  document.getElementById("modalReporte").style.display = "block";
+  abrirModalReporte();
 }
 
-// Cerrar el modal
+// ========== UTILIDADES ==========
 function cerrarReporte() {
   document.getElementById("modalReporte").style.display = "none";
 }
 
-// Descargar PDF
+function abrirModalReporte() {
+  document.getElementById("modalReporte").style.display = "block";
+}
+
 function descargarReportePDF() {
   const elemento = document.getElementById("contenidoReporte");
   const opciones = {
     margin: 0.5,
-    filename: `reporte_ventas_${Date.now()}.pdf`,
+    filename: `reporte_${Date.now()}.pdf`,
     image: { type: "jpeg", quality: 0.98 },
     html2canvas: { scale: 2 },
     jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
   };
-
   html2pdf().from(elemento).set(opciones).save();
 }
 
-// Imprimir
 function imprimirReporte() {
   const contenido = document.getElementById("contenidoReporte").innerHTML;
   const ventana = window.open('', '', 'width=800,height=600');
@@ -141,11 +146,6 @@ function imprimirReporte() {
   ventana.print();
 }
 
-// Mostrar alertas simples
 function mostrarAlerta(mensaje) {
-  alert(mensaje); // Puedes reemplazarlo con SweetAlert u otro sistema
-}
-
-function abrirModalReporte() {
-  document.getElementById("modalReporte").style.display = "block";
+  alert(mensaje);
 }

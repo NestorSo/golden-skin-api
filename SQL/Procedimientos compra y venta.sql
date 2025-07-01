@@ -657,6 +657,8 @@ END;
 use goldenskin
 
 sp_ReporteVentas '','', 1,''
+
+
 alter PROCEDURE sp_ReporteVentas
     @FechaInicio DATE = NULL,
     @FechaFin DATE = NULL,
@@ -721,6 +723,12 @@ BEGIN
     END
 END;
 
+
+
+
+
+
+
 EXEC sp_ReporteVentas 
     @TipoReporte = 'porFecha',
     @FechaInicio = CONVERT(DATE, GETDATE()),
@@ -741,3 +749,54 @@ EXEC sp_ReporteVentas
     @IdCliente = 1;
 	EXEC sp_ReporteVentas @TipoReporte = 'productosVendidos';
 	EXEC sp_ReporteVentas @TipoReporte = 'topVentas';
+
+
+CREATE PROCEDURE sp_InsertarVentaCompleta
+    @IdCliente INT,
+    @IdEmpleado INT,
+    @DetalleVentaJSON NVARCHAR(MAX),
+    @NuevoIdVenta INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        BEGIN TRAN;
+
+        INSERT INTO Ventas (IdCliente, IdEmpleado, FechaVenta, Total, Descuento)
+        VALUES (@IdCliente, @IdEmpleado, GETDATE(), 0, 0);
+
+        SET @NuevoIdVenta = SCOPE_IDENTITY();
+
+        DECLARE @json NVARCHAR(MAX) = @DetalleVentaJSON;
+
+        -- Insertar en DetalleVenta usando OPENJSON
+        INSERT INTO DetalleVenta (IdVenta, IdProducto, CantidadVendida, PrecioUnitario)
+        SELECT 
+            @NuevoIdVenta,
+            JSON_VALUE(value, '$.idProducto'),
+            JSON_VALUE(value, '$.cantidad'),
+            (SELECT Precio FROM Productos WHERE IdProducto = JSON_VALUE(value, '$.idProducto'))
+        FROM OPENJSON(@json);
+
+        -- Calcular total actualizado
+        UPDATE V
+        SET V. = (
+            SELECT SUM(CantidadVendida * PrecioUnitario)
+            FROM DetalleVenta D
+            WHERE D.IdVenta = V.IdVenta
+        ),
+        V.Total = (
+            SELECT SUM(CantidadVendida * PrecioUnitario)
+            FROM DetalleVenta D
+            WHERE D.IdVenta = V.IdVenta
+        )
+        FROM Ventas V WHERE V.IdVenta = @NuevoIdVenta;
+
+        COMMIT;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK;
+        THROW;
+    END CATCH
+END
