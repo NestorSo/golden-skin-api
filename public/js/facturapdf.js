@@ -17,8 +17,7 @@ function generarFacturaPDF() {
   // Generar PDF
   html2pdf().from(element).set(opt).save();
 } */}
-
-// // Función para formatear la fecha como DD/MM/AAAA
+{// // Función para formatear la fecha como DD/MM/AAAA
 // function obtenerFechaActual() {
 //   const ahora = new Date();
 //   const dia = ahora.getDate().toString().padStart(2, '0');
@@ -87,10 +86,11 @@ function generarFacturaPDF() {
 //   document.getElementById('factura-subtotal').textContent = subtotal.toFixed(2);
 //   document.getElementById('factura-descuento').textContent = descuento.toFixed(2);
 //   document.getElementById('factura-total').textContent = total.toFixed(2);
-// }
+// 
+}
 
 /***********************PARA EL MODAL***************************/
-// Función para formatear la fecha como DD/MM/AAAA
+/* // Función para formatear la fecha como DD/MM/AAAA
 function obtenerFechaActual() {
   const ahora = new Date();
   const dia = ahora.getDate().toString().padStart(2, '0');
@@ -169,22 +169,130 @@ function cargarDatosFactura(productos, empleado, cliente, descuento = 0) {
   });
 }
 
-// // 1. Mostrar el modal
-// document.getElementById('modalFactura').style.display = 'block';
+// 1. Mostrar el modal
+document.getElementById('modalFactura').style.display = 'block';
 
-// // 2. Cargar los datos
-// cargarDatosFactura(
-//   arrayDeProductos,
-//   nombreEmpleado,
-//   nombreCliente,
-//   montoDescuento
-// );
+// 2. Cargar los datos
+cargarDatosFactura(
+  arrayDeProductos,
+  nombreEmpleado,
+  nombreCliente,
+  montoDescuento
+);
 
-// //Para cerrar el modal
-// document.getElementById('btnCerrarModal').addEventListener('click', function() {
-//   document.getElementById('modalFactura').style.display = 'none';
-// });
+//Para cerrar el modal
+document.getElementById('btnCerrarModal').addEventListener('click', function() {
+  document.getElementById('modalFactura').style.display = 'none';
+});
+ */
 
+
+
+
+
+/***********************PARA EL MODAL***************************/
+// Función para formatear la fecha como DD/MM/AAAA
+function obtenerFechaActual() {
+  const ahora = new Date();
+  const dia = ahora.getDate().toString().padStart(2, '0');
+  const mes = (ahora.getMonth() + 1).toString().padStart(2, '0');
+  const año = ahora.getFullYear();
+  return `${dia}/${mes}/${año}`;
+}
+
+// Función para generar la factura PDF
+function generarFacturaPDF() {
+  const facturaVisual = document.getElementById('facturaVenta');
+  const btnDescargar = document.getElementById('btnDescargarFactura');
+  
+  // Deshabilitar botones temporalmente
+  btnDescargar.disabled = true;
+  document.getElementById('btnImprimirFactura').disabled = true;
+  
+  const opt = {
+    margin: 10,
+    filename: `factura_${document.getElementById('facturaNumero').textContent}.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { 
+      scale: 2,
+      windowWidth: document.getElementById('facturaVenta').scrollWidth
+    },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().set(opt).from(facturaVisual).save().finally(() => {
+    // Rehabilitar botones después de generar el PDF
+    btnDescargar.disabled = false;
+    document.getElementById('btnImprimirFactura').disabled = false;
+  });
+}
+
+// Función para cargar datos en la factura
+function cargarDatosFactura(datosVenta) {
+  // Establecer fecha actual
+  document.getElementById('facturaFecha').textContent = obtenerFechaActual();
+  
+  // Datos de la factura
+  document.getElementById('facturaNumero').textContent = datosVenta.numeroFactura || `F-${Date.now().toString().slice(-6)}`;
+  document.getElementById('empleadoNombre').textContent = datosVenta.empleado;
+  document.getElementById('clienteNombre').textContent = datosVenta.cliente;
+  
+  // Detalles de productos
+  const detallesContainer = document.getElementById('detalleVenta');
+  detallesContainer.innerHTML = '';
+  
+  let subtotal = 0;
+  
+  datosVenta.productos.forEach(producto => {
+    const subtotalProducto = producto.Precio * producto.cantidad;
+    subtotal += subtotalProducto;
+    
+    const fila = document.createElement('tr');
+    fila.innerHTML = `
+      <td style="padding: 8px; border: 1px solid #ccc;">${producto.NombreProducto}</td>
+      <td style="padding: 8px; border: 1px solid #ccc; text-align: right;">C$ ${producto.Precio.toFixed(2)}</td>
+      <td style="padding: 8px; border: 1px solid #ccc; text-align: center;">${producto.cantidad}</td>
+      <td style="padding: 8px; border: 1px solid #ccc; text-align: right;">C$ ${subtotalProducto.toFixed(2)}</td>
+    `;
+    detallesContainer.appendChild(fila);
+  });
+  
+  // Calcular totales
+  const descuento = datosVenta.descuento || 0;
+  const total = subtotal - descuento;
+  
+  document.getElementById('subtotal').textContent = `C$ ${subtotal.toFixed(2)}`;
+  document.getElementById('descuento').textContent = `C$ ${descuento.toFixed(2)}`;
+  document.getElementById('total').textContent = `C$ ${total.toFixed(2)}`;
+}
+
+// Función para mostrar el modal de factura
+function mostrarFactura(datosVenta) {
+  // Cargar los datos en la factura
+  cargarDatosFactura(datosVenta);
+  
+  // Mostrar el modal
+  document.getElementById('modalFactura').style.display = 'block';
+  
+  // Configurar eventos de los botones (evitando duplicados)
+  const btnDescargar = document.getElementById('btnDescargarFactura');
+  const btnImprimir = document.getElementById('btnImprimirFactura');
+  
+  // Clonar y reemplazar los botones para eliminar event listeners previos
+  btnDescargar.replaceWith(btnDescargar.cloneNode(true));
+  btnImprimir.replaceWith(btnImprimir.cloneNode(true));
+  
+  // Agregar nuevos event listeners
+  document.getElementById('btnDescargarFactura').addEventListener('click', generarFacturaPDF);
+  document.getElementById('btnImprimirFactura').addEventListener('click', function() {
+    window.print();
+  });
+}
+
+// Función para cerrar el modal de factura
+function cerrarModalFactura() {
+  document.getElementById('modalFactura').style.display = 'none';
+}
 
 
 

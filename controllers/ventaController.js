@@ -1,5 +1,8 @@
 const { sql, config } = require('../config/db');
 
+
+
+
 // 🔹 Registrar venta
 exports.registrarVenta = async (req, res) => {
   const { clienteId, empleadoId, productos } = req.body;
@@ -28,7 +31,7 @@ exports.registrarVenta = async (req, res) => {
         .execute('NuevoDetalleVenta');
     }
 
-    res.status(201).json({ mensaje: '✅ Pedido registrado correctamente', id: idVenta });
+    res.status(201).json({ mensaje: '✅ Venta registrada correctamente', id: idVenta });
   } catch (err) {
     console.error('❌ Error en registrar venta múltiple:', err);
     res.status(500).json({ mensaje: '❌ Error interno del servidor' });

@@ -198,7 +198,8 @@ router.get('/factura/:idVenta', ventaController.obtenerFacturaPorVenta);
 
 
 
-router.post('/tienda', ventaController.insertarVentaCompleta);
+router.post('/venta', ventaController.registrarVenta);
+
 
 
 module.exports = router;
